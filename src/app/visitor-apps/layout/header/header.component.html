@@ -1,0 +1,21 @@
+<header class="header">
+  <nav>
+    <div class="right-stuff">
+      <a routerLink="default" class="logo"><img src="../../../../assets/images/Logo.png" alt="Sahel"></a>
+      <div class="theme-switch-wrapper">
+        <label class="theme-switch" for="checkbox">
+          <input type="checkbox" id="checkbox" (change)="toggleTheme($event)" />
+          <div class="slider"></div>
+          <span class="theme-text">{{ themeText }}</span>
+        </label>
+      </div>
+    </div>
+    <input type="checkbox" id="menu-toggle">
+    <label for="menu-toggle" class="menu-icon">&#9776;</label>
+    <div class="menu">
+      <div *ngFor="let item of header_list">
+        <a [routerLink]="item.link" routerLinkActive="active">{{item.content}}</a>
+      </div>
+    </div>
+  </nav>
+</header>

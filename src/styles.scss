@@ -1,1 +1,38 @@
-/* You can add global styles to this file, and also import other style files */
+@import url('https://fonts.googleapis.com/css2?family=Kufam:wght@400;700&display=swap');
+
+
+:root {
+  --background-color: #ffffff;
+  --text-color: #4C4C4C;
+
+  --prime: #4572A0;
+
+  --dark-grey: #3A3A3A;
+  --grey: #4C4C4C;
+  --light-grey: #8D8D8D;
+}
+
+.dark-theme {
+  --background-color: #3A3A3A;
+  --text-color: #ffffff;
+}
+
+body {
+  background-color: var(--background-color);
+  color: var(--text-color);
+  font-family: 'Kufam', sans-serif;
+  direction: rtl;
+  overflow: hidden;
+
+
+}
+
+button {
+  border-radius: 12px;
+  background-color: var(--prime);
+  color: white;
+  border:  none;
+  height: 44px;
+  padding: 0px 16px;
+
+}
