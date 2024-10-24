@@ -1,47 +1,53 @@
+
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { HomeComponent } from './apps/home/home.component';
-import { AboutusComponent } from './apps/aboutus/aboutus.component';
-import { ContactComponent } from './apps/contact/contact.component';
-import { JobsComponent } from './apps/jobs/jobs.component';
-import { PartnersComponent } from './apps/partners/partners.component';
-import { ProjectsComponent } from './apps/projects/projects.component';
-import { ServicesComponent } from './apps/services/services.component';
+import { HomeComponent } from './apps/homepage/home/home.component';
 
 const routes: Routes = [
+  {
+    path: 'aboutus',
+    loadChildren: () => import('./apps/aboutus/aboutus.module').then(m => m.AboutusModule)
+
+  },
+  {
+    path: 'contact',
+    loadChildren: () => import('./apps/contact/contact.module').then(m => m.ContactModule)
+
+  },
+  {
+    path: 'homepage',
+    loadChildren: () => import('./apps/homepage/homepage.module').then(m => m.HomepageModule)
+  },
+
+  {
+    path: 'jobs',
+    loadChildren: () => import('./apps/jobs/jobs.module').then(m => m.JobsModule)
+
+  },
+  {
+    path: 'partners',
+    loadChildren: () => import('./apps/partners/partners.module').then(m => m.PartnersModule)
+
+  },
+  {
+    path: 'projects',
+    loadChildren: () => import('./apps/projects/projects.module').then(m => m.ProjectsModule)
+
+  },
+  {
+    path: 'services',
+    loadChildren: () => import('./apps/services/services.module').then(m => m.ServicesModule)
+
+  },
   {
     path: '',
     redirectTo: 'home',
     pathMatch: 'full'
   },
-  {
-    path: 'home',
-    component: HomeComponent
-  },
-  {
-    path: 'aboutus',
-    component: AboutusComponent
-  },
-  {
-    path: 'contact',
-    component: ContactComponent
-  },
-  {
-    path: 'jobs',
-    component: JobsComponent
-  },
-  {
-    path: 'partners',
-    component: PartnersComponent
-  },
-  {
-    path: 'projects',
-    component: ProjectsComponent
-  },
-  {
-    path: 'services',
-    component: ServicesComponent
-  },
+
+
+
+
 
 ];
 

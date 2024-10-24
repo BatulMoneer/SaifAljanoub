@@ -1,0 +1,37 @@
+body {
+  margin-right: 375px;
+  background-color: var(--dark-grey);
+  color: white;
+  height: 100vh;
+}
+
+.top{
+  h1{
+  padding: 30px 40px 0px 0px ;
+  font-size: 64px;
+  margin: 0;
+
+  }
+}
+
+.middle{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  padding: 50px 0px 0px 0px;
+
+  button{
+    font-size: 24px;
+    height: 200px;
+    width: 80%;
+    color: var(--prime);
+    background-color: white;
+  }
+  button:hover{
+    background-color: var(--prime);
+    color: white;
+    transition: all .4s ease-in-out;
+  }
+}

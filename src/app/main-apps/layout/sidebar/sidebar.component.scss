@@ -64,4 +64,6 @@
 .menu-items a:hover {
   font-weight: bold;
   background-color: var(--prime);
+  transition: all .4s ease-in-out;
+
 }
