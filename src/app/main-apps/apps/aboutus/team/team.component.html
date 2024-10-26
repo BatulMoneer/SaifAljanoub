@@ -1,1 +1,47 @@
-<p>team works!</p>
+<body>
+  <div class="top">
+    <div class="right">
+      <h1>الفريق</h1>
+      <p>{{team.length}} موظف</p>
+    </div>
+    <div class="left">
+      <a routerLink="/apps/aboutus/home" class="icon">
+        <span>عودة</span>
+        <i class="fas fa-chevron-left"></i>
+      </a>
+
+    </div>
+  </div>
+  <div class="middle">
+    <ng-container *ngFor="let item of paginatedServices; let i = index">
+      <div class="card" *ngIf="i < 5">
+        <div class="image">
+          <img [src]="item.image" alt="">
+        </div>
+        <h4>{{item.name}}</h4>
+        <p>{{item.position | slice:0:50}}</p>
+        <div class="icons">
+          <a routerLink="/" class="icon">
+            <i class="fas fa-trash-alt trash"></i>
+            <span>حذف</span>
+          </a>
+          <a routerLink="/apps/aboutus/edit" class="icon">
+            <i class="fas fa-edit edit"></i>
+            <span>تعديل</span>
+          </a>
+        </div>
+      </div>
+    </ng-container>
+    <div class=" add-card" *ngIf="paginatedServices.length < 6">
+      <a routerLink="/apps/aboutus/add" class="icon">
+        <i class="fas fa-plus plus"></i>
+
+      </a>
+      <span>إضافة</span>
+    </div>
+  </div>
+  <div class="pagination">
+    <span *ngFor="let page of pages; let i = index" class="dot" [class.active]="i === currentPage"
+      (click)="goToPage(i)"></span>
+  </div>
+</body>

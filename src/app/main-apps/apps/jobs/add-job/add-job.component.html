@@ -1,1 +1,92 @@
-<p>add-job works!</p>
+<body>
+  <div class="top">
+    <div class="right">
+      <h1>الوظائف</h1>
+      <p>إضافة وظيفة</p>
+    </div>
+    <div class="left">
+      <a routerLink="/apps/jobs/home" class="icon">
+        <span>عودة</span>
+        <i class="fas fa-chevron-left"></i>
+      </a>
+
+    </div>
+  </div>
+  <div class="middle">
+    <form [formGroup]="formData" (ngSubmit)="add()">
+
+      <div class="top">
+        <p class="text">المسمى الوظيفي:<span style="color: #CA7676;">*</span></p>
+        <input type="text" formControlName="position" placeholder="اكتب اسم الخدمة" required>
+        <div *ngIf="submitted && formData.controls['position'].errors">
+          <p class="invalid" *ngIf="submitted && formData.controls['position'].errors.required">
+            الحقل مطلوب!
+          </p>
+          <p class="invalid" *ngIf="submitted && formData.controls['position'].errors.maxlength">
+            العنوان طويل جدا!
+          </p>
+        </div>
+
+        <p class="text">المؤهل العلمي:<span style="color: #CA7676;">*</span></p>
+        <input type="text" formControlName="qualification" placeholder="اكتب اسم الخدمة" required>
+        <div *ngIf="submitted && formData.controls['qualification'].errors">
+          <p class="invalid" *ngIf="submitted && formData.controls['qualification'].errors.required">
+            الحقل مطلوب!
+          </p>
+          <p class="invalid" *ngIf="submitted && formData.controls['qualification'].errors.maxlength">
+            العنوان طويل جدا!
+          </p>
+        </div>
+
+        <p class="text">سنوات الخبرة المطلوبة:<span style="color: #CA7676;">*</span></p>
+        <input type="text" formControlName="experienceYears" placeholder="اكتب اسم الخدمة" required>
+        <div *ngIf="submitted && formData.controls['experienceYears'].errors">
+          <p class="invalid" *ngIf="submitted && formData.controls['experienceYears'].errors.required">
+            الحقل مطلوب!
+          </p>
+          <p class="invalid" *ngIf="submitted && formData.controls['experienceYears'].errors.maxlength">
+            العنوان طويل جدا!
+          </p>
+        </div>
+
+        <p class="text">الراتب:<span style="color: #CA7676;">*</span></p>
+        <input type="text" formControlName="salary" placeholder="اكتب اسم الخدمة" required>
+        <div *ngIf="submitted && formData.controls['salary'].errors">
+          <p class="invalid" *ngIf="submitted && formData.controls['salary'].errors.required">
+            الحقل مطلوب!
+          </p>
+          <p class="invalid" *ngIf="submitted && formData.controls['salary'].errors.maxlength">
+            العنوان طويل جدا!
+          </p>
+        </div>
+
+      </div>
+
+
+      <p class="text">متطلبات الوظيفة:<span style="color: #CA7676;">*</span> (لا يتعدى ١٥٠ حرف)</p>
+      <textarea type="text" formControlName="jobRequirements" placeholder="اكتب وصف بسيط عن الخدمة" required></textarea>
+      <div *ngIf="submitted && formData.controls['jobRequirements'].errors">
+        <p class="invalid" *ngIf=" formData.controls['jobRequirements'].errors.required">
+          الحقل مطلوب!</p>
+        <p class="invalid" *ngIf="formData.controls['jobRequirements'].errors.maxlength">
+          الوصف طويل جدا!</p>
+      </div>
+
+      <p class="text">رابط التقديم:<span style="color: #CA7676;">*</span></p>
+      <input type="text" formControlName="applicationLink" placeholder="اكتب اسم الخدمة" required>
+      <div *ngIf="submitted && formData.controls['applicationLink'].errors">
+        <p class="invalid" *ngIf="submitted && formData.controls['applicationLink'].errors.required">
+          الحقل مطلوب!
+        </p>
+        <p class="invalid" *ngIf="submitted && formData.controls['applicationLink2
+        '].errors.maxlength">
+          العنوان طويل جدا!
+        </p>
+      </div>
+
+      <div class="butt">
+        <button type="submit">إضافة</button>
+      </div>
+    </form>
+  </div>
+</body>

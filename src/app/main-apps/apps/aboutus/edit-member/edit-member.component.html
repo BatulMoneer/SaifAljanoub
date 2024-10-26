@@ -1,1 +1,53 @@
-<p>edit-member works!</p>
+<body>
+  <div class="top">
+    <div class="right">
+      <h1>فريق</h1>
+      <p>تعديل موظف</p>
+    </div>
+    <div class="left">
+      <a routerLink="/apps/aboutus/team" class="icon">
+        <span>عودة</span>
+        <i class="fas fa-chevron-left"></i>
+      </a>
+
+    </div>
+  </div>
+  <div class="middle">
+    <form [formGroup]="formData" (ngSubmit)="add()">
+      <p class="text">اسم الموظف:<span style="color: #CA7676;">*</span></p>
+      <input type="text" formControlName="name" placeholder="اكتب اسم الموظف" required>
+      <div *ngIf="submitted && formData.controls['name'].errors">
+        <p class="invalid" *ngIf="submitted && formData.controls['name'].errors.required">
+          الحقل مطلوب!
+        </p>
+        <p class="invalid" *ngIf="submitted && formData.controls['name'].errors.maxlength">
+          الاسم طويل جدا!
+        </p>
+      </div>
+
+      <p class="text">المنصب:<span style="color: #CA7676;">*</span></p>
+      <input type="text" formControlName="position" placeholder="اكتب اسم الموظف" required>
+      <div *ngIf="submitted && formData.controls['position'].errors">
+        <p class="invalid" *ngIf="submitted && formData.controls['position'].errors.required">
+          الحقل مطلوب!
+        </p>
+        <p class="invalid" *ngIf="submitted && formData.controls['position'].errors.maxlength">
+          المنصب طويل جدا!
+        </p>
+      </div>
+
+      <p class="text">صورة شخصية: (يفضل أن تكون مربعة)</p>
+      <div class="drop-zone" (dragover)="onDragOver($event)" (dragleave)="onDragLeave($event)" (drop)="onDrop($event)">
+        <img *ngIf="imagePreview" [src]="imagePreview" alt="Service Image"
+          style="width: 130px; height: 130px; object-fit: cover; padding-bottom: 10px;" />
+        <p *ngIf="!imagePreview">اسحب الصورة هنا أو اختر ملف</p>
+        <button type="button" (click)="fileInput.click()">اختر ملف</button>
+      </div>
+      <input type="file" #fileInput (change)="handleImageInput($event)" accept="image/*" hidden>
+
+      <div class="butt">
+        <button type="submit">حفظ</button>
+      </div>
+    </form>
+  </div>
+</body>

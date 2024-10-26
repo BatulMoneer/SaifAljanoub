@@ -6,7 +6,9 @@
   <div class="middle">
     <ng-container *ngFor="let item of paginatedServices; let i = index">
       <div class="card" *ngIf="i < 5">
-        <img [src]="item.image" alt="">
+        <div class="image">
+          <img [src]="item.image" alt="" lazy> <!--اضافة alt, Skeleton -->
+        </div>
         <h4>{{item.title}}</h4>
         <p>{{item.description | slice:0:50}}...</p>
         <div class="icons">

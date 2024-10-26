@@ -5,6 +5,7 @@ import { PartnersRoutingModule } from './partners-routing.module';
 import { HomeComponent } from './home/home.component';
 import { AddPartnerComponent } from './add-partner/add-partner.component';
 import { EditPartnerComponent } from './edit-partner/edit-partner.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -15,7 +16,9 @@ import { EditPartnerComponent } from './edit-partner/edit-partner.component';
   ],
   imports: [
     CommonModule,
-    PartnersRoutingModule
+    PartnersRoutingModule,
+    FormsModule,
+    ReactiveFormsModule,
   ]
 })
 export class PartnersModule { }

@@ -1,1 +1,102 @@
-<p>company-info works!</p>
+<body>
+  <div class="top">
+    <div class="right">
+      <h1>معلومات الشركة</h1>
+    </div>
+    <div class="left">
+      <a routerLink="/apps/aboutus/home" class="icon">
+        <span>عودة</span>
+        <i class="fas fa-chevron-left"></i>
+      </a>
+
+    </div>
+  </div>
+  <div class="middle">
+    <form [formGroup]="formData" (ngSubmit)="add()">
+
+      <p class="text">اسم الشركة:<span style="color: #CA7676;">*</span></p>
+      <input type="text" formControlName="name" placeholder="اكتب اسم الشركة" required>
+      <div *ngIf="submitted && formData.controls['name'].errors">
+        <p class="invalid" *ngIf="submitted && formData.controls['name'].errors.required">
+          الحقل مطلوب!
+        </p>
+        <p class="invalid" *ngIf="submitted && formData.controls['name'].errors.maxlength">
+          العنوان طويل جدا!
+        </p>
+      </div>
+
+      <p class="text">مؤسسها:<span style="color: #CA7676;">*</span></p>
+      <input type="text" formControlName="founder" placeholder="اكتب اسم مؤسس الشركة" required>
+      <div *ngIf="submitted && formData.controls['founder'].errors">
+        <p class="invalid" *ngIf="submitted && formData.controls['founder'].errors.required">
+          الحقل مطلوب!
+        </p>
+        <p class="invalid" *ngIf="submitted && formData.controls['founder'].errors.maxlength">
+          العنوان طويل جدا!
+        </p>
+      </div>
+
+      <p class="text">متى تأسست:<span style="color: #CA7676;">*</span></p>
+
+      <div class="years">
+        <div class="dropdown">
+          <input type="checkbox" id="dropdown-toggle" />
+          <label class="dropdown__face" for="dropdown-toggle">
+            <span>{{ selectedYear || 'اختر بالميلادي' }}</span>
+            <i class="fas fa-chevron-left dropdown__arrow"></i>
+          </label>
+          <ul class="dropdown__items">
+            <li *ngFor="let year of years">
+              <label>
+                <input type="radio" formControlName="year" value="{{ year }}" (click)="selectYear(year)" />
+                {{ year }}
+              </label>
+            </li>
+          </ul>
+        </div>
+        <div *ngIf="submitted && formData.controls['year'].errors">
+          <p class="invalid" *ngIf="submitted && formData.controls['year'].errors.required">
+            الحقل مطلوب!
+          </p>
+        </div>
+        <p>م</p>
+        <div class="dropdown">
+          <input type="checkbox" id="hijri-dropdown-toggle" />
+          <label class="dropdown__face" for="hijri-dropdown-toggle">
+            <span>{{ selectedHijriYear || 'اختر بالهجري' }}</span>
+            <i class="fas fa-chevron-left dropdown__arrow"></i>
+          </label>
+          <ul class="dropdown__items">
+            <li *ngFor="let hijriYear of hijriYears">
+              <label>
+                <input type="radio" formControlName="hijriYear" value="{{ hijriYear }}"
+                  (click)="selectHijriYear(hijriYear)" />
+                {{ hijriYear }}
+              </label>
+            </li>
+          </ul>
+        </div>
+        <div *ngIf="submitted && formData.controls['hijriYear'].errors">
+          <p class="invalid" *ngIf="submitted && formData.controls['hijriYear'].errors.required">
+            الحقل مطلوب!
+          </p>
+        </div>
+        <p>هـ</p>
+
+      </div>
+
+      <p class="text">نبذة عن الشركة:<span style="color: #CA7676;">*</span> (لا يتعدى ٢٠٠ حرف)</p>
+      <textarea type="text" formControlName="description" placeholder="اكتب وصف بسيط عن الخدمة" required></textarea>
+      <div *ngIf="submitted && formData.controls['description'].errors">
+        <p class="invalid" *ngIf=" formData.controls['description'].errors.required">
+          الحقل مطلوب!</p>
+        <p class="invalid" *ngIf="formData.controls['description'].errors.maxlength">
+          الوصف طويل جدا!</p>
+      </div>
+
+      <div class="butt">
+        <button type="submit">حفظ</button>
+      </div>
+    </form>
+  </div>
+</body>

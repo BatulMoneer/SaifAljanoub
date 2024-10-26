@@ -7,6 +7,7 @@ import { CompanyInfoComponent } from './company-info/company-info.component';
 import { TeamComponent } from './team/team.component';
 import { AddMemberComponent } from './add-member/add-member.component';
 import { EditMemberComponent } from './edit-member/edit-member.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -19,7 +20,9 @@ import { EditMemberComponent } from './edit-member/edit-member.component';
   ],
   imports: [
     CommonModule,
-    AboutusRoutingModule
+    AboutusRoutingModule,
+    FormsModule,
+    ReactiveFormsModule,
   ]
 })
 export class AboutusModule { }

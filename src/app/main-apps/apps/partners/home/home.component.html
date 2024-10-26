@@ -1,3 +1,37 @@
 <body>
-  <p>home works!</p>
+  <div class="top">
+    <h1>الشراكات</h1>
+    <p>{{partners.length}} شراكات</p>
+  </div>
+  <div class="middle">
+    <ng-container *ngFor="let item of paginatedServices; let i = index">
+      <div class="card" *ngIf="i < 5">
+        <div class="image">
+          <img [src]="item.image" alt="">
+        </div>
+        <h4>{{item.name}}</h4>
+        <div class="icons">
+          <a routerLink="/" class="icon">
+            <i class="fas fa-trash-alt trash"></i>
+            <span>حذف</span>
+          </a>
+          <a routerLink="/apps/partners/edit" class="icon">
+            <i class="fas fa-edit edit"></i>
+            <span>تعديل</span>
+          </a>
+        </div>
+      </div>
+    </ng-container>
+    <div class=" add-card" *ngIf="paginatedServices.length < 6">
+      <a routerLink="/apps/partners/add" class="icon">
+        <i class="fas fa-plus plus"></i>
+
+      </a>
+      <span>إضافة</span>
+    </div>
+  </div>
+  <div class="pagination">
+    <span *ngFor="let page of pages; let i = index" class="dot" [class.active]="i === currentPage"
+      (click)="goToPage(i)"></span>
+  </div>
 </body>
