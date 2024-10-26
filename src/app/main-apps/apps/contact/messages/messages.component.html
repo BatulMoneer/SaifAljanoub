@@ -1,1 +1,50 @@
-<p>messages works!</p>
+<div class="body">
+  <div class="container" style="display: flex; flex-direction: column;">
+    <input type="text" class="form-control bg-white" placeholder="بحث" aria-label="Search" (keyup)="applyFilter()"
+      [(ngModel)]="applyFilterInput" />
+    <br />
+
+    <table mat-table matSort [dataSource]="dataSource" class="mat-elevation-z8">
+      <!-- ID Column -->
+      <ng-container matColumnDef="id">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> ID </th>
+        <td mat-cell *matCellDef="let emp">{{ emp.id }}</td>
+      </ng-container>
+
+      <!-- First Name Column -->
+      <ng-container matColumnDef="first_name">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> First Name </th>
+        <td mat-cell *matCellDef="let emp">{{ emp.first_name }}</td>
+      </ng-container>
+
+      <!-- Last Name Column -->
+      <ng-container matColumnDef="last_name">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Last Name </th>
+        <td mat-cell *matCellDef="let emp">{{ emp.last_name }}</td>
+      </ng-container>
+
+      <!-- Email Column -->
+      <ng-container matColumnDef="email">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Email </th>
+        <td mat-cell *matCellDef="let emp">{{ emp.email }}</td>
+      </ng-container>
+
+      <!-- Avatar Column -->
+      <ng-container matColumnDef="avatar">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Avatar </th>
+        <td mat-cell *matCellDef="let emp">
+          <img [src]="emp.avatar" alt="{{ emp.first_name }}'s avatar"
+            style="width: 40px; height: 40px; border-radius: 50%;" />
+        </td>
+      </ng-container>
+
+      <!-- Header and Row Definitions -->
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let emprow; columns: displayedColumns;"></tr>
+    </table>
+
+    <!-- Paginator -->
+    <mat-paginator (page)="changePage($event)" [length]="totalData" [pageSizeOptions]="pageSizes" showFirstLastButtons>
+    </mat-paginator>
+  </div>
+</div>

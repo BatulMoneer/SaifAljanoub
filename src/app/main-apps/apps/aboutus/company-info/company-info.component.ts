@@ -74,7 +74,7 @@ export class CompanyInfoComponent implements OnInit {
     }
   }
 
-  selectHijriYear(year: string) { // New method for Hijri year selection
+  selectHijriYear(year: string) {
     this.selectedHijriYear = year;
     this.formData.controls['hijriYear'].setValue(year);
     const hijriDropdownToggle: HTMLInputElement | null = document.querySelector('#hijri-dropdown-toggle');

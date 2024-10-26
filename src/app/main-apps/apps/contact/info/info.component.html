@@ -1,1 +1,71 @@
-<p>info works!</p>
+<body>
+  <div class="top">
+    <div class="right">
+      <h1>التواصل</h1>
+      <p>معلومات التواصل</p>
+    </div>
+    <div class="left">
+      <a routerLink="/apps/contact/home" class="icon">
+        <span>عودة</span>
+        <i class="fas fa-chevron-left"></i>
+      </a>
+
+    </div>
+  </div>
+  <div class="middle">
+    <form [formGroup]="formData" (ngSubmit)="add()">
+
+      <div class="group">
+        <a href="tel:+0583380165" class="contact-item">
+          <i class="fas fa-phone-alt"></i>
+        </a>
+        <p class="text">رقم الهاتف:<span style="color: #CA7676;">*</span></p>
+      </div>
+      <input type="text" formControlName="phone" placeholder="اكتب رقم الاتصال" required>
+      <div *ngIf="submitted && formData.controls['phone'].errors">
+        <p class="invalid" *ngIf="submitted && formData.controls['phone'].errors.required">
+          الحقل مطلوب!
+        </p>
+        <p class="invalid" *ngIf="submitted && formData.controls['phone'].errors.pattern">
+          الرقم خاطئ!
+        </p>
+      </div>
+
+      <div class="group">
+        <a href="https://wa.me/0583380165" class="contact-item" target="_blank">
+          <i class="fab fa-whatsapp"></i>
+        </a>
+        <p class="text">رقم الواتس اب (Whatsapp):<span style="color: #CA7676;">*</span></p>
+      </div>
+      <input type="text" formControlName="Whatsapp" placeholder="اكتب رقم الواتساب" required>
+      <div *ngIf="submitted && formData.controls['Whatsapp'].errors">
+        <p class="invalid" *ngIf="submitted && formData.controls['Whatsapp'].errors.required">
+          الحقل مطلوب!
+        </p>
+        <p class="invalid" *ngIf="submitted && formData.controls['Whatsapp'].errors.pattern">
+          الرقم خاطئ!
+        </p>
+      </div>
+
+      <div class="group">
+        <a href="mailto:example@example.com" class="contact-item">
+          <i class="fas fa-envelope"></i>
+        </a>
+        <p class="text">البريد الإلكتروني:<span style="color: #CA7676;">*</span></p>
+      </div>
+      <input type="email" formControlName="email" placeholder="اكتب البريد الإلكتروني" required>
+      <div *ngIf="submitted && formData.controls['email'].errors">
+        <p class="invalid" *ngIf="submitted && formData.controls['email'].errors.required">
+          الحقل مطلوب!
+        </p>
+        <p class="invalid" *ngIf="submitted && formData.controls['email'].errors.email">
+          البريد خاطئ!
+        </p>
+      </div>
+
+      <div class="butt">
+        <button type="submit">حفظ</button>
+      </div>
+    </form>
+  </div>
+</body>
