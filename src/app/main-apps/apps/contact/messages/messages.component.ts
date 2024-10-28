@@ -1,68 +1,81 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { MatPaginator } from '@angular/material/paginator';
+import { MatPaginator, MatPaginatorIntl } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 
 @Component({
   selector: 'app-messages',
   templateUrl: './messages.component.html',
-  styleUrls: ['./messages.component.scss']
+  styleUrls: ['./messages.component.scss'],
+
 })
 export class MessagesComponent implements OnInit {
-  displayedColumns: string[] = ['id', 'first_name', 'last_name', 'email', 'avatar'];
+
+  constructor(paginator: MatPaginatorIntl) {
+    paginator.getRangeLabel = (page: number, pageSize: number, length: number) => {
+      const startIndex = page * pageSize + 1;
+      const endIndex = Math.min(startIndex + pageSize - 1, length);
+      return `${startIndex} – ${endIndex} من ${length}`;
+    };
+  }
+  @ViewChild(MatSort) sort!: MatSort;
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
+
+  displayedColumns: string[] = ['email', 'message_type', 'message_content', 'delete'];
   dataSource = new MatTableDataSource<any>([]);
-  totalData = 0;  // Total data count
-  pageSizes = [3, 5, 7]; // Page size options
-  applyFilterInput = ''; // Filter input binding
+  totalData = 0;
+  applyFilterInput = '';
+  selectedMessageType: string | null = null;
+  messageTypes: string[] = ['شكوى', 'استفسار', 'لاشيئ'];
 
-  @ViewChild(MatSort) sort!: MatSort; // For sorting
-  @ViewChild(MatPaginator) paginator!: MatPaginator; // For pagination
 
-  private sampleData = [
-    { id: 1, first_name: 'John', last_name: 'Doe', email: 'john.doe@example.com', avatar: 'https://example.com/avatars/john_doe.jpg' },
-    { id: 2, first_name: 'Jane', last_name: 'Smith', email: 'jane.smith@example.com', avatar: 'https://example.com/avatars/jane_smith.jpg' },
-    { id: 3, first_name: 'Alice', last_name: 'Johnson', email: 'alice.johnson@example.com', avatar: 'https://example.com/avatars/alice_johnson.jpg' },
-    { id: 4, first_name: 'Bob', last_name: 'Brown', email: 'bob.brown@example.com', avatar: 'https://example.com/avatars/bob_brown.jpg' },
-    { id: 5, first_name: 'Charlie', last_name: 'Davis', email: 'charlie.davis@example.com', avatar: 'https://example.com/avatars/charlie_davis.jpg' },
-    { id: 6, first_name: 'David', last_name: 'Wilson', email: 'david.wilson@example.com', avatar: 'https://example.com/avatars/david_wilson.jpg' },
-    { id: 7, first_name: 'Eva', last_name: 'Taylor', email: 'eva.taylor@example.com', avatar: 'https://example.com/avatars/eva_taylor.jpg' }
+  messages = [
+    { message_content: 'محتوى الشكوى محتوى الشكوى محتوى الشكوى محتوى الشكوى محتوى الشكوى محتوى الشكوى محتوى الشكوى', message_type: 'شكوى', email: 'visitor1@gmail.com ' },
+    { message_content: 'محتوى الاستفسار محتوى الاستفسار محتوى الاستفسار محتوى الاستفسار محتوى الاستفسار ', message_type: 'استفسار', email: 'visitor2@gmail.com ' },
+    { message_content: 'محتوى الشكوى محتوى الشكوى محتوى الشكوى محتوى الشكوى', message_type: 'شكوى', email: 'visitor3@gmail.com ' },
+    { message_content: 'محتوى الاستفسار محتوى الاستفسار محتوى الاستفسار محتوى الاستفسار محتوى الاستفسار ', message_type: 'استفسار', email: 'visitor4@gmail.com ' },
+    { message_content: 'محتوى الاستفسار محتوى الاستفسار محتوى الاستفسار محتوى الاستفسار محتوى الاستفسار ', message_type: 'استفسار', email: 'visitor5@gmail.com ' },
+    { message_content: 'محتوى الشكوى محتوى الشكوى محتوى الشكوى محتوى الشكوى محتوى الشكوى محتوى الشكوى محتوى الشكوى', message_type: 'شكوى', email: 'visitor6@gmail.com ' },
+    { message_content: 'محتوى الشكوى محتوى الشكوى محتوى الشكوى محتوى الشكوى', message_type: 'شكوى', email: 'visitor7@gmail.com ' },
+    { message_content: 'محتوى الشكوى محتوى الشكوى محتوى الشكوى محتوى الشكوى محتوى الشكوى محتوى الشكوى محتوى الشكوى', message_type: 'شكوى', email: 'visitor8@gmail.com ' },
+    { message_content: 'محتوى الاستفسار محتوى الاستفسار محتوى الاستفسار محتوى الاستفسار محتوى الاستفسار ', message_type: 'استفسار', email: 'visitor8@gmail.com ' },
+
   ];
 
   ngOnInit(): void {
-    // Set initial data on component load
-    this.dataSource.data = this.sampleData; // Set full sample data
-    this.totalData = this.sampleData.length; // Set total data count
-
-    // Assign paginator and sort after setting data
-    this.dataSource.paginator = this.paginator;
+    this.totalData = this.messages.length;
+    this.dataSource = new MatTableDataSource<any>(this.messages);
+    this.updateTableData(0, 4);
     this.dataSource.sort = this.sort;
-
-    // Initial table data for the first page
-    this.updateTableData(0, this.paginator.pageSize); // Change to 0 for zero-based index
   }
 
-  // Function to fetch and update table data based on page number and page size
-  updateTableData(pageIndex: number, pageSize: number) {
-    // Paginate the sample data
-    const startIndex = pageIndex * pageSize;
-    const paginatedData = this.sampleData.slice(startIndex, startIndex + pageSize);
+  ngAfterViewInit() {
+    this.dataSource.sort = this.sort;
+  }
 
-    // Set the data source
+  updateTableData(pageIndex: number, pageSize: number) {
+    const startIndex = pageIndex * pageSize;
+    const paginatedData = this.messages.slice(startIndex, startIndex + pageSize);
     this.dataSource.data = paginatedData;
   }
 
-  // Function to apply filter based on user input
   applyFilter() {
-    const filterValue = this.applyFilterInput.trim().toLowerCase(); // Clean input
-    this.dataSource.filter = filterValue; // Set filter value for the data source
-
-    // Reset to the first page after filtering
-    this.paginator.pageIndex = 0; // Reset to first page
-    this.updateTableData(this.paginator.pageIndex, this.paginator.pageSize); // Update displayed data
+    const filterValue = this.applyFilterInput.trim().toLowerCase();
+    this.dataSource.filter = filterValue;
+    this.paginator.pageIndex = 0;
+    this.updateTableData(this.paginator.pageIndex, this.paginator.pageSize);
   }
 
-  // Function to handle page change event
   changePage(event: any) {
-    this.updateTableData(event.pageIndex, event.pageSize); // Update data based on new page index and size
+    this.updateTableData(event.pageIndex, event.pageSize);
+  }
+
+  deleteMessage(message: any) {
+    const index = this.messages.indexOf(message);
+    if (index > -1) {
+      this.messages.splice(index, 1);
+      this.totalData = this.messages.length;
+      this.updateTableData(this.paginator.pageIndex, this.paginator.pageSize);
+    }
   }
 }

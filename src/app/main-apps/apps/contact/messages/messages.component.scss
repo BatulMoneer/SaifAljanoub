@@ -1,0 +1,253 @@
+body {
+  margin-right: 375px;
+  background-color: var(--dark-grey);
+  color: white;
+  height: 100vh;
+}
+
+.top{
+  padding: 30px 40px 10px 0px ;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  .right{
+    display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 10px;
+    h1{
+      font-size: 60px;
+      margin: 0;
+    }
+    p{
+      font-size: 20px;
+      margin: 0;
+    }
+  }
+
+  .left{
+    display: flex;
+      align-items: start;
+      justify-content: center;
+      flex-direction: row-reverse;
+    .icon {
+      text-decoration: none;
+      color: var(--background-color);
+      font-size: 16PX;
+      transition: background-color 0.3s, transform 0.3s;
+      i{
+        padding: 0px 10px 0px 40px;
+      }
+      .trash{
+        color: #CA7676;
+      }
+      .edit{
+        color: white;
+      }
+      span{
+        font-size: 16px;
+       }
+    }
+  }
+}
+
+.middle {
+  margin: 30px 40px 40px 40px ;
+
+  .middle-top{
+    display: flex;
+    flex-direction: row;
+    align-items: end;
+    gap: 10px;
+    justify-content: center;
+  }
+
+  .middle-bottom{
+    padding-top: 10px;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    .mat-table{
+      border-radius: 10px;
+      overflow:hidden !important;
+      font-family: var(--font);
+      border: none;
+      border-radius: 10px;
+      width: 100%;
+    }
+  }
+}
+
+
+.styled-table th {
+  background-color: var(--prime);
+  color: white;
+  padding-right: 0px;
+  align-self: center;
+  text-align: center;
+}
+
+.styled-table td {
+  padding: 10px;
+  border-bottom:  1px solid var(--grey);
+  text-align: right;
+  background-color: white;
+  color: var(--grey);
+  max-width:350px;
+  height: 500;
+  word-wrap: break-word;
+  padding: 8px;
+  }
+
+
+
+.mat-paginator {
+  font-family: var(--font);
+  background-color: transparent ;
+  color: white;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+}
+
+
+.years{
+  display: flex;
+  flex-direction: row;
+  text-align: center;
+  align-items: end;
+
+  gap: 5px;
+  p{
+    padding-left: 20px;
+  }
+}
+
+.middle .dropdown {
+  position: relative;
+  width: 150px;
+  height: 44px;
+}
+
+
+.dropdown__face,
+.dropdown__items {
+  background-color: white;
+  color: var(--light-grey);
+  padding: 10px;
+  border-radius: 12px;
+}
+
+.dropdown__face {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+
+}
+
+.dropdown__arrow {
+  color: var(--light-grey);
+  width: 10px;
+  height: 10px;
+  transform: rotate(-90deg);
+  transition: transform 0.4s cubic-bezier(0.1, 0.88, 0.1, 0.8);
+}
+
+.dropdown__items {
+  margin: 0;
+  position: absolute;
+  width: 100%;
+  list-style: none;
+  visibility: hidden;
+  z-index: -1;
+  opacity: 0;
+  transition: all 0.4s cubic-bezier(0.93, 0.88, 0.1, 0.8);
+
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+
+  max-height: 150px;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: var(--grey) transparent;
+}
+
+.dropdown__items::-webkit-scrollbar {
+  width: 4px;
+  border-radius: 100px;
+}
+
+.dropdown__items::-webkit-scrollbar-thumb {
+  background-color: var(--grey);
+  border-radius: 10px;
+}
+
+.dropdown__items::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.dropdown__items li {
+  display: flex;
+  justify-content: center;
+
+  padding: 5px;
+  background-color: #f8f8f8;
+  border-radius: 15px;
+  transition: background-color 0.3s;
+}
+
+.dropdown__items li:hover {
+  color: white;
+  background-color: var(--grey);
+}
+input[type="checkbox"] {
+  display: none;
+}
+
+input[type="checkbox"]:checked ~ .dropdown__items {
+  top: calc(100% + 5px);
+  visibility: visible;
+  opacity: 1;
+  z-index: 1;
+}
+
+input[type="checkbox"]:checked ~ .dropdown__face .dropdown__arrow {
+  transform: rotate(270deg);
+
+}
+
+input[type="radio"] {
+  display: none;
+}
+
+.icon {
+  justify-content: center;
+  text-decoration: none;
+  font-size: 16PX;
+  transition: background-color 0.3s, transform 0.3s;
+  i{
+    padding-left: 5px;
+
+  }
+  .delete-icon{
+    color: var(--light-grey);
+
+  }
+  .delete-icon:hover {
+    color: #CA7676;
+
+    transform: scale(1.2);
+  }
+}
+
+
+
+
+
+

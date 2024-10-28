@@ -1,50 +1,51 @@
-<div class="body">
-  <div class="container" style="display: flex; flex-direction: column;">
-    <input type="text" class="form-control bg-white" placeholder="بحث" aria-label="Search" (keyup)="applyFilter()"
-      [(ngModel)]="applyFilterInput" />
-    <br />
+<body dir="rtl">
 
-    <table mat-table matSort [dataSource]="dataSource" class="mat-elevation-z8">
-      <!-- ID Column -->
-      <ng-container matColumnDef="id">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header> ID </th>
-        <td mat-cell *matCellDef="let emp">{{ emp.id }}</td>
-      </ng-container>
-
-      <!-- First Name Column -->
-      <ng-container matColumnDef="first_name">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header> First Name </th>
-        <td mat-cell *matCellDef="let emp">{{ emp.first_name }}</td>
-      </ng-container>
-
-      <!-- Last Name Column -->
-      <ng-container matColumnDef="last_name">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header> Last Name </th>
-        <td mat-cell *matCellDef="let emp">{{ emp.last_name }}</td>
-      </ng-container>
-
-      <!-- Email Column -->
-      <ng-container matColumnDef="email">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header> Email </th>
-        <td mat-cell *matCellDef="let emp">{{ emp.email }}</td>
-      </ng-container>
-
-      <!-- Avatar Column -->
-      <ng-container matColumnDef="avatar">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header> Avatar </th>
-        <td mat-cell *matCellDef="let emp">
-          <img [src]="emp.avatar" alt="{{ emp.first_name }}'s avatar"
-            style="width: 40px; height: 40px; border-radius: 50%;" />
-        </td>
-      </ng-container>
-
-      <!-- Header and Row Definitions -->
-      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-      <tr mat-row *matRowDef="let emprow; columns: displayedColumns;"></tr>
-    </table>
-
-    <!-- Paginator -->
-    <mat-paginator (page)="changePage($event)" [length]="totalData" [pageSizeOptions]="pageSizes" showFirstLastButtons>
-    </mat-paginator>
+  <div class="top">
+    <div class="right">
+      <h1>الرسائل</h1>
+      <p>{{messages.length}} رسالة</p>
+    </div>
+    <div class="left">
+      <a routerLink="/apps/contact/home" class="icon">
+        <span>عودة</span>
+        <i class="fas fa-chevron-left"></i>
+      </a>
+    </div>
   </div>
-</div>
+
+  <div class="middle">
+    <div class="middle-top">
+      <p>البحث في الرسائل</p>
+      <input type="text" placeholder="بحث" aria-label="بحث" (keyup)="applyFilter()" [(ngModel)]="applyFilterInput" />
+    </div>
+    <div class="middle-bottom">
+      <table mat-table matSort [dataSource]="dataSource" class="styled-table">
+
+        <ng-container matColumnDef="email">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> البريد الإلكتروني للمُرسل</th>
+          <td mat-cell *matCellDef="let row">{{ row.email }}</td>
+        </ng-container>
+        <ng-container matColumnDef="message_type">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> نوع الرسالة </th>
+          <td mat-cell *matCellDef="let row">{{ row.message_type }}</td>
+        </ng-container>
+        <ng-container matColumnDef="message_content">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> محتوى الرسالة </th>
+          <td mat-cell *matCellDef="let row">{{ row.message_content }}</td>
+        </ng-container>
+        <ng-container matColumnDef="delete">
+          <th mat-header-cell *matHeaderCellDef> حذف </th>
+          <td class="icon" mat-cell *matCellDef="let row">
+            <i class="fas fa-trash delete-icon" (click)="deleteMessage(row)"></i>
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let rowrow; columns: displayedColumns;"></tr>
+      </table>
+
+      <mat-paginator class="custom-paginator" (page)="changePage($event)" [length]="totalData" [pageSizeOptions]="[4]"
+        [hidePageSize]="true" showFirstLastButtons></mat-paginator>
+    </div>
+  </div>
+</body>
