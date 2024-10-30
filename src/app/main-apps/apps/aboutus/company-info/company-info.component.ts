@@ -1,7 +1,6 @@
 
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { stringify } from 'querystring';
 
 @Component({
   selector: 'app-company-info',

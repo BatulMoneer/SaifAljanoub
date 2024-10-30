@@ -42,7 +42,7 @@ export class AddJobComponent implements OnInit {
   selectQualification(qualification: string) {
     this.selectedQualification = qualification;
     this.formData.controls['qualification'].setValue(qualification);
-    const dropdownToggle: HTMLInputElement | null = document.querySelector('#dropdown-toggle');
+    const dropdownToggle: HTMLInputElement | null = document.querySelector('#qualification-dropdown-toggle');
     if (dropdownToggle) {
       dropdownToggle.checked = false;
     }
@@ -57,51 +57,7 @@ export class AddJobComponent implements OnInit {
     }
   }
 
-  onDragOver(event: DragEvent): void {
-    event.preventDefault();
-    event.stopPropagation();
-    const dropZone = event.target as HTMLElement;
-    dropZone.classList.add('dragging');
-  }
 
-  onDragLeave(event: DragEvent): void {
-    const dropZone = event.target as HTMLElement;
-    dropZone.classList.remove('dragging');
-  }
-
-  onDrop(event: DragEvent): void {
-    event.preventDefault();
-    event.stopPropagation();
-    const dropZone = event.target as HTMLElement;
-    dropZone.classList.remove('dragging');
-
-    if (event.dataTransfer?.files) {
-      const file = event.dataTransfer.files[0];
-      this.selectedImage = file;
-      this.formData.patchValue({ image: file });
-      this.updateImagePreview(file);
-    }
-  }
-
-  updateImagePreview(file: File): void {
-    const reader = new FileReader();
-    reader.onload = (e) => {
-      this.imagePreview = e.target?.result;
-    };
-    reader.readAsDataURL(file);
-  }
-
-  handleImageInput(event: any) {
-    const file: File = event.target.files[0];
-    if (file) {
-      this.selectedImage = file;
-      this.formData.patchValue({
-        image: file
-      });
-      this.updateImagePreview(file);
-      console.log('Image file selected:', file);
-    }
-  }
 
 
 }

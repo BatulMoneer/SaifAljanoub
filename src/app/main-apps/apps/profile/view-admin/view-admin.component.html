@@ -1,0 +1,51 @@
+<body dir="rtl">
+
+  <div class="top">
+    <div class="right">
+      <h1>المدراء الحاليين</h1>
+      <p>{{employees.length}} مدير</p>
+    </div>
+    <div class="left">
+      <a routerLink="/apps/profile/admins" class="icon">
+        <span>عودة</span>
+        <i class="fas fa-chevron-left"></i>
+      </a>
+    </div>
+  </div>
+
+  <div class="middle">
+    <div class="middle-top">
+      <p>البحث في المدراء</p>
+      <input type="text" placeholder="بحث" aria-label="بحث" (keyup)="applyFilter()" [(ngModel)]="applyFilterInput" />
+    </div>
+    <div class="middle-bottom">
+      <table mat-table matSort [dataSource]="dataSource" class="styled-table">
+
+        <ng-container matColumnDef="email">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>البريد الإلكتروني للمُدير</th>
+          <td mat-cell *matCellDef="let row">{{ row.email }}</td>
+        </ng-container>
+        <ng-container matColumnDef="name">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>الاسم</th>
+          <td mat-cell *matCellDef="let row">{{ row.name }}</td>
+        </ng-container>
+        <ng-container matColumnDef="position">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>المنصب</th>
+          <td mat-cell *matCellDef="let row">{{ row.position }}</td>
+        </ng-container>
+        <ng-container matColumnDef="delete">
+          <th mat-header-cell *matHeaderCellDef>تعديل الصلاحية</th>
+          <td class="icon" mat-cell *matCellDef="let row">
+            <i class="fas fa-trash delete-icon" (click)="deleteMessage(row)"></i>
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let rowrow; columns: displayedColumns;"></tr>
+      </table>
+
+      <mat-paginator class="custom-paginator" (page)="changePage($event)" [length]="totalData" [pageSizeOptions]="[7]"
+        [hidePageSize]="true" showFirstLastButtons></mat-paginator>
+    </div>
+  </div>
+</body>

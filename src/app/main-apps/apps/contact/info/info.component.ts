@@ -53,49 +53,5 @@ export class InfoComponent implements OnInit {
   }
 
 
-  onDragOver(event: DragEvent): void {
-    event.preventDefault();
-    event.stopPropagation();
-    const dropZone = event.target as HTMLElement;
-    dropZone.classList.add('dragging');
-  }
-
-  onDragLeave(event: DragEvent): void {
-    const dropZone = event.target as HTMLElement;
-    dropZone.classList.remove('dragging');
-  }
-
-  onDrop(event: DragEvent): void {
-    event.preventDefault();
-    event.stopPropagation();
-    const dropZone = event.target as HTMLElement;
-    dropZone.classList.remove('dragging');
-
-    if (event.dataTransfer?.files) {
-      const file = event.dataTransfer.files[0];
-      this.selectedImage = file;
-      this.formData.patchValue({ image: file });
-    }
-  }
-
-  handleImageInput(event: any) {
-    const file: File = event.target.files[0];
-    if (file) {
-      this.selectedImage = file;
-      this.formData.patchValue({
-        image: file
-      });
-      this.updateImagePreview(file);
-      console.log('Image file selected:', file);
-    }
-  }
-
-  updateImagePreview(file: File): void {
-    const reader = new FileReader();
-    reader.onload = (e) => {
-      this.imagePreview = e.target?.result;
-    };
-    reader.readAsDataURL(file);
-  }
 
 }

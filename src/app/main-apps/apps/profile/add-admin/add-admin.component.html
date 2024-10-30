@@ -1,0 +1,61 @@
+<body>
+  <div class="top">
+    <div class="right">
+      <h1>إضافة مدير</h1>
+    </div>
+    <div class="left">
+      <a routerLink="/apps/profile/admins" class="icon">
+        <span>عودة</span>
+        <i class="fas fa-chevron-left"></i>
+      </a>
+
+    </div>
+  </div>
+  <div class="middle">
+    <form [formGroup]="formData" (ngSubmit)="add()">
+
+      <p class="text">اسم الموظف:<span style="color: #CA7676;">*</span></p>
+      <div class="dropdown">
+        <input type="checkbox" id="name-dropdown-toggle" />
+        <label class="dropdown__face" for="name-dropdown-toggle">
+          <span>{{ selectedEmp || 'اختر' }}</span>
+          <i class="fas fa-chevron-left dropdown__arrow"></i>
+        </label>
+        <ul class="dropdown__items">
+          <li *ngFor="let emp of employees">
+            <label>
+              <input type="radio" formControlName="employees" value="{{ emp }}" (click)="selectEmp(emp)" />
+              {{ emp }}
+            </label>
+          </li>
+        </ul>
+      </div>
+      <div *ngIf="submitted && formData.controls['employees'].errors">
+        <p class="invalid" *ngIf="submitted && formData.controls['employees'].errors.required">
+          الحقل مطلوب!
+        </p>
+      </div>
+
+      <div class="group">
+        <a href="mailto:example@example.com" class="contact-item">
+          <i class="fas fa-envelope"></i>
+        </a>
+        <p class="text">البريد الإلكتروني:<span style="color: #CA7676;">*</span></p>
+      </div>
+      <input type="email" formControlName="email" placeholder="اكتب البريد الإلكتروني" required>
+      <div *ngIf="submitted && formData.controls['email'].errors">
+        <p class="invalid" *ngIf="submitted && formData.controls['email'].errors.required">
+          الحقل مطلوب!
+        </p>
+        <p class="invalid" *ngIf="submitted && formData.controls['email'].errors.email">
+          البريد خاطئ!
+        </p>
+      </div>
+
+      <div class="butt">
+        <p>سيتم إشعار الموظف بصلاحياته الجديدة عن طريق بريده الالكتروني بالإضافة إلى كلمة السر الخاصة به</p>
+        <button type="submit">إضافة</button>
+      </div>
+    </form>
+  </div>
+</body>

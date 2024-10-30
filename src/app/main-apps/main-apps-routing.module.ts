@@ -40,6 +40,11 @@ const routes: Routes = [
 
   },
   {
+    path: 'profile',
+    loadChildren: () => import('./apps/profile/profile.module').then(m => m.ProfileModule)
+
+  },
+  {
     path: '',
     redirectTo: 'home',
     pathMatch: 'full'
