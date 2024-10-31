@@ -1,4 +1,4 @@
-<body>
+<div class="all">
   <div class="top">
     <h1>الوظائف</h1>
     <p>{{jobs.length}} وظيفة</p>
@@ -35,4 +35,4 @@
     <span *ngFor="let page of pages; let i = index" class="dot" [class.active]="i === currentPage"
       (click)="goToPage(i)"></span>
   </div>
-</body>
+</div>

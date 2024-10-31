@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-home',
@@ -6,32 +7,39 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit {
-
-  constructor() { }
   currentSection: string = 'one';
+  form: FormGroup;
 
-  sectionOneText: string = '';
-  sectionTwoText: string = '';
-  sectionThreeText: string = '';
-
-  sectionOneLimitExceeded: boolean = false;
-  sectionTwoLimitExceeded: boolean = false;
-  sectionThreeLimitExceeded: boolean = false;
+  constructor(private fb: FormBuilder) {
+    this.form = this.fb.group({
+      sectionOne: ['', [Validators.maxLength(50)]],
+      sectionTwo: ['', [Validators.maxLength(150)]],
+      sectionThree: ['', [Validators.maxLength(150)]],
+    });
+  }
 
   showSection(section: string) {
     this.currentSection = section;
   }
 
-  checkCharacterLimit(text: string, sectionFlag: string) {
-    if (text.length > 150) {
-      console.log("lll")
-      this[sectionFlag] = true;
-    } else {
-      this[sectionFlag] = false;
+  ngOnInit(): void { }
+
+  get sectionOneLimitExceeded(): boolean {
+    return this.form.get('sectionOne')?.hasError('maxlength') ?? false;
+  }
+
+  get sectionTwoLimitExceeded(): boolean {
+    return this.form.get('sectionTwo')?.hasError('maxlength') ?? false;
+  }
+
+  get sectionThreeLimitExceeded(): boolean {
+    return this.form.get('sectionThree')?.hasError('maxlength') ?? false;
+  }
+
+  onSubmit() {
+    if (this.form.valid) {
+      // Handle form submission
+      console.log(this.form.value);
     }
   }
-
-  ngOnInit(): void {
-  }
-
 }

@@ -1,8 +1,9 @@
-body {
+.all {
   margin-right: 375px;
   background-color: var(--dark-grey);
   color: white;
   height: 100vh;
+  overflow: hidden;
 }
 
 .top{

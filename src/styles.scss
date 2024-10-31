@@ -11,6 +11,7 @@
   --dark-grey: #3A3A3A;
   --grey: #4C4C4C;
   --light-grey: #8D8D8D;
+  --lighter-grey: #D9D9D9;
 }
 
 .dark-theme {
@@ -28,10 +29,10 @@ body {
   color: var(--text-color);
   font-family: 'Kufam', sans-serif;
   direction: rtl;
-  overflow: hidden;
-
-
+  overflow-x: hidden;
 }
+
+
 
 button {
   border-radius: 12px;

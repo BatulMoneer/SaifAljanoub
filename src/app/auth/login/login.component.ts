@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -7,9 +9,42 @@ import { Component, OnInit } from '@angular/core';
 })
 export class LoginComponent implements OnInit {
 
-  constructor() { }
+
+  submit = "تسجيل الدخول";
+  link = "home";
+  formData = null
+  submitted = false
+
+
+  constructor(
+    private router: Router,
+    private formBuilder: FormBuilder,
+
+  ) { }
 
   ngOnInit(): void {
+    this.formData = this.formBuilder.group({
+      email: ['', [
+        Validators.required,
+        Validators.email
+      ]],
+      password: ['', [
+        Validators.required,
+        Validators.minLength(10),
+        Validators.maxLength(12)
+      ]]
+    });
   }
+
+
+  login() {
+    this.submitted = true
+    if (this.formData.invalid) {
+      return null;
+    }
+    this.router.navigate(['/apps/homepage/home']);
+
+  }
+
 
 }
