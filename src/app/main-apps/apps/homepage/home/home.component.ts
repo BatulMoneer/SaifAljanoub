@@ -13,8 +13,8 @@ export class HomeComponent implements OnInit {
   constructor(private fb: FormBuilder) {
     this.form = this.fb.group({
       sectionOne: ['', [Validators.maxLength(50)]],
-      sectionTwo: ['', [Validators.maxLength(150)]],
-      sectionThree: ['', [Validators.maxLength(150)]],
+      sectionTwo: ['', [Validators.maxLength(200)]],
+      sectionThree: ['', [Validators.maxLength(200)]],
     });
   }
 

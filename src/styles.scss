@@ -5,6 +5,8 @@
 :root {
   --background-color: #ffffff;
   --text-color: #4C4C4C;
+  --background-color-t: rgba(255, 255, 255, 0.538);
+  --text-color-t: rgba(76, 76, 76, 0.538);
 
   --prime: #4572A0;
 
@@ -17,6 +19,8 @@
 .dark-theme {
   --background-color: #3A3A3A;
   --text-color: #ffffff;
+  --background-color-t: rgba(58, 58, 58, 0.538);
+  --text-color-t: rgba(255, 255, 255, 0.538);
 }
 
 .mat-sort-header-arrow {
@@ -31,8 +35,6 @@ body {
   direction: rtl;
   overflow-x: hidden;
 }
-
-
 
 button {
   border-radius: 12px;
@@ -58,3 +60,4 @@ textarea{
   height: 44px;
   padding: 0px 16px;
 }
+

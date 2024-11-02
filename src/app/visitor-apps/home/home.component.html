@@ -1,14 +1,45 @@
-<div class="body">
-  <div class="section-one">
+<div class="all">
 
+  <div class="section-one reveal" #section>
+    <h6>سيف الجنوب</h6>
+    <h1 class="title">هنا التفاني في العمل</h1>
+    <h1 class="empty">التـــــــكامل والاتقان</h1>
+    <p class="text">{{brief}}</p>
+    <button>عرض المشاريع</button>
   </div>
-  <div class="section-two">
 
+  <div class="section-two reveal" #section>
+    <div class="right">
+      <h1 class="title">رؤيتنا</h1>
+      <p class="text">{{vision}}</p>
+      <button>تعـــــــــــــــــــــرف علينا أكثر</button>
+    </div>
+    <img src="../../../assets/images/up.png" alt="">
   </div>
-  <div class="section-three">
 
+  <div class="section-three reveal" #section>
+    <h1 class="title">أهدافنا</h1>
+    <p class="text">{{goals}}</p>
   </div>
-  <div class="section-four">
 
+  <div class="section-four reveal" #section>
+    <h1 class="title">آخر الأخبار</h1>
+    <div class="carousel-wrapper">
+      <i class="fas fa-chevron-left arrow-left" (click)="scrollLeft()"></i>
+
+      <div #widgetsContent class="custom-slider-main">
+        <div *ngFor="let item of news" class="info-box">
+          <h1 class="sub-title">{{ item.title }}</h1>
+          <div class="info-text">
+            {{ item.description }}
+          </div>
+          <div class="image-container">
+            <img [src]="item.image" alt="news image" class="info-image">
+          </div>
+        </div>
+      </div>
+
+      <i class="fas fa-chevron-right arrow-right" (click)="scrollRight()"></i>
+    </div>
   </div>
 </div>

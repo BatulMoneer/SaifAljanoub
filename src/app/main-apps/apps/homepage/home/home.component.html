@@ -18,14 +18,14 @@
       </div>
 
       <div class="right" *ngIf="currentSection === 'two'">
-        <p>أهدافنا: <span style="color: #CA7676;">*</span> (لا يتعدى ١٥٠ حرف)</p>
+        <p>أهدافنا: <span style="color: #CA7676;">*</span> (لا يتعدى ٢٠٠ حرف)</p>
         <textarea formControlName="sectionTwo" placeholder="أكتب أهداف الشركة..."></textarea>
         <p *ngIf="sectionTwoLimitExceeded" style="color: #CA7676;">لقد تجاوزت الحد الأقصى المسموح به وهو 150 حرفاً.</p>
         <button type="submit">حفظ</button>
       </div>
 
       <div class="right" *ngIf="currentSection === 'three'">
-        <p>رؤيتنا: <span style="color: #CA7676;">*</span> (لا يتعدى ١٥٠ حرف)</p>
+        <p>رؤيتنا: <span style="color: #CA7676;">*</span> (لا يتعدى ٢٠٠ حرف)</p>
         <textarea formControlName="sectionThree" placeholder="أكتب رؤية الشركة..."></textarea>
         <p *ngIf="sectionThreeLimitExceeded" style="color: #CA7676;">لقد تجاوزت الحد الأقصى المسموح به وهو 150 حرفاً.
         </p>
