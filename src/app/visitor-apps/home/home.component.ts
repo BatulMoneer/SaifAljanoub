@@ -47,23 +47,19 @@ export class HomeComponent implements AfterViewInit {
 
   @HostListener('window:resize', [])
   updateItemWidth() {
-    this.itemWidth = this.widgetsContent.nativeElement.offsetWidth;
+    this.itemWidth = this.widgetsContent.nativeElement.offsetWidth + 10;
   }
 
 
   scrollLeft() {
     const carousel = this.widgetsContent.nativeElement;
-    if (carousel.scrollLeft <= 0) {
-      carousel.scrollLeft = carousel.scrollWidth;
-    }
+
     carousel.scrollBy({ left: -this.itemWidth, behavior: 'smooth' });
   }
 
   scrollRight() {
     const carousel = this.widgetsContent.nativeElement;
-    if (carousel.scrollLeft + this.itemWidth >= carousel.scrollWidth) {
-      carousel.scrollLeft = 0;
-    }
+
     carousel.scrollBy({ left: this.itemWidth, behavior: 'smooth' });
   }
 }

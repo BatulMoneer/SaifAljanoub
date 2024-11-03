@@ -4,6 +4,7 @@ import { AuthRoutingModule } from './auth-routing.module';
 import { LoginComponent } from './login/login.component';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { NgOtpInputModule } from 'ng-otp-input';
 
 @NgModule({
   declarations: [
@@ -15,6 +16,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     AuthRoutingModule,
     FormsModule,
     ReactiveFormsModule,
+    NgOtpInputModule,
   ]
 })
 export class AuthModule { }

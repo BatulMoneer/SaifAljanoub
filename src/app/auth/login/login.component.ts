@@ -14,7 +14,7 @@ export class LoginComponent implements OnInit {
   link = "home";
   formData = null
   submitted = false
-
+  showOtpInput = false;
 
   constructor(
     private router: Router,
@@ -42,8 +42,13 @@ export class LoginComponent implements OnInit {
     if (this.formData.invalid) {
       return null;
     }
-    this.router.navigate(['/apps/homepage/home']);
+    this.showOtpInput = true;
 
+
+  }
+
+  otpCheck() {
+    this.router.navigate(['/apps/homepage/home']);
   }
 
 

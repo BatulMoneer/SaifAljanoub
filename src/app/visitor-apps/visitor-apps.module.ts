@@ -6,6 +6,12 @@ import { HeaderComponent } from './layout/header/header.component';
 import { FooterComponent } from './layout/footer/footer.component';
 import { HomeComponent } from './home/home.component';
 import { MainLayout2Component } from './layout/main-layout2/main-layout2.component';
+import { AboutusComponent } from './aboutus/aboutus.component';
+import { ServicesComponent } from './services/services.component';
+import { ProjectsComponent } from './projects/projects.component';
+import { ContactComponent } from './contact/contact.component';
+import { JobsComponent } from './jobs/jobs.component';
+import { PartnersComponent } from './partners/partners.component';
 
 
 
@@ -15,6 +21,12 @@ import { MainLayout2Component } from './layout/main-layout2/main-layout2.compone
     FooterComponent,
     HomeComponent,
     MainLayout2Component,
+    AboutusComponent,
+    ServicesComponent,
+    ProjectsComponent,
+    ContactComponent,
+    JobsComponent,
+    PartnersComponent,
   ],
   imports: [
     CommonModule,

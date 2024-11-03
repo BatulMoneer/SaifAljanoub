@@ -5,33 +5,40 @@
     <form class="form" [formGroup]="formData" (ngSubmit)="login()">
       <h1 class="title">أهلا بعودتك</h1>
 
-      <p class="text">البريد الإلكتروني:<span style="color: #CA7676;">*</span></p>
-      <input type="email" formControlName="email" placeholder="اكتب البريد الإلكتروني" required>
-      <div *ngIf="submitted && formData.controls['email'].errors">
-        <p class="invalid" *ngIf="submitted && formData.controls['email'].errors.required">
-          الحقل مطلوب!
-        </p>
-        <p class="invalid" *ngIf="submitted && formData.controls['email'].errors.email">
-          البريد خاطئ!
-        </p>
+      <div *ngIf="!showOtpInput">
+        <p class="text">البريد الإلكتروني:<span style="color: #CA7676;">*</span></p>
+        <input type="email" formControlName="email" placeholder="اكتب البريد الإلكتروني" required>
+        <div *ngIf="submitted && formData.controls['email'].errors">
+          <p class="invalid" *ngIf="submitted && formData.controls['email'].errors.required">الحقل مطلوب!</p>
+          <p class="invalid" *ngIf="submitted && formData.controls['email'].errors.email">البريد خاطئ!</p>
+        </div>
+
+        <p class="text">كلمة المرور:<span style="color: #CA7676;">*</span></p>
+        <input type="password" formControlName="password" placeholder="ادخل كلمة المرور" required>
+        <div *ngIf="submitted && formData.controls['password'].errors">
+          <p class="invalid" *ngIf="submitted && formData.controls['password'].errors.required">الحقل مطلوب!</p>
+          <p class="invalid" *ngIf="formData.controls['password'].errors.minlength">يجب أن تتكون كلمة السر من 10 حروف
+            على الأقل!</p>
+          <p class="invalid" *ngIf="formData.controls['password'].errors.maxlength">يجب ألا تتجاوز كلمة السر 12 حرفًا!
+          </p>
+        </div>
+
+        <div class="btn">
+          <button type="submit">تسجيل الدخول</button>
+        </div>
       </div>
 
-      <p class="text">كلمة المرور:<span style="color: #CA7676;">*</span></p>
-      <input type="password" formControlName="password" placeholder="ادخل كلمة المرور" required>
-      <div *ngIf="submitted && formData.controls['password'].errors">
-        <p class="invalid" *ngIf="submitted && formData.controls['password'].errors.required">
-          الحقل مطلوب!</p>
-        <p class="invalid" *ngIf="formData.controls['password'].errors.minlength">
-          يجب أن تتكون كلمة السر من 10 حروف على الأقل!
-        </p>
-        <p class="invalid" *ngIf="formData.controls['password'].errors.maxlength">
-          يجب ألا تتجاوز كلمة السر 12 حرفًا!
-        </p>
-      </div>
-
-      <div class="btn">
-        <button type="submit">تسجيل
-          الدخول</button>
+      <div *ngIf="showOtpInput">
+        <p class="text">أدخل الرمز المرسل الى البريد</p>
+        <ng-otp-input [config]="{
+            length: 4,
+            allowNumbersOnly: true,
+            inputStyles: {
+              'font-size': '16px'
+            }
+          }" #ngOtpInput>
+        </ng-otp-input>
+        <button class="otp-butt" (click)="otpCheck()">تأكيد</button>
       </div>
 
     </form>

@@ -22,13 +22,13 @@ export class HeaderComponent implements OnInit {
 
 
   header_list = [
-    { content: "الرئيسية", link: "" },
-    { content: "من نحن", link: "" },
-    { content: "الخدمات", link: "" },
-    { content: "المشاريع", link: "" },
-    { content: "التواصل", link: "" },
-    { content: "التوظيف", link: "" },
-    { content: "الشراكات", link: "" },
+    { content: "الرئيسية", link: "/home" },
+    { content: "من نحن", link: "/aboutus" },
+    { content: "الخدمات", link: "/services" },
+    { content: "المشاريع", link: "/projects" },
+    { content: "التواصل", link: "/contact" },
+    { content: "التوظيف", link: "/jobs" },
+    { content: "الشراكات", link: "/partners" },
   ];
 
   ngOnInit(): void {
