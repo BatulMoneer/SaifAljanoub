@@ -1,1 +1,35 @@
-<p>aboutus works!</p>
+<div class="all">
+
+  <div class="top reveal" #about>
+    <img class="swords" src="../../../assets/images/swords.png" alt="swords">
+    <div class="top-right">
+      <h1 class="title">
+        مين سيف الجنوب؟
+      </h1>
+      <p class="text">
+        {{aboutus}}
+      </p>
+    </div>
+  </div>
+
+  <div class="middle reveal" #about>
+    <h1 class="title">
+      متى تأسست ومين أسسها؟
+    </h1>
+    <div class="middle-bottom">
+      <p class="right">{{dates}}</p>
+      <p class="left">{{name}}</p>
+    </div>
+  </div>
+
+  <div class="bottom reveal" #about>
+    <h1 class="title">فريقنا</h1>
+    <div class="team-members">
+      <div class="member" *ngFor="let member of teamMembers">
+        <img [src]="member.imageUrl" alt="{{ member.name }}" class="member-image" />
+        <h6 class="name">{{ member.name }}</h6>
+        <p class="position">{{ member.position }}</p>
+      </div>
+    </div>
+  </div>
+</div>

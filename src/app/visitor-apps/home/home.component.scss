@@ -278,10 +278,8 @@
     }
   }
   .section-four{
-    .custom-slider-main {
-      overflow-x: scroll;
-      scroll-snap-type: x mandatory;
-    }
+
+    padding: 50px !important;
     .info-box {
       scroll-snap-align: center;
       display: flex !important;
@@ -302,7 +300,9 @@
       width: 100% !important;
     }
     .info-text{
+      background-color: transparent !important;
       position:initial !important ;
+      color: var(--text-color) !important;
       font-size: 12px !important;
     }
   }

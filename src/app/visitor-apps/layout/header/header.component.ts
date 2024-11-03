@@ -34,4 +34,12 @@ export class HeaderComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  closeMenu(): void {
+    const menuToggleCheckbox = document.getElementById('menu-toggle') as HTMLInputElement;
+    if (menuToggleCheckbox) {
+      menuToggleCheckbox.checked = false;
+    }
+  }
+
+
 }

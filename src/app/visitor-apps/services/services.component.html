@@ -1,1 +1,36 @@
-<p>services works!</p>
+<div class="all">
+  <div class="top reveal" #service>
+    <img class="swords" src="../../../assets/images/sword.png" alt="swords">
+    <div class="top-right">
+      <h1 class="title">
+        في ســـــيف الجنوب
+      </h1>
+      <p class="text">
+        نقدم خدمات مقاولات الطرق بأفضل جودة ممكنة. كل الخدمات عندنا وكل شي من أحسنه.
+      </p>
+    </div>
+  </div>
+
+  <div class="bottom reveal" #service>
+    <div class="blue">
+      <h1 class="title">إيش الخدمات اللي نوفرها؟</h1>
+    </div>
+    <div class="carousel-wrapper">
+      <i class="fas fa-chevron-left arrow-left" (click)="scrollLeft()"></i>
+
+      <div #servicesContent class="custom-slider-main">
+        <div *ngFor="let item of services_list" class="info-box">
+          <h1 class="sub-title">{{ item.title }}</h1>
+          <div class="info-text">
+            {{ item.description }}
+          </div>
+          <div class="image-container">
+            <img [src]="item.image" alt="service image" class="info-image">
+          </div>
+        </div>
+      </div>
+
+      <i class="fas fa-chevron-right arrow-right" (click)="scrollRight()"></i>
+    </div>
+  </div>
+</div>
