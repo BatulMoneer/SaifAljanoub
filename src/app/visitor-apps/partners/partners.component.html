@@ -1,1 +1,11 @@
-<p>partners works!</p>
+<div class="all">
+  <div class="top reveal" #partner>
+    <h1>شركاؤنا</h1>
+  </div>
+  <div class="bottom reveal" #partner>
+    <div *ngFor="let item of partners_list" class="info-box">
+      <img [src]="item.image" [alt]="item.name">
+      <p>{{item.name}}</p>
+    </div>
+  </div>
+</div>

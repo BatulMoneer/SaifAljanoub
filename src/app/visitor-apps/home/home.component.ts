@@ -26,6 +26,10 @@ export class HomeComponent implements AfterViewInit {
   goals = "سيف الجنوب نقدم أفضل خدمات مقاولات الطرق في سيف الجنوب نقدم أفضل خدمات مقاولات الطرق في سيف الجنوب نقدم أفضل خدمات مقاولات الطرق في سيف الجنوب نقدم أفضل خدمات مقاولات الطرق في سيف الجنوب نقدم أفضل مقاولات الطرق في سيف الجنوب نقدم أفضل خدمات مقاولات ";
 
   ngAfterViewInit(): void {
+    window.onload = function () {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    };
+
     this.updateItemWidth();
     const observer = new IntersectionObserver(
       (entries) => {

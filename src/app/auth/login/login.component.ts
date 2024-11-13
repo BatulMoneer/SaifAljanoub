@@ -24,11 +24,11 @@ export class LoginComponent implements OnInit {
 
   ngOnInit(): void {
     this.formData = this.formBuilder.group({
-      email: ['', [
+      admin_email: ['', [
         Validators.required,
         Validators.email
       ]],
-      password: ['', [
+      admin_password: ['', [
         Validators.required,
         Validators.minLength(10),
         Validators.maxLength(12)

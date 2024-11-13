@@ -15,9 +15,9 @@ export class EditMemberComponent implements OnInit {
   ) { }
 
   employee = {
-    image: "../../../../../assets/images/default.png",
-    name: "سامر سامر",
-    position: "مدير مشاريع"
+    employee_pic: "../../../../../assets/images/default.png",
+    employee_name: "سامر سامر",
+    employee_position: "مدير مشاريع"
   };
 
   formData: FormGroup;
@@ -28,22 +28,22 @@ export class EditMemberComponent implements OnInit {
 
   ngOnInit(): void {
     this.formData = this.formBuilder.group({
-      name: ['', [
+      employee_name: ['', [
         Validators.required,
         Validators.maxLength(30)
       ]],
-      position: ['', [
+      employee_position: ['', [
         Validators.required,
         Validators.maxLength(30),
       ]],
-      image: ['', []],
+      employee_pic: ['', []],
     });
     this.formData.patchValue({
-      name: this.employee.name,
-      position: this.employee.position,
-      image: this.employee.image
+      employee_name: this.employee.employee_name,
+      employee_position: this.employee.employee_position,
+      employee_pic: this.employee.employee_pic
     });
-    this.imagePreview = this.employee.image;
+    this.imagePreview = this.employee.employee_pic;
 
   }
 
@@ -73,7 +73,7 @@ export class EditMemberComponent implements OnInit {
     if (event.dataTransfer?.files) {
       const file = event.dataTransfer.files[0];
       this.selectedImage = file;
-      this.formData.patchValue({ image: file });
+      this.formData.patchValue({ employee_pic: file });
     }
   }
 
@@ -82,7 +82,7 @@ export class EditMemberComponent implements OnInit {
     if (file) {
       this.selectedImage = file;
       this.formData.patchValue({
-        image: file
+        employee_pic: file
       });
       this.updateImagePreview(file);
       console.log('Image file selected:', file);

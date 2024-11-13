@@ -1,1 +1,86 @@
-<p>jobs works!</p>
+<div class="all">
+  <div class="top reveal" #job>
+    <img class="swords" src="../../../assets/images/sword.png" alt="swords">
+    <div class="top-left">
+      <h1 class="title">انضم الى فريقنا!</h1>
+      <p class="text">نحن في سيف الجنوب نبحث عن أفراد موهوبين ومتحمسين للانضمام إلى فريقنا المتخصص في مقاولات الطرق.
+      </p>
+    </div>
+  </div>
+
+  <div class="bottom reveal" #job>
+    <div class="blue">
+      <h1 class="title">الوظائف</h1>
+      <p class="text">{{ jobs_length }} وظائف</p>
+
+      <div class="filters">
+        <div class="dropdown">
+          <input type="checkbox" id="qualification2-dropdown-toggle" />
+          <label class="dropdown__face" for="qualification2-dropdown-toggle">
+            <span>{{ selectedQualification || 'اختر المؤهل' }}</span>
+            <i class="fas fa-chevron-left dropdown__arrow"></i>
+          </label>
+          <ul class="dropdown__items">
+            <li>
+              <label>
+                <input type="radio" value="" (click)="selectQualification('')" />
+                الكل
+              </label>
+            </li>
+            <li *ngFor="let qualification of qualifications">
+              <label>
+                <input type="radio" value="{{ qualification }}" (click)="selectQualification(qualification)" />
+                {{ qualification }}
+              </label>
+            </li>
+          </ul>
+        </div>
+        <div class="dropdown">
+          <input type="checkbox" id="experienceYear2-dropdown-toggle" />
+          <label class="dropdown__face" for="experienceYear2-dropdown-toggle">
+            <span>{{ selectedExperience || 'اختر السنوات' }}</span>
+            <i class="fas fa-chevron-left dropdown__arrow"></i>
+          </label>
+          <ul class="dropdown__items">
+            <li>
+              <label>
+                <input type="radio" value="" (click)="selectExperienceYear('')" />
+                الكل
+              </label>
+            </li>
+            <li *ngFor="let experienceYear of experienceYears">
+              <label>
+                <input type="radio" value="{{ experienceYear }}" (click)="selectExperienceYear(experienceYear)" />
+                {{ experienceYear }}
+              </label>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+
+    </div>
+    <div class="carousel-wrapper">
+      <i class="fas fa-chevron-left arrow-left" (click)="scrollLeft()"></i>
+
+      <div #jobsContent class="custom-slider-main">
+        <div *ngFor="let item of filteredJobs" class="info-box">
+          <h2 class="sub-title">{{
+            item.job_position }}</h2>
+          <p class="info-text"><span style="font-weight: bold; color: var(--prime);">المؤهل العلمي: </span>{{
+            item.job_qualification }}</p>
+          <p class="info-text"><span style="font-weight: bold; color: var(--prime);">سنوات الخبرة المطلوبة: </span>{{
+            item.job_experience }} سنوات</p>
+          <p class="info-text"><span style="font-weight: bold; color: var(--prime);">الراتب: </span>{{ item.job_salary}}
+            ريال
+          </p>
+          <p class="info-text"><span style="font-weight: bold; color: var(--prime);">متطلبات الوظيفة: </span>{{
+            item.job_description }}</p>
+          <button [href]="item.job_link" target="_blank">تقديم الطلب</button>
+        </div>
+      </div>
+
+      <i class="fas fa-chevron-right arrow-right" (click)="scrollRight()"></i>
+    </div>
+  </div>
+</div>

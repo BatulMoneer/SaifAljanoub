@@ -14,9 +14,9 @@ export class EditProjectComponent implements OnInit {
   ) { }
 
   project = {
-    image: "../../../../../assets/images/project.jpg",
-    title: "شارع السلام",
-    description: "في سيف الجنوب نقدم أفضل خدمات مقاولات الطرق في سيف الجنوب نقدم أفضل خدمات مقاولات الطرق في سيف الجنوب  في سيف الجنوب نقدم أفضل خدمات مقاولات الطرق   "
+    projects_image: "../../../../../assets/images/project.jpg",
+    projects_name: "شارع السلام",
+    projects_description: "في سيف الجنوب نقدم أفضل خدمات مقاولات الطرق في سيف الجنوب نقدم أفضل خدمات مقاولات الطرق في سيف الجنوب  في سيف الجنوب نقدم أفضل خدمات مقاولات الطرق   "
   }
 
   formData: FormGroup;
@@ -27,7 +27,7 @@ export class EditProjectComponent implements OnInit {
 
   ngOnInit(): void {
     this.formData = this.formBuilder.group({
-      title: ['', [
+      projects_name: ['', [
         Validators.required,
         Validators.maxLength(30)
       ]],
@@ -35,16 +35,16 @@ export class EditProjectComponent implements OnInit {
         Validators.required,
         Validators.maxLength(150),
       ]],
-      image: ['', [
+      projects_image: ['', [
         Validators.required,
       ]],
     });
     this.formData.patchValue({
-      title: this.project.title,
-      description: this.project.description,
-      image: this.project.image
+      projects_name: this.project.projects_name,
+      projects_description: this.project.projects_description,
+      projects_image: this.project.projects_image
     });
-    this.imagePreview = this.project.image;
+    this.imagePreview = this.project.projects_image;
 
   }
 
@@ -74,7 +74,7 @@ export class EditProjectComponent implements OnInit {
     if (event.dataTransfer?.files) {
       const file = event.dataTransfer.files[0];
       this.selectedImage = file;
-      this.formData.patchValue({ image: file });
+      this.formData.patchValue({ projects_image: file });
     }
   }
 
@@ -83,7 +83,7 @@ export class EditProjectComponent implements OnInit {
     if (file) {
       this.selectedImage = file;
       this.formData.patchValue({
-        image: file
+        projects_image: file
       });
       this.updateImagePreview(file);
       console.log('Image file selected:', file);

@@ -17,12 +17,12 @@
       <div class="middle-top">
         <div class="card">
           <p class="text">اسم الموظف:<span style="color: #CA7676;">*</span></p>
-          <input type="text" formControlName="name" placeholder="اكتب اسم الموظف" required>
-          <div *ngIf="submitted && formData.controls['name'].errors">
-            <p class="invalid" *ngIf="submitted && formData.controls['name'].errors.required">
+          <input type="text" formControlName="employee_name" placeholder="اكتب اسم الموظف" required>
+          <div *ngIf="submitted && formData.controls['employee_name'].errors">
+            <p class="invalid" *ngIf="submitted && formData.controls['employee_name'].errors.required">
               الحقل مطلوب!
             </p>
-            <p class="invalid" *ngIf="submitted && formData.controls['name'].errors.maxlength">
+            <p class="invalid" *ngIf="submitted && formData.controls['employee_name'].errors.maxlength">
               الاسم طويل جدا!
             </p>
           </div>
@@ -36,12 +36,12 @@
             </a>
             <p class="text">البريد الإلكتروني:<span style="color: #CA7676;">*</span></p>
           </div>
-          <input type="email" formControlName="email" placeholder="اكتب البريد الإلكتروني" required>
-          <div *ngIf="submitted && formData.controls['email'].errors">
-            <p class="invalid" *ngIf="submitted && formData.controls['email'].errors.required">
+          <input type="email" formControlName="admin_email" placeholder="اكتب البريد الإلكتروني" required>
+          <div *ngIf="submitted && formData.controls['admin_email'].errors">
+            <p class="invalid" *ngIf="submitted && formData.controls['admin_email'].errors.required">
               الحقل مطلوب!
             </p>
-            <p class="invalid" *ngIf="submitted && formData.controls['email'].errors.email">
+            <p class="invalid" *ngIf="submitted && formData.controls['admin_email'].errors.email">
               البريد خاطئ!
             </p>
           </div>
@@ -50,12 +50,12 @@
         <div class="card">
 
           <p class="text">المنصب:<span style="color: #CA7676;">*</span></p>
-          <input type="text" formControlName="position" placeholder="اكتب اسم الموظف" required>
-          <div *ngIf="submitted && formData.controls['position'].errors">
-            <p class="invalid" *ngIf="submitted && formData.controls['position'].errors.required">
+          <input type="text" formControlName="employee_position" placeholder="اكتب اسم الموظف" required>
+          <div *ngIf="submitted && formData.controls['employee_position'].errors">
+            <p class="invalid" *ngIf="submitted && formData.controls['employee_position'].errors.required">
               الحقل مطلوب!
             </p>
-            <p class="invalid" *ngIf="submitted && formData.controls['position'].errors.maxlength">
+            <p class="invalid" *ngIf="submitted && formData.controls['employee_position'].errors.maxlength">
               المنصب طويل جدا!
             </p>
           </div>
@@ -64,12 +64,12 @@
         <div class="card">
 
           <p class="text">تعديل كلمة السر:</p>
-          <input type="password" formControlName="password" placeholder="إضافة كلمة سر جديدة" required>
-          <div *ngIf="submitted && formData.controls['password'].errors">
-            <p class="invalid" *ngIf="formData.controls['password'].errors.minlength">
+          <input type="password" formControlName="admin_password" placeholder="إضافة كلمة سر جديدة" required>
+          <div *ngIf="submitted && formData.controls['admin_password'].errors">
+            <p class="invalid" *ngIf="formData.controls['admin_password'].errors.minlength">
               يجب أن تتكون كلمة السر من 10 حروف على الأقل!
             </p>
-            <p class="invalid" *ngIf="formData.controls['password'].errors.maxlength">
+            <p class="invalid" *ngIf="formData.controls['admin_password'].errors.maxlength">
               يجب ألا تتجاوز كلمة السر 12 حرفًا!
             </p>
           </div>

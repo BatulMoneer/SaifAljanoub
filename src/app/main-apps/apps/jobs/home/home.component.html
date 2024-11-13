@@ -6,10 +6,11 @@
   <div class="middle">
     <ng-container *ngFor="let item of paginatedServices; let i = index">
       <div class="card" *ngIf="i < 5">
-        <h4>{{item.position}}</h4>
-        <p><span style="color: var(--light-grey); font-weight: bold;">المؤهل العلمي: </span>{{item.qualification}}</p>
-        <p><span style="color: var(--light-grey); font-weight: bold;">سنوات الخبرة: </span>{{item.experienceYears}}</p>
-        <p><span style="color: var(--light-grey); font-weight: bold;">الراتب: </span>{{item.salary}}</p>
+        <h4>{{item.job_position}}</h4>
+        <p><span style="color: var(--light-grey); font-weight: bold;">المؤهل العلمي: </span>{{item.job_qualification}}
+        </p>
+        <p><span style="color: var(--light-grey); font-weight: bold;">سنوات الخبرة: </span>{{item.job_experience}}</p>
+        <p><span style="color: var(--light-grey); font-weight: bold;">الراتب: </span>{{item.job_salary}}</p>
         <p>...</p>
         <div class="icons">
           <a routerLink="/" class="icon">

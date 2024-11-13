@@ -1,1 +1,74 @@
-<p>contact works!</p>
+<div class="all">
+  <div class="top reveal" #contact>
+    <img class="swords" src="../../../assets/images/sword.png" alt="swords">
+    <div class="top-right">
+      <h1 class="title">للتواصل معنا</h1>
+      <p class="text">لا تتردد تتواصل معنا ابداً!</p>
+    </div>
+  </div>
+
+  <div class="bottom reveal" #contact>
+    <div class="contact-info">
+      <p>معلومات التواصل معنا</p>
+      <div class="contact-info">
+        <a href="tel:+0500211435" class="info-item">
+          <i class="fas fa-phone-alt"></i>
+          0500211435
+        </a>
+        <a href="mailto:example@example.com" class="info-item">
+          <i class="fas fa-envelope"></i>
+          saif.aljanoub&#64;gmail.com
+        </a>
+        <a href="https://wa.me/0500211435" class="info-item" target="_blank">
+          <i class="fab fa-whatsapp"></i>
+          0500211435
+        </a>
+        <a href="https://www.google.com/maps/place/%D8%AD%D9%8A,+JDJA2460,+2460+Al+Manar,+7914,+Al-Manar,+Jeddah+23463%E2%80%AD/@21.5998764,39.2229792,17z/data=!4m6!3m5!1s0x15c3d14e48aa21ed:0xd591e5fde3fd9b8a!8m2!3d21.5998764!4d39.2255541!16s%2Fg%2F11rb4rxg_6?entry=ttu&g_ep=EgoyMDI0MTAyOS4wIKXMDSoASAFQAw%3D%3D"
+          class="info-item" target="_blank">
+          <i class="fa fa-map-marker"></i>
+          JDJA2460, 2460 Al Manar, 7914, Al-Manar, Jeddah 23463
+        </a>
+      </div>
+      <div class="map-container">
+        <iframe
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3709.642426147518!2d39.22297917512167!3d21.599876380196203!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x15c3d14e48aa21ed%3A0xd591e5fde3fd9b8a!2s%D8%AD%D9%8A%2C%20JDJA2460%2C%202460%20Al%20Manar%2C%207914%2C%20Al-Manar%2C%20Jeddah%2023463!5e0!3m2!1sen!2ssa!4v1730719724935!5m2!1sen!2ssa"
+          width="350" height="300" style="border-radius:12px;" allowfullscreen="" loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade"></iframe>
+      </div>
+    </div>
+
+    <form [formGroup]="contactForm" class="contact-form" (ngSubmit)="onSubmit()">
+      <label for="email">البريد الإلكتروني<span style="color: #CA7676;">*</span></label>
+      <input type="email" id="email" formControlName="email" placeholder="البريد الإلكتروني">
+      <div *ngIf="submitted && contactForm.controls['email'].errors">
+        <p class="invalid" *ngIf="submitted && contactForm.controls['email'].errors.required">الحقل مطلوب!</p>
+        <p class="invalid" *ngIf="submitted && contactForm.controls['email'].errors.email">البريد خاطئ!</p>
+      </div>
+
+
+      <label for="messageType">نوع الرسالة<span style="color: #CA7676;">*</span></label>
+      <div class="radio-group">
+        <label class="radio-label">
+          <input type="radio" formControlName="messageType" value="inquiry">
+          <span class="custom-radio"></span> استفسار
+        </label>
+        <label class="radio-label">
+          <input type="radio" formControlName="messageType" value="complaint">
+          <span class="custom-radio"></span> شكوى
+        </label>
+      </div>
+      <div *ngIf="submitted && contactForm.controls['messageType'].errors">
+        <p class="invalid" *ngIf="submitted && contactForm.controls['messageType'].errors.required">الحقل مطلوب!</p>
+      </div>
+
+      <label for="message">الرسالة <span style="color: #CA7676;">*</span> (لا تتعدى ١٠٠ حرف)</label>
+      <textarea id="message" formControlName="message" maxlength="100" placeholder="اكتب رسالتك هنا..."></textarea>
+      <div *ngIf="submitted && contactForm.controls['message'].errors">
+        <p class="invalid" *ngIf="submitted && contactForm.controls['message'].errors.required">الحقل مطلوب!</p>
+        <p class="invalid" *ngIf="submitted && contactForm.controls['message'].errors.maxlength">البريد خاطئ!</p>
+      </div>
+
+
+      <button type="submit">إرسال</button>
+    </form>
+  </div>

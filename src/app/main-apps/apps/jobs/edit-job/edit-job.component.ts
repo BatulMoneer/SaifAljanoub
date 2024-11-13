@@ -15,19 +15,19 @@ export class EditJobComponent implements OnInit {
 
   job =
     {
-      position: "مهندس",
-      qualification: "بكالوريوس",
-      salary: " ٦٠٠٠ ريال ",
-      jobRequirements: "دراية بالمعايير المحلية والدولية المتعلقة بالسلامة والبيئة في تصميم الطرق. \n فهم متطلبات الجودة والاختبارات اللازمة لضمان سلامة الطرق. \nالقدرة على تطبيق معايير الاستدامة والتقنيات الحديثة لتحسين كفاءة المشاريع.",
-      applicationLink: "https/forms.com/jobs/Enginner",
-      experienceYear: "٠ - ٤ سنوات "
+      job_position: "مهندس",
+      job_qualification: "بكالوريوس",
+      job_salary: " ٦٠٠٠ ريال ",
+      job_description: "دراية بالمعايير المحلية والدولية المتعلقة بالسلامة والبيئة في تصميم الطرق. \n فهم متطلبات الجودة والاختبارات اللازمة لضمان سلامة الطرق. \nالقدرة على تطبيق معايير الاستدامة والتقنيات الحديثة لتحسين كفاءة المشاريع.",
+      job_link: "https/forms.com/jobs/Enginner",
+      job_experience: "٠ - ٤ سنوات "
     };
 
   formData: FormGroup;
   submitted = false
 
   qualifications = ["ثانوية عامة", "دبلوم", "بكالوريوس", "ماجستير", "دكتوراه"];
-  experienceYears = ["لا يوجد", "٠-٤", "٤ - ٦", "٦-١٠", "اكثر من ١٠ "];
+  experienceYears = ["لا يوجد", "٠-٤", "٤-٦", "٦-١٠", "أكثر من ١٠"];
   selectedQualification: string | null = null;
   selectedExperienceYear: string | null = null;
 
@@ -36,24 +36,24 @@ export class EditJobComponent implements OnInit {
 
   ngOnInit(): void {
     this.formData = this.formBuilder.group({
-      position: ['', [Validators.required, Validators.maxLength(30)]],
-      jobRequirements: ['', [Validators.required, Validators.maxLength(200)]],
-      experienceYear: ['', Validators.required],
-      salary: ['', Validators.required],
-      applicationLink: ['', Validators.required],
-      qualification: ['', Validators.required],
+      job_position: ['', [Validators.required, Validators.maxLength(30)]],
+      job_description: ['', [Validators.required, Validators.maxLength(200)]],
+      job_experience: ['', Validators.required],
+      job_salary: ['', Validators.required],
+      job_link: ['', Validators.required],
+      job_qualification: ['', Validators.required],
     });
     this.formData.patchValue({
-      position: this.job.position,
-      jobRequirements: this.job.jobRequirements,
-      experienceYear: this.job.experienceYear,
-      salary: this.job.salary,
-      applicationLink: this.job.applicationLink,
-      qualification: this.job.qualification
+      job_position: this.job.job_position,
+      job_description: this.job.job_description,
+      job_experience: this.job.job_experience,
+      job_salary: this.job.job_salary,
+      job_link: this.job.job_link,
+      job_qualification: this.job.job_qualification
 
     });
-    this.selectedExperienceYear = this.job.experienceYear.toString();
-    this.selectedQualification = this.job.qualification.toString();
+    this.selectedExperienceYear = this.job.job_experience.toString();
+    this.selectedQualification = this.job.job_qualification.toString();
 
   }
 
@@ -63,7 +63,7 @@ export class EditJobComponent implements OnInit {
 
   selectQualification(qualification: string) {
     this.selectedQualification = qualification;
-    this.formData.controls['qualification'].setValue(qualification);
+    this.formData.controls['job_qualification'].setValue(qualification);
     const dropdownToggle: HTMLInputElement | null = document.querySelector('#dropdown-toggle');
     if (dropdownToggle) {
       dropdownToggle.checked = false;
@@ -72,56 +72,10 @@ export class EditJobComponent implements OnInit {
 
   selectExperienceYear(experienceYear: string) {
     this.selectedExperienceYear = experienceYear;
-    this.formData.controls['experienceYear'].setValue(experienceYear);
+    this.formData.controls['job_experience'].setValue(experienceYear);
     const dropdownToggle: HTMLInputElement | null = document.querySelector('#experienceYear-dropdown-toggle');
     if (dropdownToggle) {
       dropdownToggle.checked = false;
-    }
-  }
-
-  onDragOver(event: DragEvent): void {
-    event.preventDefault();
-    event.stopPropagation();
-    const dropZone = event.target as HTMLElement;
-    dropZone.classList.add('dragging');
-  }
-
-  onDragLeave(event: DragEvent): void {
-    const dropZone = event.target as HTMLElement;
-    dropZone.classList.remove('dragging');
-  }
-
-  onDrop(event: DragEvent): void {
-    event.preventDefault();
-    event.stopPropagation();
-    const dropZone = event.target as HTMLElement;
-    dropZone.classList.remove('dragging');
-
-    if (event.dataTransfer?.files) {
-      const file = event.dataTransfer.files[0];
-      this.selectedImage = file;
-      this.formData.patchValue({ image: file });
-      this.updateImagePreview(file);
-    }
-  }
-
-  updateImagePreview(file: File): void {
-    const reader = new FileReader();
-    reader.onload = (e) => {
-      this.imagePreview = e.target?.result;
-    };
-    reader.readAsDataURL(file);
-  }
-
-  handleImageInput(event: any) {
-    const file: File = event.target.files[0];
-    if (file) {
-      this.selectedImage = file;
-      this.formData.patchValue({
-        image: file
-      });
-      this.updateImagePreview(file);
-      console.log('Image file selected:', file);
     }
   }
 

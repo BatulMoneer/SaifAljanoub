@@ -18,12 +18,12 @@
       <div class="middle-top">
         <div class="card">
           <p class="text">المسمى الوظيفي:<span style="color: #CA7676;">*</span></p>
-          <input type="text" formControlName="position" placeholder="اكتب اسم الخدمة" required>
-          <div *ngIf="submitted && formData.controls['position'].errors">
-            <p class="invalid" *ngIf="submitted && formData.controls['position'].errors.required">
+          <input type="text" formControlName="job_position" placeholder="اكتب اسم الخدمة" required>
+          <div *ngIf="submitted && formData.controls['job_position'].errors">
+            <p class="invalid" *ngIf="submitted && formData.controls['job_position'].errors.required">
               الحقل مطلوب!
             </p>
-            <p class="invalid" *ngIf="submitted && formData.controls['position'].errors.maxlength">
+            <p class="invalid" *ngIf="submitted && formData.controls['job_position'].errors.maxlength">
               العنوان طويل جدا!
             </p>
           </div>
@@ -41,15 +41,15 @@
             <ul class="dropdown__items">
               <li *ngFor="let qualification of qualifications">
                 <label>
-                  <input type="radio" formControlName="qualification" value="{{ qualification }}"
+                  <input type="radio" formControlName="job_qualification" value="{{ qualification }}"
                     (click)="selectQualification(qualification)" />
                   {{ qualification }}
                 </label>
               </li>
             </ul>
           </div>
-          <div *ngIf="submitted && formData.controls['qualification'].errors">
-            <p class="invalid" *ngIf="submitted && formData.controls['qualification'].errors.required">
+          <div *ngIf="submitted && formData.controls['job_qualification'].errors">
+            <p class="invalid" *ngIf="submitted && formData.controls['job_qualification'].errors.required">
               الحقل مطلوب!
             </p>
           </div>
@@ -66,15 +66,15 @@
             <ul class="dropdown__items">
               <li *ngFor="let experienceYear of experienceYears">
                 <label>
-                  <input type="radio" formControlName="qualification" value="{{ experienceYear }}"
+                  <input type="radio" formControlName="job_experience" value="{{ experienceYear }}"
                     (click)="selectExperienceYear(experienceYear)" />
                   {{ experienceYear }}
                 </label>
               </li>
             </ul>
           </div>
-          <div *ngIf="submitted && formData.controls['experienceYear'].errors">
-            <p class="invalid" *ngIf="submitted && formData.controls['experienceYear'].errors.required">
+          <div *ngIf="submitted && formData.controls['job_experience'].errors">
+            <p class="invalid" *ngIf="submitted && formData.controls['job_experience'].errors.required">
               الحقل مطلوب!
             </p>
           </div>
@@ -82,12 +82,12 @@
 
         <div class="card">
           <p class="text">الراتب:<span style="color: #CA7676;">*</span></p>
-          <input type="text" formControlName="salary" placeholder="اكتب االراتب المعروض" required>
-          <div *ngIf="submitted && formData.controls['salary'].errors">
-            <p class="invalid" *ngIf="submitted && formData.controls['salary'].errors.required">
+          <input type="text" formControlName="job_salary" placeholder="اكتب االراتب المعروض" required>
+          <div *ngIf="submitted && formData.controls['job_salary'].errors">
+            <p class="invalid" *ngIf="submitted && formData.controls['job_salary'].errors.required">
               الحقل مطلوب!
             </p>
-            <p class="invalid" *ngIf="submitted && formData.controls['salary'].errors.maxlength">
+            <p class="invalid" *ngIf="submitted && formData.controls['job_salary'].errors.maxlength">
               العنوان طويل جدا!
             </p>
           </div>
@@ -97,22 +97,22 @@
 
 
       <p class="text">متطلبات الوظيفة:<span style="color: #CA7676;">*</span> (لا يتعدى ٢٠٠ حرف)</p>
-      <textarea class="jobRequirements" type="text" formControlName="jobRequirements"
+      <textarea class="jobRequirements" type="text" formControlName="job_description"
         placeholder="اكتب متطلبات الوظيفة بشكل بسيط" required></textarea>
-      <div *ngIf="submitted && formData.controls['jobRequirements'].errors">
-        <p class="invalid" *ngIf=" formData.controls['jobRequirements'].errors.required">
+      <div *ngIf="submitted && formData.controls['job_description'].errors">
+        <p class="invalid" *ngIf=" formData.controls['job_description'].errors.required">
           الحقل مطلوب!</p>
-        <p class="invalid" *ngIf="formData.controls['jobRequirements'].errors.maxlength">
+        <p class="invalid" *ngIf="formData.controls['job_description'].errors.maxlength">
           الوصف طويل جدا!</p>
       </div>
 
       <p class="text">رابط التقديم:<span style="color: #CA7676;">*</span></p>
-      <input type="text" formControlName="applicationLink" placeholder="ادخل رابط التقديم للوظيفة" required>
-      <div *ngIf="submitted && formData.controls['applicationLink'].errors">
-        <p class="invalid" *ngIf="submitted && formData.controls['applicationLink'].errors.required">
+      <input type="text" formControlName="job_link" placeholder="ادخل رابط التقديم للوظيفة" required>
+      <div *ngIf="submitted && formData.controls['job_link'].errors">
+        <p class="invalid" *ngIf="submitted && formData.controls['job_link'].errors.required">
           الحقل مطلوب!
         </p>
-        <p class="invalid" *ngIf="submitted && formData.controls['applicationLink2'].errors.maxlength">
+        <p class="invalid" *ngIf="submitted && formData.controls['job_link'].errors.maxlength">
           العنوان طويل جدا!
         </p>
       </div>

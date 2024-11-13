@@ -20,15 +20,15 @@ export class AddProjectComponent implements OnInit {
 
   ngOnInit(): void {
     this.formData = this.formBuilder.group({
-      title: ['', [
+      projects_name: ['', [
         Validators.required,
         Validators.maxLength(30)
       ]],
-      description: ['', [
+      projects_description: ['', [
         Validators.required,
         Validators.maxLength(150),
       ]],
-      image: ['', [
+      projects_image: ['', [
         Validators.required,
       ]],
     });
@@ -60,7 +60,7 @@ export class AddProjectComponent implements OnInit {
     if (event.dataTransfer?.files) {
       const file = event.dataTransfer.files[0];
       this.selectedImage = file;
-      this.formData.patchValue({ image: file });
+      this.formData.patchValue({ projects_image: file });
       this.updateImagePreview(file);
     }
   }
@@ -78,7 +78,7 @@ export class AddProjectComponent implements OnInit {
     if (file) {
       this.selectedImage = file;
       this.formData.patchValue({
-        image: file
+        projects_image: file
       });
       this.updateImagePreview(file);
       console.log('Image file selected:', file);

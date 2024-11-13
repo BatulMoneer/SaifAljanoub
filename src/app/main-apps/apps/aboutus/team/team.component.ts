@@ -12,39 +12,39 @@ export class TeamComponent implements OnInit {
 
   team = [
     {
-      image: "../../../../../assets/images/default.png",
-      name: "سامر سامر",
-      position: "مدير مشاريع"
+      employee_pic: "../../../../../assets/images/default.png",
+      employee_name: "سامر سامر",
+      employee_position: "مدير مشاريع"
     },
     {
-      image: "../../../../../assets/images/default.png",
-      name: "سامر سامر",
-      position: "مدير مشاريع"
+      employee_pic: "../../../../../assets/images/default.png",
+      employee_name: "سامر سامر",
+      employee_position: "مدير مشاريع"
     },
     {
-      image: "../../../../../assets/images/team2.png",
-      name: "سامر سامر",
-      position: "مدير مشاريع"
+      employee_pic: "../../../../../assets/images/team2.png",
+      employee_name: "سامر سامر",
+      employee_position: "مدير مشاريع"
     },
     {
-      image: "../../../../../assets/images/default.png",
-      name: "سامر سامر",
-      position: "مدير مشاريع"
+      employee_pic: "../../../../../assets/images/default.png",
+      employee_name: "سامر سامر",
+      employee_position: "مدير مشاريع"
     },
     {
-      image: "../../../../../assets/images/team1.png",
-      name: "سامر سامر",
-      position: "مدير مشاريع"
+      employee_pic: "../../../../../assets/images/team1.png",
+      employee_name: "سامر سامر",
+      employee_position: "مدير مشاريع"
     },
     {
-      image: "../../../../../assets/images/default.png",
-      name: "سامر سامر",
-      position: "مدير مشاريع"
+      employee_pic: "../../../../../assets/images/default.png",
+      employee_name: "سامر سامر",
+      employee_position: "مدير مشاريع"
     },
     {
-      image: "../../../../../assets/images/team2.png",
-      name: "سامر سامر",
-      position: "مدير مشاريع"
+      employee_pic: "../../../../../assets/images/team2.png",
+      employee_name: "سامر سامر",
+      employee_position: "مدير مشاريع"
     },
 
   ];

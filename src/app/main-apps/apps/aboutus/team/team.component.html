@@ -16,10 +16,10 @@
     <ng-container *ngFor="let item of paginatedServices; let i = index">
       <div class="card" *ngIf="i < 5">
         <div class="image">
-          <img [src]="item.image" alt="">
+          <img [src]="item.employee_pic" alt="">
         </div>
-        <h4>{{item.name}}</h4>
-        <p>{{item.position | slice:0:50}}</p>
+        <h4>{{item.employee_name}}</h4>
+        <p>{{item.employee_position | slice:0:50}}</p>
         <div class="icons">
           <a routerLink="/" class="icon">
             <i class="fas fa-trash-alt trash"></i>

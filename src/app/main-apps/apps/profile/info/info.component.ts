@@ -14,10 +14,10 @@ export class InfoComponent implements OnInit {
   ) { }
 
   employee = {
-    image: "../../../../../assets/images/default.png",
-    name: "سامر سامر",
-    position: "مدير مشاريع",
-    email: "emp@gmail.com"
+    employee_pic: "../../../../../assets/images/default.png",
+    employee_name: "سامر سامر",
+    employee_position: "مدير مشاريع",
+    admin_email: "emp@gmail.com"
   };
 
   formData: FormGroup;
@@ -28,32 +28,32 @@ export class InfoComponent implements OnInit {
 
   ngOnInit(): void {
     this.formData = this.formBuilder.group({
-      name: ['', [
+      employee_name: ['', [
         Validators.required,
         Validators.maxLength(30)
       ]],
-      position: ['', [
+      employee_position: ['', [
         Validators.required,
         Validators.maxLength(30),
       ]],
-      email: ['', [
+      admin_email: ['', [
         Validators.required,
         Validators.email
       ]],
-      image: ['', []],
-      password: ['', [
+      employee_pic: ['', []],
+      admin_password: ['', [
         Validators.minLength(10),
         Validators.maxLength(12)
       ]]
     });
     this.formData.patchValue({
-      name: this.employee.name,
-      position: this.employee.position,
-      image: this.employee.image,
-      email: this.employee.email
+      employee_name: this.employee.employee_name,
+      employee_position: this.employee.employee_position,
+      employee_pic: this.employee.employee_pic,
+      admin_email: this.employee.admin_email
 
     });
-    this.imagePreview = this.employee.image;
+    this.imagePreview = this.employee.admin_email;
 
   }
 
@@ -83,7 +83,7 @@ export class InfoComponent implements OnInit {
     if (event.dataTransfer?.files) {
       const file = event.dataTransfer.files[0];
       this.selectedImage = file;
-      this.formData.patchValue({ image: file });
+      this.formData.patchValue({ admin_email: file });
     }
   }
 
@@ -92,7 +92,7 @@ export class InfoComponent implements OnInit {
     if (file) {
       this.selectedImage = file;
       this.formData.patchValue({
-        image: file
+        admin_email: file
       });
       this.updateImagePreview(file);
       console.log('Image file selected:', file);

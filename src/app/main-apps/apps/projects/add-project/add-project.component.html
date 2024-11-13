@@ -16,22 +16,23 @@
     <form [formGroup]="formData" (ngSubmit)="add()">
 
       <p class="text">اسم المشروع:<span style="color: #CA7676;">*</span></p>
-      <input type="text" formControlName="title" placeholder="اكتب اسم الخدمة" required>
-      <div *ngIf="submitted && formData.controls['title'].errors">
-        <p class="invalid" *ngIf="submitted && formData.controls['title'].errors.required">
+      <input type="text" formControlName="projects_name" placeholder="اكتب اسم الخدمة" required>
+      <div *ngIf="submitted && formData.controls['projects_name'].errors">
+        <p class="invalid" *ngIf="submitted && formData.controls['projects_name'].errors.required">
           الحقل مطلوب!
         </p>
-        <p class="invalid" *ngIf="submitted && formData.controls['title'].errors.maxlength">
+        <p class="invalid" *ngIf="submitted && formData.controls['projects_name'].errors.maxlength">
           العنوان طويل جدا!
         </p>
       </div>
 
       <p class="text">وصف المشروع:<span style="color: #CA7676;">*</span> (لا يتعدى ١٥٠ حرف)</p>
-      <textarea type="text" formControlName="description" placeholder="اكتب وصف بسيط عن الخدمة" required></textarea>
-      <div *ngIf="submitted && formData.controls['description'].errors">
-        <p class="invalid" *ngIf=" formData.controls['description'].errors.required">
+      <textarea type="text" formControlName="projects_description" placeholder="اكتب وصف بسيط عن الخدمة"
+        required></textarea>
+      <div *ngIf="submitted && formData.controls['projects_description'].errors">
+        <p class="invalid" *ngIf=" formData.controls['projects_description'].errors.required">
           الحقل مطلوب!</p>
-        <p class="invalid" *ngIf="formData.controls['description'].errors.maxlength">
+        <p class="invalid" *ngIf="formData.controls['projects_description'].errors.maxlength">
           الوصف طويل جدا!</p>
       </div>
 
@@ -43,8 +44,8 @@
         <button type="button" (click)="fileInput.click()">اختر ملف</button>
       </div>
       <input type="file" #fileInput (change)="handleImageInput($event)" accept="image/*" hidden>
-      <div *ngIf="submitted && formData.controls['image'].errors">
-        <p class="invalid" *ngIf="formData.controls['image'].errors.required">الحقل مطلوب!</p>
+      <div *ngIf="submitted && formData.controls['projects_image'].errors">
+        <p class="invalid" *ngIf="formData.controls['projects_image'].errors.required">الحقل مطلوب!</p>
       </div>
       <div class="butt">
         <button type="submit">إضافة</button>

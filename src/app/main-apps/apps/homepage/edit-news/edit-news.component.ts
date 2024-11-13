@@ -14,9 +14,9 @@ export class EditNewsComponent implements OnInit {
   ) { }
 
   new = {
-    image: "../../../../../assets/images/new.jpg",
-    title: "مشروع شارع النور",
-    description: "في سيف الجنوب نقدم أفضل خدمات مقاولات الطرق في سيف الجنوب نقدم أفضل خدمات مقاولات الطرق في سيف الجنوب  في سيف الجنوب نقدم أفضل خدمات مقاولات الطرق   "
+    news_image: "../../../../../assets/images/new.jpg",
+    news_name: "مشروع شارع النور",
+    news_description: "في سيف الجنوب نقدم أفضل خدمات مقاولات الطرق في سيف الجنوب نقدم أفضل خدمات مقاولات الطرق في سيف الجنوب  في سيف الجنوب نقدم أفضل خدمات مقاولات الطرق   "
   }
   formData: FormGroup;
   submitted = false
@@ -26,24 +26,24 @@ export class EditNewsComponent implements OnInit {
 
   ngOnInit(): void {
     this.formData = this.formBuilder.group({
-      title: ['', [
+      news_name: ['', [
         Validators.required,
         Validators.maxLength(30)
       ]],
-      description: ['', [
+      news_description: ['', [
         Validators.required,
         Validators.maxLength(150),
       ]],
-      image: ['', [
+      news_image: ['', [
         Validators.required,
       ]],
     });
     this.formData.patchValue({
-      title: this.new.title,
-      description: this.new.description,
-      image: this.new.image
+      news_name: this.new.news_name,
+      news_description: this.new.news_description,
+      news_image: this.new.news_image
     });
-    this.imagePreview = this.new.image;
+    this.imagePreview = this.new.news_image;
 
   }
 
@@ -73,7 +73,7 @@ export class EditNewsComponent implements OnInit {
     if (event.dataTransfer?.files) {
       const file = event.dataTransfer.files[0];
       this.selectedImage = file;
-      this.formData.patchValue({ image: file });
+      this.formData.patchValue({ news_image: file });
     }
   }
 
@@ -82,7 +82,7 @@ export class EditNewsComponent implements OnInit {
     if (file) {
       this.selectedImage = file;
       this.formData.patchValue({
-        image: file
+        news_image: file
       });
       this.updateImagePreview(file);
       console.log('Image file selected:', file);

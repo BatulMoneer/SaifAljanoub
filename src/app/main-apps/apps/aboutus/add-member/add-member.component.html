@@ -16,23 +16,23 @@
     <form [formGroup]="formData" (ngSubmit)="add()">
 
       <p class="text">اسم الموظف:<span style="color: #CA7676;">*</span></p>
-      <input type="text" formControlName="name" placeholder="اكتب اسم الموظف" required>
-      <div *ngIf="submitted && formData.controls['name'].errors">
-        <p class="invalid" *ngIf="submitted && formData.controls['name'].errors.required">
+      <input type="text" formControlName="employee_name" placeholder="اكتب اسم الموظف" required>
+      <div *ngIf="submitted && formData.controls['employee_name'].errors">
+        <p class="invalid" *ngIf="submitted && formData.controls['employee_name'].errors.required">
           الحقل مطلوب!
         </p>
-        <p class="invalid" *ngIf="submitted && formData.controls['name'].errors.maxlength">
+        <p class="invalid" *ngIf="submitted && formData.controls['employee_name'].errors.maxlength">
           الاسم طويل جدا!
         </p>
       </div>
 
       <p class="text">المنصب:<span style="color: #CA7676;">*</span></p>
-      <input type="text" formControlName="position" placeholder="اكتب اسم الموظف" required>
-      <div *ngIf="submitted && formData.controls['position'].errors">
-        <p class="invalid" *ngIf="submitted && formData.controls['position'].errors.required">
+      <input type="text" formControlName="employee_position" placeholder="اكتب اسم الموظف" required>
+      <div *ngIf="submitted && formData.controls['employee_position'].errors">
+        <p class="invalid" *ngIf="submitted && formData.controls['employee_position'].errors.required">
           الحقل مطلوب!
         </p>
-        <p class="invalid" *ngIf="submitted && formData.controls['position'].errors.maxlength">
+        <p class="invalid" *ngIf="submitted && formData.controls['employee_position'].errors.maxlength">
           المنصب طويل جدا!
         </p>
       </div>

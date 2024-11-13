@@ -26,6 +26,10 @@ export class AboutusComponent implements AfterViewInit {
     { name: 'ماجد الطويل', position: 'رئيس الموارد البشرية', imageUrl: '../../../assets/images/team1.png' },
   ];
   ngAfterViewInit(): void {
+    window.onload = function () {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    };
+
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {

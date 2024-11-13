@@ -17,7 +17,7 @@ export class AddJobComponent implements OnInit {
   submitted = false
 
   qualifications = ["ثانوية عامة", "دبلوم", "بكالوريوس", "ماجستير", "دكتوراه"];
-  experienceYears = ["لا يوجد", "٠-٤", "٤ - ٦", "٦-١٠", "اكثر من ١٠ "];
+  experienceYears = ["لا يوجد", "٠-٤", "٤-٦", "٦-١٠", "أكثر من ١٠"];
   selectedQualification: string | null = null;
   selectedExperienceYear: string | null = null;
 
@@ -26,12 +26,12 @@ export class AddJobComponent implements OnInit {
 
   ngOnInit(): void {
     this.formData = this.formBuilder.group({
-      position: ['', [Validators.required, Validators.maxLength(30)]],
-      jobRequirements: ['', [Validators.required, Validators.maxLength(200)]],
-      experienceYear: ['', Validators.required],
-      salary: ['', Validators.required],
-      applicationLink: ['', Validators.required],
-      qualification: ['', Validators.required],
+      job_position: ['', [Validators.required, Validators.maxLength(30)]],
+      job_description: ['', [Validators.required, Validators.maxLength(200)]],
+      job_experience: ['', Validators.required],
+      job_salary: ['', Validators.required],
+      job_link: ['', Validators.required],
+      job_qualification: ['', Validators.required],
     });
   }
 
@@ -41,7 +41,7 @@ export class AddJobComponent implements OnInit {
 
   selectQualification(qualification: string) {
     this.selectedQualification = qualification;
-    this.formData.controls['qualification'].setValue(qualification);
+    this.formData.controls['job_qualification'].setValue(qualification);
     const dropdownToggle: HTMLInputElement | null = document.querySelector('#qualification-dropdown-toggle');
     if (dropdownToggle) {
       dropdownToggle.checked = false;
@@ -50,7 +50,7 @@ export class AddJobComponent implements OnInit {
 
   selectExperienceYear(experienceYear: string) {
     this.selectedExperienceYear = experienceYear;
-    this.formData.controls['experienceYear'].setValue(experienceYear);
+    this.formData.controls['job_experience'].setValue(experienceYear);
     const dropdownToggle: HTMLInputElement | null = document.querySelector('#experienceYear-dropdown-toggle');
     if (dropdownToggle) {
       dropdownToggle.checked = false;

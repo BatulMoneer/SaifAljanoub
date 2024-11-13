@@ -21,15 +21,15 @@ export class AddServiceComponent implements OnInit {
 
   ngOnInit(): void {
     this.formData = this.formBuilder.group({
-      title: ['', [
+      services_name: ['', [
         Validators.required,
         Validators.maxLength(30)
       ]],
-      description: ['', [
+      services_description: ['', [
         Validators.required,
         Validators.maxLength(150),
       ]],
-      image: ['', [
+      services_image: ['', [
         Validators.required,
       ]],
     });
@@ -61,7 +61,7 @@ export class AddServiceComponent implements OnInit {
     if (event.dataTransfer?.files) {
       const file = event.dataTransfer.files[0];
       this.selectedImage = file;
-      this.formData.patchValue({ image: file });
+      this.formData.patchValue({ services_image: file });
       this.updateImagePreview(file);
     }
   }
@@ -79,7 +79,7 @@ export class AddServiceComponent implements OnInit {
     if (file) {
       this.selectedImage = file;
       this.formData.patchValue({
-        image: file
+        services_image: file
       });
       this.updateImagePreview(file);
       console.log('Image file selected:', file);

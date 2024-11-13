@@ -13,9 +13,9 @@ export class EditServiceComponent implements OnInit {
   ) { }
 
   service = {
-    image: "../../../../../assets/images/work.jpg",
-    title: "مقاولات الطرق",
-    description: "في سيف الجنوب نقدم أفضل خدمات مقاولات الطرق في سيف الجنوب نقدم أفضل خدمات مقاولات الطرق في سيف الجنوب  في سيف الجنوب نقدم أفضل خدمات مقاولات الطرق   "
+    services_image: "../../../../../assets/images/work.jpg",
+    services_name: "مقاولات الطرق",
+    services_description: "في سيف الجنوب نقدم أفضل خدمات مقاولات الطرق في سيف الجنوب نقدم أفضل خدمات مقاولات الطرق في سيف الجنوب  في سيف الجنوب نقدم أفضل خدمات مقاولات الطرق   "
   }
 
   formData: FormGroup;
@@ -26,24 +26,24 @@ export class EditServiceComponent implements OnInit {
 
   ngOnInit(): void {
     this.formData = this.formBuilder.group({
-      title: ['', [
+      services_name: ['', [
         Validators.required,
         Validators.maxLength(30)
       ]],
-      description: ['', [
+      services_description: ['', [
         Validators.required,
         Validators.maxLength(150),
       ]],
-      image: ['', [
+      services_image: ['', [
         Validators.required,
       ]],
     });
     this.formData.patchValue({
-      title: this.service.title,
-      description: this.service.description,
-      image: this.service.image
+      services_name: this.service.services_name,
+      services_description: this.service.services_description,
+      services_image: this.service.services_image
     });
-    this.imagePreview = this.service.image;
+    this.imagePreview = this.service.services_image;
 
   }
 
@@ -73,7 +73,7 @@ export class EditServiceComponent implements OnInit {
     if (event.dataTransfer?.files) {
       const file = event.dataTransfer.files[0];
       this.selectedImage = file;
-      this.formData.patchValue({ image: file });
+      this.formData.patchValue({ services_image: file });
     }
   }
 
@@ -82,7 +82,7 @@ export class EditServiceComponent implements OnInit {
     if (file) {
       this.selectedImage = file;
       this.formData.patchValue({
-        image: file
+        services_image: file
       });
       this.updateImagePreview(file);
       console.log('Image file selected:', file);

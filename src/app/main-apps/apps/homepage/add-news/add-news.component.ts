@@ -20,15 +20,15 @@ export class AddNewsComponent implements OnInit {
 
   ngOnInit(): void {
     this.formData = this.formBuilder.group({
-      title: ['', [
+      news_name: ['', [
         Validators.required,
         Validators.maxLength(30)
       ]],
-      description: ['', [
+      news_description: ['', [
         Validators.required,
         Validators.maxLength(150),
       ]],
-      image: ['', [
+      news_image: ['', [
         Validators.required,
       ]],
     });
@@ -60,7 +60,7 @@ export class AddNewsComponent implements OnInit {
     if (event.dataTransfer?.files) {
       const file = event.dataTransfer.files[0];
       this.selectedImage = file;
-      this.formData.patchValue({ image: file });
+      this.formData.patchValue({ news_image: file });
       this.updateImagePreview(file);
     }
   }
@@ -78,7 +78,7 @@ export class AddNewsComponent implements OnInit {
     if (file) {
       this.selectedImage = file;
       this.formData.patchValue({
-        image: file
+        news_image: file
       });
       this.updateImagePreview(file);
       console.log('Image file selected:', file);

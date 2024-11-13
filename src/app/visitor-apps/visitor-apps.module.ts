@@ -12,6 +12,7 @@ import { ProjectsComponent } from './projects/projects.component';
 import { ContactComponent } from './contact/contact.component';
 import { JobsComponent } from './jobs/jobs.component';
 import { PartnersComponent } from './partners/partners.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 
 
@@ -31,6 +32,8 @@ import { PartnersComponent } from './partners/partners.component';
   imports: [
     CommonModule,
     VisitorAppsRoutingModule,
+    FormsModule,
+    ReactiveFormsModule,
 
   ]
 })
