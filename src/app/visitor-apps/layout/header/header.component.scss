@@ -83,8 +83,10 @@ input:checked + .slider:before {
   background-color: white;
 }
 
-.logo{
+img{
   padding-left: 10px;
+  max-height: 70px;
+  max-width: auto;
 }
 
 .theme-text {
