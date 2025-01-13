@@ -1,3 +1,5 @@
+import { visitor } from 'src/app/constant/Routes';
+import { ImpApiService } from './../../services/api.service';
 import { AfterViewInit, Component, ElementRef, HostListener, OnInit, QueryList, ViewChild, ViewChildren } from '@angular/core';
 
 @Component({
@@ -19,7 +21,7 @@ export class ProjectsComponent implements AfterViewInit {
 
   itemWidth: number = 0;
 
-  constructor() { }
+  constructor(private impApiService: ImpApiService) { }
   ngAfterViewInit(): void {
     window.onload = function () {
       window.scrollTo({ top: 0, behavior: "smooth" });
@@ -41,6 +43,10 @@ export class ProjectsComponent implements AfterViewInit {
     this.projects.forEach((project) => {
       observer.observe(project.nativeElement);
     });
+
+    this.impApiService.get(visitor.projects).subscribe(data => {
+          console.log(data);
+        });
   }
 
   @HostListener('window:resize', [])

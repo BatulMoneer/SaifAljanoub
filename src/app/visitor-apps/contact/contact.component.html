@@ -38,34 +38,36 @@
     </div>
 
     <form [formGroup]="contactForm" class="contact-form" (ngSubmit)="onSubmit()">
-      <label for="email">البريد الإلكتروني<span style="color: #CA7676;">*</span></label>
-      <input type="email" id="email" formControlName="email" placeholder="البريد الإلكتروني">
-      <div *ngIf="submitted && contactForm.controls['email'].errors">
-        <p class="invalid" *ngIf="submitted && contactForm.controls['email'].errors.required">الحقل مطلوب!</p>
-        <p class="invalid" *ngIf="submitted && contactForm.controls['email'].errors.email">البريد خاطئ!</p>
+      <label for="visitor_email">البريد الإلكتروني<span style="color: #CA7676;">*</span></label>
+      <input type="email" id="visitor_email" formControlName="visitor_email" placeholder="البريد الإلكتروني">
+      <div *ngIf="submitted && contactForm.controls['visitor_email'].errors">
+        <p class="invalid" *ngIf="submitted && contactForm.controls['visitor_email'].errors.required">الحقل مطلوب!</p>
+        <p class="invalid" *ngIf="submitted && contactForm.controls['visitor_email'].errors.email">البريد خاطئ!</p>
       </div>
 
 
-      <label for="messageType">نوع الرسالة<span style="color: #CA7676;">*</span></label>
+      <label for="message_type">نوع الرسالة<span style="color: #CA7676;">*</span></label>
       <div class="radio-group">
         <label class="radio-label">
-          <input type="radio" formControlName="messageType" value="inquiry">
+          <input type="radio" formControlName="message_type" value="استفسار">
           <span class="custom-radio"></span> استفسار
         </label>
         <label class="radio-label">
-          <input type="radio" formControlName="messageType" value="complaint">
+          <input type="radio" formControlName="message_type" value="شكوى">
           <span class="custom-radio"></span> شكوى
         </label>
       </div>
-      <div *ngIf="submitted && contactForm.controls['messageType'].errors">
-        <p class="invalid" *ngIf="submitted && contactForm.controls['messageType'].errors.required">الحقل مطلوب!</p>
+      <div *ngIf="submitted && contactForm.controls['message_type'].errors">
+        <p class="invalid" *ngIf="submitted && contactForm.controls['message_type'].errors.required">الحقل مطلوب!</p>
       </div>
 
-      <label for="message">الرسالة <span style="color: #CA7676;">*</span> (لا تتعدى ١٠٠ حرف)</label>
-      <textarea id="message" formControlName="message" maxlength="100" placeholder="اكتب رسالتك هنا..."></textarea>
-      <div *ngIf="submitted && contactForm.controls['message'].errors">
-        <p class="invalid" *ngIf="submitted && contactForm.controls['message'].errors.required">الحقل مطلوب!</p>
-        <p class="invalid" *ngIf="submitted && contactForm.controls['message'].errors.maxlength">البريد خاطئ!</p>
+      <label for="message_content">الرسالة <span style="color: #CA7676;">*</span> (لا تتعدى ١٠٠ حرف)</label>
+      <textarea id="message_content" formControlName="message_content" maxlength="100"
+        placeholder="اكتب رسالتك هنا..."></textarea>
+      <div *ngIf="submitted && contactForm.controls['message_content'].errors">
+        <p class="invalid" *ngIf="submitted && contactForm.controls['message_content'].errors.required">الحقل مطلوب!</p>
+        <p class="invalid" *ngIf="submitted && contactForm.controls['message_content'].errors.maxlength">البريد خاطئ!
+        </p>
       </div>
 
 

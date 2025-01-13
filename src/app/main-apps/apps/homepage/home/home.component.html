@@ -12,21 +12,21 @@
 
       <div class="right" *ngIf="currentSection === 'one'">
         <p>نبذة عن الشركة: <span style="color: #CA7676;">*</span> (لا يتعدى ٥٠ حرف)</p>
-        <textarea formControlName="sectionOne" placeholder="أكتب نبذة الشركة..."></textarea>
+        <textarea formControlName="sectionOne" [(ngModel)]="about">mmmm</textarea>
         <p *ngIf="sectionOneLimitExceeded" style="color: #CA7676;">لقد تجاوزت الحد الأقصى المسموح به وهو 50 حرفاً.</p>
         <button type="submit">حفظ</button>
       </div>
 
       <div class="right" *ngIf="currentSection === 'two'">
         <p>أهدافنا: <span style="color: #CA7676;">*</span> (لا يتعدى ٢٠٠ حرف)</p>
-        <textarea formControlName="sectionTwo" placeholder="أكتب أهداف الشركة..."></textarea>
+        <textarea formControlName="sectionTwo" [(ngModel)]="comapny_goal">ssss</textarea>
         <p *ngIf="sectionTwoLimitExceeded" style="color: #CA7676;">لقد تجاوزت الحد الأقصى المسموح به وهو 150 حرفاً.</p>
         <button type="submit">حفظ</button>
       </div>
 
       <div class="right" *ngIf="currentSection === 'three'">
         <p>رؤيتنا: <span style="color: #CA7676;">*</span> (لا يتعدى ٢٠٠ حرف)</p>
-        <textarea formControlName="sectionThree" placeholder="أكتب رؤية الشركة..."></textarea>
+        <textarea formControlName="sectionThree" [(ngModel)]="company_vision">ddd</textarea>
         <p *ngIf="sectionThreeLimitExceeded" style="color: #CA7676;">لقد تجاوزت الحد الأقصى المسموح به وهو 150 حرفاً.
         </p>
         <button type="submit">حفظ</button>

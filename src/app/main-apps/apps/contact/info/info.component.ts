@@ -26,15 +26,15 @@ export class InfoComponent implements OnInit {
 
   ngOnInit(): void {
     this.formData = this.formBuilder.group({
-      phone: ['', [
+      company_phoneNo: ['', [
         Validators.required,
         Validators.pattern(/^(05\d{8}|9665\d{8})$/)
       ]],
-      Whatsapp: ['', [
+      company_whatsapp: ['', [
         Validators.required,
         Validators.pattern(/^(05\d{8}|9665\d{8})$/)
       ]],
-      email: ['', [
+      company_email: ['', [
         Validators.required,
         Validators.email
       ]],

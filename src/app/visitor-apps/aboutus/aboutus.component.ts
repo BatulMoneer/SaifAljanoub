@@ -1,4 +1,6 @@
 import { AfterViewInit, Component, ElementRef, OnInit, QueryList, ViewChildren } from '@angular/core';
+import { visitor } from 'src/app/constant/Routes';
+import { ImpApiService } from 'src/app/services/api.service';
 
 @Component({
   selector: 'app-aboutus',
@@ -8,22 +10,22 @@ import { AfterViewInit, Component, ElementRef, OnInit, QueryList, ViewChildren }
 export class AboutusComponent implements AfterViewInit {
   @ViewChildren('about') abouts!: QueryList<ElementRef>;
 
-  constructor() { }
+  constructor(private impApiService : ImpApiService) { }
 
   aboutus = "في سيف الجنوب نقدم أفضل خدمات مقاولات الطرق في سيف الجنوب نقدم أفضل خدمات مقاولات الطرق في سيف الجنوب نقدم أفضل خدمات مقاولات الطرق في سيف الجنوب نقدم أفضل خدمات مقاولات الطرق في سيف الجنوب نقدم أفضل";
-  dates = "2024 م1446 هـ";
+  dates = "2024 م 1446  هـ";
   name = "سالم سالم سالم";
 
   teamMembers = [
-    { name: 'أحمد السعدي', position: 'رئيس الشركة', imageUrl: '../../../assets/images/team1.png' },
-    { name: 'سامر اسماعيل', position: 'مدير العمليات', imageUrl: '../../../assets/images/team2.png' },
-    { name: 'سارة الامير', position: 'مدير الموارد البشرية', imageUrl: '../../../assets/images/default.png' },
-    { name: 'خالد تاجا', position: 'نائب الرئيس', imageUrl: '../../../assets/images/default.png' },
-    { name: 'محمد الاحمد', position: 'المدير المالي', imageUrl: '../../../assets/images/team2.png' },
-    { name: 'ليلى سليم', position: 'مدير التسويق', imageUrl: '../../../assets/images/team1.png' },
-    { name: 'علي احمد', position: 'المساعد الإداري', imageUrl: '../../../assets/images/default.png' },
-    { name: 'فاطمة رزق', position: 'مدير تكنولوجيا المعلومات', imageUrl: '../../../assets/images/team2.png' },
-    { name: 'ماجد الطويل', position: 'رئيس الموارد البشرية', imageUrl: '../../../assets/images/team1.png' },
+    { employee_name: 'أحمد السعدي', employee_position: 'رئيس الشركة', employee_pic: '../../../assets/images/team1.png' },
+    { employee_name: 'سامر اسماعيل', employee_position: 'مدير العمليات', employee_pic: '../../../assets/images/team2.png' },
+    { employee_name: 'سارة الامير', employee_position: 'مدير الموارد البشرية', employee_pic: '../../../assets/images/default.png' },
+    { employee_name: 'خالد تاجا', employee_position: 'نائب الرئيس', employee_pic: '../../../assets/images/default.png' },
+    { employee_name: 'محمد الاحمد', employee_position: 'المدير المالي', employee_pic: '../../../assets/images/team2.png' },
+    { employee_name: 'ليلى سليم', employee_position: 'مدير التسويق', employee_pic: '../../../assets/images/team1.png' },
+    { employee_name: 'علي احمد', employee_position: 'المساعد الإداري', employee_pic: '../../../assets/images/default.png' },
+    { employee_name: 'فاطمة رزق', employee_position: 'مدير تكنولوجيا المعلومات', employee_pic: '../../../assets/images/team2.png' },
+    { employee_name: 'ماجد الطويل', employee_position: 'رئيس الموارد البشرية', employee_pic: '../../../assets/images/team1.png' },
   ];
   ngAfterViewInit(): void {
     window.onload = function () {
@@ -45,6 +47,10 @@ export class AboutusComponent implements AfterViewInit {
 
     this.abouts.forEach((about) => {
       observer.observe(about.nativeElement);
+    });
+
+    this.impApiService.get(visitor.employees).subscribe(data => {
+      console.log(data);
     });
   }
 

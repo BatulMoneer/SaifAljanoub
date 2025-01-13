@@ -26,9 +26,9 @@
     <h1 class="title">فريقنا</h1>
     <div class="team-members">
       <div class="member" *ngFor="let member of teamMembers">
-        <img [src]="member.imageUrl" alt="{{ member.name }}" class="member-image" />
-        <h6 class="name">{{ member.name }}</h6>
-        <p class="position">{{ member.position }}</p>
+        <img [src]="member.employee_pic" alt="{{ member.name }}" class="member-image" />
+        <h6 class="name">{{ member.employee_name }}</h6>
+        <p class="position">{{ member.employee_position }}</p>
       </div>
     </div>
   </div>

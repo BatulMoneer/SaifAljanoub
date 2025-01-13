@@ -1,5 +1,7 @@
+import { ImpApiService } from './../../services/api.service';
 import { AfterViewInit, Component, ElementRef, OnInit, QueryList, ViewChild, ViewChildren } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { visitor } from 'src/app/constant/Routes';
 
 @Component({
   selector: 'app-contact',
@@ -12,21 +14,35 @@ export class ContactComponent implements AfterViewInit, OnInit {
   submitted = false
 
 
-  constructor(private fb: FormBuilder) { }
+  constructor(private fb: FormBuilder, private impApiService: ImpApiService) { }
 
   ngOnInit(): void {
     this.contactForm = this.fb.group({
-      email: ['', [Validators.required, Validators.email]],
-      messageType: ['', Validators.required],
-      message: ['', [Validators.required, Validators.maxLength(100)]]
+      visitor_email: ['', [Validators.required, Validators.email]],
+      message_type: ['', Validators.required],
+      message_content: ['', [Validators.required, Validators.maxLength(100)]]
     });
   }
 
   onSubmit() {
     this.submitted = true
     if (this.contactForm.valid) {
-      alert('Form submitted successfully!');
+      const payload = {
+        visitor_email: this.contactForm.get('visitor_email')?.value,
+        message_type: this.contactForm.get('message_type')?.value,
+        message_content: this.contactForm.get('message_content')?.value,
+      };
+
+      this.impApiService.post(visitor.send_message, payload).subscribe(
+        (data) => {
+          console.log('Message sent successfully:', data);
+        },
+        (error) => {
+          console.error('Error sending message:', error);
+        }
+      );
       console.log(this.contactForm.value);
+      this.submitted = false;
       this.contactForm.reset();
     }
   }
@@ -55,10 +71,10 @@ export class ContactComponent implements AfterViewInit, OnInit {
   }
 
   get email() {
-    return this.contactForm.get('email');
+    return this.contactForm.get('visitor_email');
   }
 
   get message() {
-    return this.contactForm.get('message');
+    return this.contactForm.get('message_content');
   }
 }

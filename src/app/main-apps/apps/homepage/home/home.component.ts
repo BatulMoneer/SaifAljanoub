@@ -9,6 +9,9 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 export class HomeComponent implements OnInit {
   currentSection: string = 'one';
   form: FormGroup;
+  about = "أكتب نبذة الشركة..."
+  comapny_goal = "أكتب أهداف الشركة..."
+  company_vision = "أكتب رؤية الشركة..."
 
   constructor(private fb: FormBuilder) {
     this.form = this.fb.group({

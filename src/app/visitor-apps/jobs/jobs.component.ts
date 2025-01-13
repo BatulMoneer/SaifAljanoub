@@ -1,4 +1,6 @@
 import { AfterViewInit, Component, ElementRef, HostListener, OnInit, QueryList, ViewChild, ViewChildren } from '@angular/core';
+import { visitor } from 'src/app/constant/Routes';
+import { ImpApiService } from 'src/app/services/api.service';
 
 @Component({
   selector: 'app-jobs',
@@ -9,6 +11,7 @@ export class JobsComponent implements AfterViewInit {
   @ViewChildren('job') jobs!: QueryList<ElementRef>;
   @ViewChild('jobsContent', { static: false }) jobsContent!: ElementRef;
 
+  constructor(private impApiService: ImpApiService) { }
 
   jobs_list = [
     {
@@ -95,7 +98,6 @@ export class JobsComponent implements AfterViewInit {
     }
   }
 
-  constructor() { }
   ngAfterViewInit(): void {
     window.onload = function () {
       window.scrollTo({ top: 0, behavior: "smooth" });
@@ -118,6 +120,10 @@ export class JobsComponent implements AfterViewInit {
     this.jobs.forEach((job) => {
       observer.observe(job.nativeElement);
     });
+
+    this.impApiService.get(visitor.jobs).subscribe(data => {
+          console.log(data);
+        });
   }
 
   @HostListener('window:resize', [])
