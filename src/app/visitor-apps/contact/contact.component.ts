@@ -1,6 +1,7 @@
 import { ImpApiService } from './../../services/api.service';
 import { AfterViewInit, Component, ElementRef, OnInit, QueryList, ViewChild, ViewChildren } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { NgxSpinnerService } from 'ngx-spinner';
 import { visitor } from 'src/app/constant/Routes';
 
 @Component({
@@ -13,8 +14,14 @@ export class ContactComponent implements AfterViewInit, OnInit {
   contactForm!: FormGroup;
   submitted = false
 
+  company_whatsapp;
+  company_email;
+  company_phoneNo;
 
-  constructor(private fb: FormBuilder, private impApiService: ImpApiService) { }
+  constructor(
+    private spinner: NgxSpinnerService,
+    private fb: FormBuilder,
+    private impApiService: ImpApiService) { }
 
   ngOnInit(): void {
     this.contactForm = this.fb.group({
@@ -22,6 +29,16 @@ export class ContactComponent implements AfterViewInit, OnInit {
       message_type: ['', Validators.required],
       message_content: ['', [Validators.required, Validators.maxLength(100)]]
     });
+
+    this.spinner.show()
+
+    this.impApiService.get(visitor.contact).subscribe((data: any) => {
+      this.company_email = data.data.company_email
+      this.company_phoneNo = data.data.company_phoneNo
+      this.company_whatsapp = data.data.company_whatsapp
+      this.spinner.hide()
+
+      })
   }
 
   onSubmit() {

@@ -63,7 +63,6 @@ export class AddMemberComponent implements OnInit {
         console.log(data);
         this.spinner.hide();
         this.toastr.success('تم الإضافة بنجاح');
-
         this.formData.reset();
         this.submitted = false;
         this.selectedImage = null;

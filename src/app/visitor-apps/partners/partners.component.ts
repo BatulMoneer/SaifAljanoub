@@ -1,4 +1,5 @@
 import { AfterViewInit, Component, ElementRef, OnInit, QueryList, ViewChildren } from '@angular/core';
+import { NgxSpinnerService } from 'ngx-spinner';
 import { visitor } from 'src/app/constant/Routes';
 import { ImpApiService } from 'src/app/services/api.service';
 
@@ -9,13 +10,17 @@ import { ImpApiService } from 'src/app/services/api.service';
 })
 export class PartnersComponent implements AfterViewInit {
   @ViewChildren('partner') partners!: QueryList<ElementRef>;
-  constructor(private impApiService: ImpApiService) { }
+  constructor(
+    private spinner: NgxSpinnerService,
+    private impApiService: ImpApiService) { }
 
   ngOnInit(): void {
+    this.spinner.show()
     this.impApiService.get(visitor.partners).subscribe((data: any) => {
       if (data && Array.isArray(data[0])) {
         this.partners_list = data[0];
         console.log(data[0])
+        this.spinner.hide()
       }
     });
 

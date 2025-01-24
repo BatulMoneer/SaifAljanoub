@@ -1,4 +1,5 @@
 import { AfterViewInit, Component, ElementRef, HostListener, OnInit, QueryList, ViewChild, ViewChildren } from '@angular/core';
+import { NgxSpinnerService } from 'ngx-spinner';
 import { visitor } from 'src/app/constant/Routes';
 import { ImpApiService } from 'src/app/services/api.service';
 @Component({
@@ -11,7 +12,9 @@ export class HomeComponent implements AfterViewInit {
   @ViewChildren('section') sections!: QueryList<ElementRef>;
   @ViewChild('widgetsContent', { static: false }) widgetsContent!: ElementRef;
 
-  constructor(private impApiService: ImpApiService,) { }
+  constructor(
+    private spinner: NgxSpinnerService,
+    private impApiService: ImpApiService,) { }
 
   news = [ ];
 
@@ -22,10 +25,12 @@ export class HomeComponent implements AfterViewInit {
   comapny_goal = "";
 
   ngOnInit(): void {
+    this.spinner.show()
     this.impApiService.get(visitor.news).subscribe((data: any) => {
       if (data && Array.isArray(data[0])) {
         this.news = data[0];
-        console.log(data[0])
+        this.spinner.hide()
+
       }
     });
 
@@ -53,11 +58,14 @@ export class HomeComponent implements AfterViewInit {
       observer.observe(section.nativeElement);
     });
 
+    this.spinner.show()
 
     this.impApiService.get(visitor.home).subscribe(data => {
       this.company_vision = data.data.company_vision,
       this.comapny_goal = data.data.comapny_goal,
       this.about_comany_short = data.data.about_comany_short
+      this.spinner.hide()
+
     });
   }
 

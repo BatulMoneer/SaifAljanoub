@@ -1,6 +1,7 @@
 import { visitor } from 'src/app/constant/Routes';
 import { ImpApiService } from './../../services/api.service';
 import { AfterViewInit, Component, ElementRef, HostListener, OnInit, QueryList, ViewChild, ViewChildren } from '@angular/core';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-services',
@@ -15,12 +16,15 @@ export class ServicesComponent implements AfterViewInit {
 
   itemWidth: number = 0;
 
-  constructor(private impApiService: ImpApiService) { }
+  constructor(
+    private spinner: NgxSpinnerService,
+    private impApiService: ImpApiService) { }
   ngOnInit(): void {
+    this.spinner.show()
     this.impApiService.get(visitor.services).subscribe((data: any) => {
       if (data && Array.isArray(data[0])) {
         this.services_list = data[0];
-        console.log(data[0])
+        this.spinner.hide()
       }
     });
 

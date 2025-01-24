@@ -1,4 +1,5 @@
 import { AfterViewInit, Component, ElementRef, OnInit, QueryList, ViewChildren } from '@angular/core';
+import { NgxSpinnerService } from 'ngx-spinner';
 import { visitor, admin } from 'src/app/constant/Routes';
 import { ImpApiService } from 'src/app/services/api.service';
 
@@ -10,11 +11,13 @@ import { ImpApiService } from 'src/app/services/api.service';
 export class AboutusComponent implements AfterViewInit {
   @ViewChildren('about') abouts!: QueryList<ElementRef>;
 
-  constructor(private impApiService : ImpApiService) { }
+  constructor(
+    private spinner: NgxSpinnerService,
+    private impApiService : ImpApiService) { }
 
   about_us = "";
-  dates = "2024 م 1446  هـ";
-  name = "سالم سالم سالم";
+  dates = "2002 م 1423  هـ";
+  name = "فهد بجاد ثنيان البقمي";
 
   teamMembers: Array<{ employee_name: string, employee_position: string, employee_pic: string }> = [];
 
@@ -39,14 +42,20 @@ export class AboutusComponent implements AfterViewInit {
     this.abouts.forEach((about) => {
       observer.observe(about.nativeElement);
     });
+    this.spinner.show()
 
     this.impApiService.get(visitor.employees).subscribe(data => {
       this.teamMembers = data[0]
-      console.log(this.teamMembers);
+      this.spinner.hide()
+
+
     });
+    this.spinner.show()
+
     this.impApiService.get(visitor.aboutus).subscribe(data => {
-      console.log(data);
       this.about_us = data.about_us
+      this.spinner.hide()
+
     });
   }
 

@@ -1,4 +1,5 @@
 import { AfterViewInit, Component, ElementRef, HostListener, OnInit, QueryList, ViewChild, ViewChildren } from '@angular/core';
+import { NgxSpinnerService } from 'ngx-spinner';
 import { visitor } from 'src/app/constant/Routes';
 import { ImpApiService } from 'src/app/services/api.service';
 
@@ -11,9 +12,10 @@ export class JobsComponent implements AfterViewInit, OnInit {
   @ViewChildren('job') jobs!: QueryList<ElementRef>;
   @ViewChild('jobsContent', { static: false }) jobsContent!: ElementRef;
 
-  constructor(private impApiService: ImpApiService) { }
+  constructor(
+    private spinner: NgxSpinnerService,
+    private impApiService: ImpApiService) { }
 
-  // Initialize variables
   jobs_list: any[] = [];
   jobs_length: number = 0;
   itemWidth: number = 0;
@@ -48,10 +50,12 @@ export class JobsComponent implements AfterViewInit, OnInit {
   }
 
   ngOnInit(): void {
+    this.spinner.show()
     this.impApiService.get(visitor.jobs).subscribe((data: any) => {
       if (data && Array.isArray(data[0])) {
         this.jobs_list = data[0];
         this.jobs_length = this.jobs_list.length;
+        this.spinner.hide()
       }
     });
   }
