@@ -14,7 +14,7 @@
   <div class="middle">
     <form [formGroup]="formData" (ngSubmit)="add()">
 
-      <p class="text">نبذة عن الشركة:<span style="color: #CA7676;">*</span> (لا يتعدى ٢٠٠ حرف)</p>
+      <p class="text">تعريف عن الشركة:<span style="color: #CA7676;">*</span> (لا يتعدى ٢٠٠ حرف)</p>
       <textarea type="text" formControlName="about_comany" placeholder="اكتب وصف بسيط عن الخدمة" required></textarea>
       <div *ngIf="submitted && formData.controls['about_comany'].errors">
         <p class="invalid" *ngIf=" formData.controls['about_comany'].errors.required">

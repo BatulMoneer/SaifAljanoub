@@ -2,34 +2,38 @@
   <div class="top">
     <h1>الرئيسية</h1>
   </div>
-  <form [formGroup]="form" (ngSubmit)="onSubmit()">
+  <form [formGroup]="form">
     <div class="middle">
       <div class="left">
-        <button (click)="showSection('one')">النبذة</button>
-        <button (click)="showSection('two')">الأهداف</button>
-        <button (click)="showSection('three')">الرؤية</button>
+        <button type="button" (click)="showSection('one')">النبذة</button>
+        <button type="button" (click)="showSection('two')">الأهداف</button>
+        <button type="button" (click)="showSection('three')">الرؤية</button>
       </div>
-
       <div class="right" *ngIf="currentSection === 'one'">
         <p>نبذة عن الشركة: <span style="color: #CA7676;">*</span> (لا يتعدى ٥٠ حرف)</p>
-        <textarea formControlName="sectionOne" [(ngModel)]="about">mmmm</textarea>
-        <p *ngIf="sectionOneLimitExceeded" style="color: #CA7676;">لقد تجاوزت الحد الأقصى المسموح به وهو 50 حرفاً.</p>
-        <button type="submit">حفظ</button>
+        <textarea formControlName="sectionOne"></textarea>
+        <p *ngIf="sectionOneLimitExceeded" style="color: #CA7676;">
+          لقد تجاوزت الحد الأقصى المسموح به وهو 50 حرفاً.
+        </p>
+        <button type="button" (click)="onSubmit('one')">حفظ</button>
       </div>
 
       <div class="right" *ngIf="currentSection === 'two'">
         <p>أهدافنا: <span style="color: #CA7676;">*</span> (لا يتعدى ٢٠٠ حرف)</p>
-        <textarea formControlName="sectionTwo" [(ngModel)]="comapny_goal">ssss</textarea>
-        <p *ngIf="sectionTwoLimitExceeded" style="color: #CA7676;">لقد تجاوزت الحد الأقصى المسموح به وهو 150 حرفاً.</p>
-        <button type="submit">حفظ</button>
+        <textarea formControlName="sectionTwo"></textarea>
+        <p *ngIf="sectionTwoLimitExceeded" style="color: #CA7676;">
+          لقد تجاوزت الحد الأقصى المسموح به وهو 200 حرفاً.
+        </p>
+        <button type="button" (click)="onSubmit('two')">حفظ</button>
       </div>
 
       <div class="right" *ngIf="currentSection === 'three'">
         <p>رؤيتنا: <span style="color: #CA7676;">*</span> (لا يتعدى ٢٠٠ حرف)</p>
-        <textarea formControlName="sectionThree" [(ngModel)]="company_vision">ddd</textarea>
-        <p *ngIf="sectionThreeLimitExceeded" style="color: #CA7676;">لقد تجاوزت الحد الأقصى المسموح به وهو 150 حرفاً.
+        <textarea formControlName="sectionThree"></textarea>
+        <p *ngIf="sectionThreeLimitExceeded" style="color: #CA7676;">
+          لقد تجاوزت الحد الأقصى المسموح به وهو 200 حرفاً.
         </p>
-        <button type="submit">حفظ</button>
+        <button type="button" (click)="onSubmit('three')">حفظ</button>
       </div>
     </div>
 

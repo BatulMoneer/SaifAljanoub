@@ -20,12 +20,12 @@
 
       <div #projectsContent class="custom-slider-main">
         <div *ngFor="let item of projects_list" class="info-box">
-          <h1 class="sub-title">{{ item.title }}</h1>
+          <h1 class="sub-title">{{ item.projects_name }}</h1>
           <div class="info-text">
-            {{ item.description }}
+            {{ item.projects_description }}
           </div>
           <div class="image-container">
-            <img [src]="item.image" alt="service image" class="info-image">
+            <img [src]="item.projects_image" alt="Project Image"  class="info-image">
           </div>
         </div>
       </div>

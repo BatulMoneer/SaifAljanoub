@@ -8,7 +8,6 @@
         <span>عودة</span>
         <i class="fas fa-chevron-left"></i>
       </a>
-
     </div>
   </div>
   <div class="middle">
@@ -18,14 +17,14 @@
       <div class="dropdown">
         <input type="checkbox" id="name-dropdown-toggle" />
         <label class="dropdown__face" for="name-dropdown-toggle">
-          <span>{{ selectedEmp || 'اختر' }}</span>
+          <span>{{ selectedEmp?.name || 'اختر' }}</span>
           <i class="fas fa-chevron-left dropdown__arrow"></i>
         </label>
         <ul class="dropdown__items">
           <li *ngFor="let emp of employees">
             <label>
-              <input type="radio" formControlName="employees" value="{{ emp }}" (click)="selectEmp(emp)" />
-              {{ emp }}
+              <input type="radio" formControlName="employees" [value]="emp.id" (click)="selectEmp(emp)" />
+              {{ emp.name }}
             </label>
           </li>
         </ul>

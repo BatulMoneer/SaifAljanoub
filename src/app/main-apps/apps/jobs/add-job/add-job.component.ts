@@ -1,5 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { NgxSpinnerService } from 'ngx-spinner';
+import { ToastrService } from 'ngx-toastr';
+import { admin } from 'src/app/constant/Routes';
+import { ImpApiService } from 'src/app/services/api.service';
 
 @Component({
   selector: 'app-add-job',
@@ -11,6 +15,9 @@ export class AddJobComponent implements OnInit {
 
   constructor(
     private formBuilder: FormBuilder,
+    private impApiService: ImpApiService,
+            private spinner: NgxSpinnerService,
+            private toastr: ToastrService
   ) { }
 
   formData: FormGroup;
@@ -21,8 +28,6 @@ export class AddJobComponent implements OnInit {
   selectedQualification: string | null = null;
   selectedExperienceYear: string | null = null;
 
-  selectedImage: File | null = null;
-  imagePreview: string | ArrayBuffer | null = null;
 
   ngOnInit(): void {
     this.formData = this.formBuilder.group({
@@ -37,7 +42,33 @@ export class AddJobComponent implements OnInit {
 
   add() {
     this.submitted = true;
+
+    if (this.formData.invalid) {
+      this.toastr.error('يرجى التأكد من ملء جميع الحقول بشكل صحيح.', 'خطأ في الإدخال');
+      return;
+    }
+
+    this.spinner.show();
+
+    this.impApiService.post(admin.addJob, this.formData.value).subscribe({
+      next: (data) => {
+        console.log(data);
+        this.toastr.success('تم الإضافة بنجاح');
+
+        this.spinner.hide();
+        this.formData.reset();
+        this.submitted = false;
+        this.selectedQualification = null;
+        this.selectedExperienceYear = null;
+      },
+      error: (err) => {
+        console.error(err);
+        this.spinner.hide();
+        this.toastr.error('حدث خطأ أثناء إضافة الوظيفة. يرجى المحاولة لاحقاً.', 'خطأ');
+      }
+    });
   }
+
 
   selectQualification(qualification: string) {
     this.selectedQualification = qualification;

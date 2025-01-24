@@ -2,6 +2,10 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator, MatPaginatorIntl } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
+import { NgxSpinnerService } from 'ngx-spinner';
+import { ToastrService } from 'ngx-toastr';
+import { admin } from 'src/app/constant/Routes';
+import { ImpApiService } from 'src/app/services/api.service';
 
 @Component({
   selector: 'app-messages',
@@ -11,7 +15,11 @@ import { MatTableDataSource } from '@angular/material/table';
 })
 export class MessagesComponent implements OnInit {
 
-  constructor(paginator: MatPaginatorIntl) {
+  constructor(
+    private impApiService: ImpApiService,
+    private spinner: NgxSpinnerService,
+    private toastr: ToastrService,
+    paginator: MatPaginatorIntl) {
     paginator.getRangeLabel = (page: number, pageSize: number, length: number) => {
       const startIndex = page * pageSize + 1;
       const endIndex = Math.min(startIndex + pageSize - 1, length);
@@ -21,7 +29,7 @@ export class MessagesComponent implements OnInit {
   @ViewChild(MatSort) sort!: MatSort;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
-  displayedColumns: string[] = ['email', 'message_type', 'message_content', 'delete'];
+  displayedColumns: string[] = ['visitor_email', 'message_type', 'message_content', 'delete'];
   dataSource = new MatTableDataSource<any>([]);
   totalData = 0;
   applyFilterInput = '';
@@ -29,24 +37,35 @@ export class MessagesComponent implements OnInit {
   messageTypes: string[] = ['شكوى', 'استفسار', 'لاشيئ'];
 
 
-  messages = [
-    { message_content: 'محتوى الشكوى محتوى الشكوى محتوى الشكوى محتوى الشكوى محتوى الشكوى محتوى الشكوى محتوى الشكوى', message_type: 'شكوى', email: 'visitor1@gmail.com ' },
-    { message_content: 'محتوى الاستفسار محتوى الاستفسار محتوى الاستفسار محتوى الاستفسار محتوى الاستفسار ', message_type: 'استفسار', email: 'visitor2@gmail.com ' },
-    { message_content: 'محتوى الشكوى محتوى الشكوى محتوى الشكوى محتوى الشكوى', message_type: 'شكوى', email: 'visitor3@gmail.com ' },
-    { message_content: 'محتوى الاستفسار محتوى الاستفسار محتوى الاستفسار محتوى الاستفسار محتوى الاستفسار ', message_type: 'استفسار', email: 'visitor4@gmail.com ' },
-    { message_content: 'محتوى الاستفسار محتوى الاستفسار محتوى الاستفسار محتوى الاستفسار محتوى الاستفسار ', message_type: 'استفسار', email: 'visitor5@gmail.com ' },
-    { message_content: 'محتوى الشكوى محتوى الشكوى محتوى الشكوى محتوى الشكوى محتوى الشكوى محتوى الشكوى محتوى الشكوى', message_type: 'شكوى', email: 'visitor6@gmail.com ' },
-    { message_content: 'محتوى الشكوى محتوى الشكوى محتوى الشكوى محتوى الشكوى', message_type: 'شكوى', email: 'visitor7@gmail.com ' },
-    { message_content: 'محتوى الشكوى محتوى الشكوى محتوى الشكوى محتوى الشكوى محتوى الشكوى محتوى الشكوى محتوى الشكوى', message_type: 'شكوى', email: 'visitor8@gmail.com ' },
-    { message_content: 'محتوى الاستفسار محتوى الاستفسار محتوى الاستفسار محتوى الاستفسار محتوى الاستفسار ', message_type: 'استفسار', email: 'visitor8@gmail.com ' },
-
-  ];
+  messages = [];
 
   ngOnInit(): void {
-    this.totalData = this.messages.length;
-    this.dataSource = new MatTableDataSource<any>(this.messages);
-    this.updateTableData(0, 4);
-    this.dataSource.sort = this.sort;
+     this.spinner.show()
+            this.impApiService.get(admin.showMessages).subscribe({
+              next: (data: any) => {
+
+                if (Array.isArray(data[0])) {
+                  this.messages = data[0];
+                  console.log(data[0])
+                  this.totalData = this.messages.length;
+                  this.dataSource = new MatTableDataSource<any>(this.messages);
+                  this.updateTableData(0, 4);
+                  this.dataSource.sort = this.sort;
+                  this.spinner.hide();
+                } else {
+                  console.error('Unexpected response structure:', data);
+                  this.toastr.error('خطأ غير متوقع');
+                  this.spinner.hide();
+                }
+              },
+              error: (error) => {
+                console.error('API Error:', error);
+                this.toastr.error('حدث خطأ أثناء جلب البيانات');
+                this.spinner.hide();
+              },
+            });
+
+
   }
 
   ngAfterViewInit() {
@@ -70,12 +89,12 @@ export class MessagesComponent implements OnInit {
     this.updateTableData(event.pageIndex, event.pageSize);
   }
 
-  deleteMessage(message: any) {
-    const index = this.messages.indexOf(message);
-    if (index > -1) {
-      this.messages.splice(index, 1);
-      this.totalData = this.messages.length;
-      this.updateTableData(this.paginator.pageIndex, this.paginator.pageSize);
-    }
+  deleteMessage(id: number) {
+    this.spinner.show();
+    console.log(id)
+    this.impApiService.delete(`${admin.deleteMessages}${id}`).subscribe(data => {
+      this.spinner.hide();
+      this.ngOnInit()
+    })
   }
 }

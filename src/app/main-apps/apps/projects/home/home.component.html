@@ -12,11 +12,11 @@
         <h4>{{item.projects_name}}</h4>
         <p>{{item.projects_description | slice:0:50}}...</p>
         <div class="icons">
-          <a routerLink="/" class="icon">
+          <a (click)="delete_project(item.project_id)"  class="icon">
             <i class="fas fa-trash-alt trash"></i>
             <span>حذف</span>
           </a>
-          <a routerLink="/apps/projects/edit" class="icon">
+          <a (click)="update_project(item.project_id)"  class="icon">
             <i class="fas fa-edit edit"></i>
             <span>تعديل</span>
           </a>

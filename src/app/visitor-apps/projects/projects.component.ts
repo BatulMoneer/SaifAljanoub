@@ -12,16 +12,20 @@ export class ProjectsComponent implements AfterViewInit {
   @ViewChild('projectsContent', { static: false }) projectsContent!: ElementRef;
 
   projects_list = [
-    { title: "مشروع شارع السلام", description: "في سيف الجنوب نقدم أفضل خدمات مقاولات الطرق في سيف الجنوب نقدم أفضل خدمات مقاولات الطرق في سيف الجنوب  في سيف الجنوب نقدم أفضل خدمات مقاولات الطرق", image: "../../../assets/images/project.jpg" },
-    { title: "طريق باب النور", description: "في سيف الجنوب نقدم أفضل خدمات مقاولات الطرق في سيف الجنوب نقدم أفضل خدمات مقاولات الطرق في سيف الجنوب  في سيف الجنوب نقدم أفضل خدمات مقاولات الطرق", image: "../../../assets/images/project.jpg" },
-    { title: "شارع الجامعة", description: "في سيف الجنوب نقدم أفضل خدمات مقاولات الطرق في سيف الجنوب نقدم أفضل خدمات مقاولات الطرق في سيف الجنوب  في سيف الجنوب نقدم أفضل خدمات مقاولات الطرق", image: "../../../assets/images/project.jpg" },
-    { title: "مشروع الخط السريع", description: "في سيف الجنوب نقدم أفضل خدمات مقاولات الطرق في سيف الجنوب نقدم أفضل خدمات مقاولات الطرق في سيف الجنوب  في سيف الجنوب نقدم أفضل خدمات مقاولات الطرق", image: "../../../assets/images/project.jpg" },
-    { title: "مشروع طريق الدهب", description: "في سيف الجنوب نقدم أفضل خدمات مقاولات الطرق في سيف الجنوب نقدم أفضل خدمات مقاولات الطرق في سيف الجنوب  في سيف الجنوب نقدم أفضل خدمات مقاولات الطرق", image: "../../../assets/images/project.jpg" },
-  ];
+      ];
 
   itemWidth: number = 0;
 
   constructor(private impApiService: ImpApiService) { }
+  ngOnInit(): void {
+    this.impApiService.get(visitor.projects).subscribe((data: any) => {
+      if (data && Array.isArray(data[0])) {
+        this.projects_list = data[0];
+        console.log(data[0])
+      }
+    });
+
+  }
   ngAfterViewInit(): void {
     window.onload = function () {
       window.scrollTo({ top: 0, behavior: "smooth" });
@@ -44,9 +48,6 @@ export class ProjectsComponent implements AfterViewInit {
       observer.observe(project.nativeElement);
     });
 
-    this.impApiService.get(visitor.projects).subscribe(data => {
-          console.log(data);
-        });
   }
 
   @HostListener('window:resize', [])

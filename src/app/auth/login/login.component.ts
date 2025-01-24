@@ -1,6 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { NgxSpinnerService } from 'ngx-spinner';
+import { ToastrService } from 'ngx-toastr';
+import { admin } from 'src/app/constant/Routes';
+import { ImpApiService } from 'src/app/services/api.service';
 
 @Component({
   selector: 'app-login',
@@ -19,10 +23,14 @@ export class LoginComponent implements OnInit {
   constructor(
     private router: Router,
     private formBuilder: FormBuilder,
-
+    private impApiService: ImpApiService,
+    private spinner: NgxSpinnerService,
+    private toastr: ToastrService
   ) { }
 
   ngOnInit(): void {
+
+
     this.formData = this.formBuilder.group({
       admin_email: ['', [
         Validators.required,
@@ -30,7 +38,7 @@ export class LoginComponent implements OnInit {
       ]],
       admin_password: ['', [
         Validators.required,
-        Validators.minLength(10),
+        Validators.minLength(8),
         Validators.maxLength(12)
       ]]
     });
@@ -42,13 +50,53 @@ export class LoginComponent implements OnInit {
     if (this.formData.invalid) {
       return null;
     }
-    this.showOtpInput = true;
+    this.spinner.show()
+    this.impApiService.post(admin.login, this.formData.value).subscribe(data => {
+      if(JSON.stringify(data.message)=="\"تم تسجيل الدخول... للتأكيد تم ارسال رمز على البريد الإلكتروني  \""){
+
+        this.showOtpInput = true;
+      this.spinner.hide()
+      }
+      else{
+        this.toastr.error('يوجد خطأ في البريد الإلكتروني أو في كلمة المرور');
+        this.spinner.hide()
+      }
+    })
+
+
 
 
   }
 
+  @ViewChild("ngOtpInput") ngOtpInput: any;
   otpCheck() {
+
+    const payload = {
+      admin_email: this.formData.get('admin_email')?.value,
+      otp_entered: this.ngOtpInput.currentVal
+    };
+    console.log('Spinner show called');
+this.spinner.show();
+
+this.impApiService.post(admin.verify, payload).subscribe({
+  next: (data) => {
+    this.spinner.hide();
+    localStorage.setItem('token', data.access_token);
+    localStorage.setItem('user_id', data.admin_id)
     this.router.navigate(['/apps/homepage/home']);
+  },
+  error: (error) => {
+    if (error?.error?.message === 'الرمز غير صحيح ... او انتهت المدة الصالحة له ') {
+      console.log('ssss');
+      this.toastr.error('الرمز غير صحيح ... او انتهت المدة الصالحة له ');
+    } else {
+      console.error('Unexpected error:', error);
+      this.toastr.error('خطأ غير متوقع يرجى إعادة المحاولة');
+    }
+    this.spinner.hide();
+  },
+});
+
   }
 
 

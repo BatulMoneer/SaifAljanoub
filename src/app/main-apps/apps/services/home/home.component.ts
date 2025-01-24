@@ -1,4 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { NgxSpinnerService } from 'ngx-spinner';
+import { ToastrService } from 'ngx-toastr';
+import { admin } from 'src/app/constant/Routes';
+import { ImpApiService } from 'src/app/services/api.service';
 
 @Component({
   selector: 'app-home',
@@ -7,48 +12,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HomeComponent implements OnInit {
 
-  constructor() { }
+  constructor( private impApiService: ImpApiService,
+              private spinner: NgxSpinnerService,
+              private toastr: ToastrService,
+              private router:Router,) { }
 
-  services = [
-    {
-      services_image: "../../../../../assets/images/work.jpg",
-      services_name: "مقاولات الطرق",
-      services_description: "في سيف الجنوب نقدم أفضل خدمات مقاولات الطرق في سيف الجنوب نقدم أفضل خدمات مقاولات الطرق في سيف الجنوب  في سيف الجنوب نقدم أفضل خدمات مقاولات الطرق   "
-    },
-    {
-      services_image: "../../../../../assets/images/work.jpg",
-      services_name: "مقاولات الطرق",
-      services_description: "في سيف الجنوب نقدم أفضل خدمات مقاولات الطرق في سيف الجنوب نقدم أفضل خدمات مقاولات الطرق في سيف الجنوب  في سيف الجنوب نقدم أفضل خدمات مقاولات الطرق   "
-    }, {
-      services_image: "../../../../../assets/images/work.jpg",
-      services_name: "مقاولات الطرق",
-      services_description: "في سيف الجنوب نقدم أفضل خدمات مقاولات الطرق في سيف الجنوب نقدم أفضل خدمات مقاولات الطرق في سيف الجنوب  في سيف الجنوب نقدم أفضل خدمات مقاولات الطرق   "
-    }, {
-      services_image: "../../../../../assets/images/work.jpg",
-      services_name: "مقاولات الطرق",
-      services_description: "في سيف الجنوب نقدم أفضل خدمات مقاولات الطرق في سيف الجنوب نقدم أفضل خدمات مقاولات الطرق في سيف الجنوب  في سيف الجنوب نقدم أفضل خدمات مقاولات الطرق   "
-    }, {
-      services_image: "../../../../../assets/images/work.jpg",
-      services_name: "مقاولات الطرق",
-      services_description: "في سيف الجنوب نقدم أفضل خدمات مقاولات الطرق في سيف الجنوب نقدم أفضل خدمات مقاولات الطرق في سيف الجنوب  في سيف الجنوب نقدم أفضل خدمات مقاولات الطرق   "
-    }, {
-      services_image: "../../../../../assets/images/work.jpg",
-      services_name: "مقاولات الطرق",
-      services_description: "في سيف الجنوب نقدم أفضل خدمات مقاولات الطرق في سيف الجنوب نقدم أفضل خدمات مقاولات الطرق في سيف الجنوب  في سيف الجنوب نقدم أفضل خدمات مقاولات الطرق   "
-    }, {
-      services_image: "../../../../../assets/images/work.jpg",
-      services_name: "مقاولات الطرق",
-      services_description: "في سيف الجنوب نقدم أفضل خدمات مقاولات الطرق في سيف الجنوب نقدم أفضل خدمات مقاولات الطرق في سيف الجنوب  في سيف الجنوب نقدم أفضل خدمات مقاولات الطرق   "
-    }, {
-      services_image: "../../../../../assets/images/work.jpg",
-      services_name: "مقاولات الطرق",
-      services_description: "في سيف الجنوب نقدم أفضل خدمات مقاولات الطرق في سيف الجنوب نقدم أفضل خدمات مقاولات الطرق في سيف الجنوب  في سيف الجنوب نقدم أفضل خدمات مقاولات الطرق   "
-    }, {
-      services_image: "../../../../../assets/images/work.jpg",
-      services_name: "مقاولات الطرق",
-      services_description: "في سيف الجنوب نقدم أفضل خدمات مقاولات الطرق في سيف الجنوب نقدم أفضل خدمات مقاولات الطرق في سيف الجنوب  في سيف الجنوب نقدم أفضل خدمات مقاولات الطرق   "
-    },
-  ];
+  services = [];
 
   servicesPerPage = 5;
   currentPage = 0;
@@ -56,7 +25,27 @@ export class HomeComponent implements OnInit {
   pages = [];
 
   ngOnInit(): void {
-    this.updatePagination();
+      this.spinner.show()
+            this.impApiService.get(admin.viewService).subscribe({
+              next: (data: any) => {
+
+                if (Array.isArray(data[0])) {
+                  this.services = data[0];
+                  console.log(data[0])
+            this.updatePagination();
+                  this.spinner.hide();
+                } else {
+                  console.error('Unexpected response structure:', data);
+                  this.toastr.error('خطأ غير متوقع');
+                  this.spinner.hide();
+                }
+              },
+              error: (error) => {
+                console.error('API Error:', error);
+                this.toastr.error('حدث خطأ أثناء جلب البيانات');
+                this.spinner.hide();
+              },
+            });
   }
 
   updatePagination(): void {
@@ -67,6 +56,21 @@ export class HomeComponent implements OnInit {
   goToPage(page: number): void {
     this.currentPage = page;
     this.updatePagination();
+  }
+
+
+  delete_service(id: number): void {
+    this.spinner.show();
+    console.log(id)
+    this.impApiService.delete(`${admin.deleteService}${id}`).subscribe(data => {
+      this.spinner.hide();
+      this.ngOnInit()
+    })
+  }
+
+  update_service(id: number): void {
+    localStorage.setItem('current_service', id.toString());
+    this.router.navigate(['/apps/services/edit']);
   }
 
 

@@ -21,11 +21,11 @@
         <h4>{{item.news_name}}</h4>
         <p>{{item.news_description | slice:0:50}}...</p>
         <div class="icons">
-          <a routerLink="/" class="icon">
+          <a (click)="delete_news(item.news_id)"  class="icon">
             <i class="fas fa-trash-alt trash"></i>
             <span>حذف</span>
           </a>
-          <a routerLink="/apps/homepage/edit" class="icon">
+          <a (click)="update_news(item.news_id)"  class="icon">
             <i class="fas fa-edit edit"></i>
             <span>تعديل</span>
           </a>

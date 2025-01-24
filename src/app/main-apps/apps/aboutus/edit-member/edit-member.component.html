@@ -38,7 +38,7 @@
 
       <p class="text">صورة شخصية: (يفضل أن تكون مربعة)</p>
       <div class="drop-zone" (dragover)="onDragOver($event)" (dragleave)="onDragLeave($event)" (drop)="onDrop($event)">
-        <img *ngIf="imagePreview" [src]="imagePreview" alt="Service Image"
+        <img *ngIf="imagePreview" [src]="imagePreview" alt="Member Image"
           style="width: 130px; height: 130px; object-fit: cover; padding-bottom: 10px;" />
         <p *ngIf="!imagePreview">اسحب الصورة هنا أو اختر ملف</p>
         <button type="button" (click)="fileInput.click()">اختر ملف</button>

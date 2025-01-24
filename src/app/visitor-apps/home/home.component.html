@@ -4,14 +4,14 @@
     <h6>سيف الجنوب</h6>
     <h1 class="title">هنا التفاني في العمل</h1>
     <h1 class="empty">التـــــــكامل والاتقان</h1>
-    <p class="text">{{brief}}</p>
+    <p class="text">{{about_comany_short}}</p>
     <button routerLink="/projects">عرض المشاريع</button>
   </div>
 
   <div class="section-two reveal" #section>
     <div class="right">
       <h1 class="title">رؤيتنا</h1>
-      <p class="text">{{vision}}</p>
+      <p class="text">{{company_vision}}</p>
       <button routerLink="/aboutus">تعـــــــــــــــــــــرف علينا أكثر</button>
     </div>
     <img src="../../../assets/images/up.png" alt="arrow">
@@ -19,7 +19,7 @@
 
   <div class="section-three reveal" #section>
     <h1 class="title">أهدافنا</h1>
-    <p class="text">{{goals}}</p>
+    <p class="text">{{comapny_goal}}</p>
   </div>
 
   <div class="section-four reveal" #section>
@@ -29,12 +29,12 @@
 
       <div #widgetsContent class="custom-slider-main">
         <div *ngFor="let item of news" class="info-box">
-          <h1 class="sub-title">{{ item.title }}</h1>
+          <h1 class="sub-title">{{ item.news_name }}</h1>
           <div class="info-text">
-            {{ item.description }}
+            {{ item.news_description }}
           </div>
           <div class="image-container">
-            <img [src]="item.image" alt="news image" class="info-image">
+            <img [src]="item.news_image" alt="news image" >
           </div>
         </div>
       </div>

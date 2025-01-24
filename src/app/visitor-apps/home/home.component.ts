@@ -13,20 +13,23 @@ export class HomeComponent implements AfterViewInit {
 
   constructor(private impApiService: ImpApiService,) { }
 
-  news = [
-    { title: "مشروع شارع السلام", description: "في سيف الجنوب نقدم أفضل خدمات مقاولات الطرق في سيف الجنوب نقدم أفضل خدمات مقاولات الطرق في سيف الجنوب  في سيف الجنوب نقدم أفضل خدمات مقاولات الطرق", image: "../../../assets/images/new.jpg" },
-    { title: "طريق باب النور", description: "في سيف الجنوب نقدم أفضل خدمات مقاولات الطرق في سيف الجنوب نقدم أفضل خدمات مقاولات الطرق في سيف الجنوب  في سيف الجنوب نقدم أفضل خدمات مقاولات الطرق", image: "../../../assets/images/new.jpg" },
-    { title: "شارع الجامعة", description: "في سيف الجنوب نقدم أفضل خدمات مقاولات الطرق في سيف الجنوب نقدم أفضل خدمات مقاولات الطرق في سيف الجنوب  في سيف الجنوب نقدم أفضل خدمات مقاولات الطرق", image: "../../../assets/images/new.jpg" },
-    { title: "مشروع الخط السريع", description: "في سيف الجنوب نقدم أفضل خدمات مقاولات الطرق في سيف الجنوب نقدم أفضل خدمات مقاولات الطرق في سيف الجنوب  في سيف الجنوب نقدم أفضل خدمات مقاولات الطرق", image: "../../../assets/images/new.jpg" },
-    { title: "مشروع طريق الدهب", description: "في سيف الجنوب نقدم أفضل خدمات مقاولات الطرق في سيف الجنوب نقدم أفضل خدمات مقاولات الطرق في سيف الجنوب  في سيف الجنوب نقدم أفضل خدمات مقاولات الطرق", image: "../../../assets/images/new.jpg" },
-  ];
+  news = [ ];
 
   itemWidth: number = 0;
 
-  brief = "في سيف الجنوب نقدم أفضل خدمات مقاولات الطرق في سيف الجنوب نقدم أفضل خدمات مقاولات الطرق في سيف الجنوب نقدم أفضل خدمات مقاولات الطرق في سيف ";
-  vision = "في سيف الجنوب نقدم أفضل خدمات مقاولات الطرق في سيف الجنوب نقدم أفضل خدمات مقاولات الطرق في سيف الجنوب نقدم أفضل خدمات مقاولات الطرق في سيف الجنوب نقدم أفضل خدمات مقاولات الطرق في سيف الجنوب نقدم أفضل ";
-  goals = "سيف الجنوب نقدم أفضل خدمات مقاولات الطرق في سيف الجنوب نقدم أفضل خدمات مقاولات الطرق في سيف الجنوب نقدم أفضل خدمات مقاولات الطرق في سيف الجنوب نقدم أفضل خدمات مقاولات الطرق في سيف الجنوب نقدم أفضل مقاولات الطرق في سيف الجنوب نقدم أفضل خدمات مقاولات ";
+  about_comany_short = "";
+  company_vision = "";
+  comapny_goal = "";
 
+  ngOnInit(): void {
+    this.impApiService.get(visitor.news).subscribe((data: any) => {
+      if (data && Array.isArray(data[0])) {
+        this.news = data[0];
+        console.log(data[0])
+      }
+    });
+
+  }
   ngAfterViewInit(): void {
     window.onload = function () {
       window.scrollTo({ top: 0, behavior: "smooth" });
@@ -50,14 +53,14 @@ export class HomeComponent implements AfterViewInit {
       observer.observe(section.nativeElement);
     });
 
-    this.impApiService.get(visitor.news).subscribe(data => {
-      console.log(data);
-    });
 
     this.impApiService.get(visitor.home).subscribe(data => {
-      console.log(data);
+      this.company_vision = data.data.company_vision,
+      this.comapny_goal = data.data.comapny_goal,
+      this.about_comany_short = data.data.about_comany_short
     });
   }
+
 
   @HostListener('window:resize', [])
   updateItemWidth() {

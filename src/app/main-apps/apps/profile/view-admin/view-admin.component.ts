@@ -1,7 +1,11 @@
+import { NgxSpinnerService } from 'ngx-spinner';
+import { ImpApiService } from 'src/app/services/api.service';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator, MatPaginatorIntl } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
+import { admin, visitor } from 'src/app/constant/Routes';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-view-admin',
@@ -11,7 +15,11 @@ import { MatTableDataSource } from '@angular/material/table';
 export class ViewAdminComponent implements OnInit {
 
 
-  constructor(paginator: MatPaginatorIntl) {
+  constructor(paginator: MatPaginatorIntl,
+    private impApiService: ImpApiService,
+    private spinner :NgxSpinnerService,
+    private toastr : ToastrService
+  ) {
     paginator.getRangeLabel = (page: number, pageSize: number, length: number) => {
       const startIndex = page * pageSize + 1;
       const endIndex = Math.min(startIndex + pageSize - 1, length);
@@ -21,32 +29,37 @@ export class ViewAdminComponent implements OnInit {
   @ViewChild(MatSort) sort!: MatSort;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
-  displayedColumns: string[] = ['email', 'name', 'position', 'delete'];
+  displayedColumns: string[] = ['admin_email', 'employee_name', 'employee_position', 'delete'];
   dataSource = new MatTableDataSource<any>([]);
   totalData = 0;
   applyFilterInput = '';
   selectedMessageType: string | null = null;
-  messageTypes: string[] = ['شكوى', 'استفسار', 'لاشيئ'];
 
 
-  employees = [
-    { name: 'سامر سامر', position: 'مدير مشاريع', email: 'admin1@gmail.com' },
-    { name: 'ليلى أحمد', position: 'محاسبة', email: 'accounting@gmail.com' },
-    { name: 'عمر الحسن', position: 'مهندس برمجيات', email: 'software.eng@gmail.com' },
-    { name: 'نسرين يوسف', position: 'مصممة جرافيك', email: 'designer@gmail.com' },
-    { name: 'كريم علي', position: 'مسؤول الموارد البشرية', email: 'hr@gmail.com' },
-    { name: 'هند محمود', position: 'مطوّرة ويب', email: 'web.dev@gmail.com' },
-    { name: 'فارس سالم', position: 'مدير مبيعات', email: 'sales.manager@gmail.com' },
-    { name: 'رانيا عادل', position: 'كاتبة محتوى', email: 'content.writer@gmail.com' },
-    { name: 'أحمد جمال', position: 'محلل نظم', email: 'systems.analyst@gmail.com' }
-  ];
+  employees = [ ];
 
-  ngOnInit(): void {
-    this.totalData = this.employees.length;
-    this.dataSource = new MatTableDataSource<any>(this.employees);
-    this.updateTableData(0, 7);
-    this.dataSource.sort = this.sort;
-  }
+    ngOnInit(): void {
+    this.spinner.show();
+
+      this.impApiService.get(admin.showAdmins).subscribe((data: any) => {
+        this.spinner.hide();
+
+        if (data && Array.isArray(data[0])) {
+
+          this.employees = data[0]
+
+          this.totalData = this.employees.length;
+
+          this.dataSource = new MatTableDataSource<any>(this.employees);
+
+          this.dataSource.paginator = this.paginator;
+          this.dataSource.sort = this.sort;
+
+          this.updateTableData(0, this.paginator.pageSize || 7);
+        }
+      });
+    }
+
 
   ngAfterViewInit() {
     this.dataSource.sort = this.sort;
@@ -69,12 +82,18 @@ export class ViewAdminComponent implements OnInit {
     this.updateTableData(event.pageIndex, event.pageSize);
   }
 
-  deleteMessage(message: any) {
-    const index = this.employees.indexOf(message);
-    if (index > -1) {
-      this.employees.splice(index, 1);
-      this.totalData = this.employees.length;
-      this.updateTableData(this.paginator.pageIndex, this.paginator.pageSize);
-    }
+  deleteMessage(id : number) {
+    this.spinner.show();
+    this.impApiService.delete(`${admin.deleteAdmin}${id}`).subscribe({
+      next: () => {
+        this.spinner.hide();
+        this.ngOnInit();
+      },
+      error: (error) => {
+        console.error('API Error:', error);
+        this.toastr.error('حدث خطأ أثناء حذف البيانات');
+        this.spinner.hide();
+      }
+    });
   }
 }

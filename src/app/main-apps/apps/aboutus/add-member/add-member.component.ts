@@ -1,5 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { NgxSpinnerService } from 'ngx-spinner';
+import { ToastrService } from 'ngx-toastr';
+import { ImpApiService } from 'src/app/services/api.service';
+import { admin } from 'src/app/constant/Routes';
 
 @Component({
   selector: 'app-add-member',
@@ -10,10 +14,14 @@ export class AddMemberComponent implements OnInit {
 
   constructor(
     private formBuilder: FormBuilder,
+    private impApiService: ImpApiService,
+    private spinner: NgxSpinnerService,
+    private toastr: ToastrService
   ) { }
 
   formData: FormGroup;
-  submitted = false
+  submitted = false;
+
   selectedImage: File | null = null;
   imagePreview: string | ArrayBuffer | null = null;
 
@@ -27,14 +35,47 @@ export class AddMemberComponent implements OnInit {
         Validators.required,
         Validators.maxLength(30),
       ]],
-      employee_pic: ['', []],
+      employee_pic: ['', [
+      ]],
     });
   }
 
   add() {
     this.submitted = true;
-  }
 
+    if (this.formData.invalid) {
+      this.toastr.error('يرجى التأكد من ملء جميع الحقول بشكل صحيح.', 'خطأ في الإدخال');
+      return;
+    }
+
+    const formData = new FormData();
+    formData.append('employee_name', this.formData.get('employee_name')?.value);
+    formData.append('employee_position', this.formData.get('employee_position')?.value);
+
+    if (this.selectedImage) {
+      formData.append('employee_pic', this.selectedImage);
+    }
+
+    this.spinner.show();
+
+    this.impApiService.post(admin.addEmployee, formData).subscribe({
+      next: (data) => {
+        console.log(data);
+        this.spinner.hide();
+        this.toastr.success('تم الإضافة بنجاح');
+
+        this.formData.reset();
+        this.submitted = false;
+        this.selectedImage = null;
+        this.imagePreview = null;
+      },
+      error: (err) => {
+        console.error(err);
+        this.spinner.hide();
+        this.toastr.error('حدث خطأ أثناء إضافة الموظف. يرجى المحاولة لاحقاً.', 'خطأ');
+      }
+    });
+  }
 
   onDragOver(event: DragEvent): void {
     event.preventDefault();
@@ -81,5 +122,4 @@ export class AddMemberComponent implements OnInit {
       console.log('Image file selected:', file);
     }
   }
-
 }

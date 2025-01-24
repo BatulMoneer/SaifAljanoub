@@ -21,11 +21,11 @@
         <h4>{{item.employee_name}}</h4>
         <p>{{item.employee_position | slice:0:50}}</p>
         <div class="icons">
-          <a routerLink="/" class="icon">
+          <a (click)="delete_member(item.employee_id)" class="icon">
             <i class="fas fa-trash-alt trash"></i>
             <span>حذف</span>
           </a>
-          <a routerLink="/apps/aboutus/edit" class="icon">
+          <a (click)="update_member(item.employee_id)" class="icon">
             <i class="fas fa-edit edit"></i>
             <span>تعديل</span>
           </a>

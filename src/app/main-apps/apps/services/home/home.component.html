@@ -12,11 +12,11 @@
         <h4>{{item.services_name}}</h4>
         <p>{{item.services_description | slice:0:50}}...</p>
         <div class="icons">
-          <a routerLink="/" class="icon">
+          <a (click)="delete_service(item.service_id)"class="icon">
             <i class="fas fa-trash-alt trash"></i>
             <span>حذف</span>
           </a>
-          <a routerLink="/apps/services/edit" class="icon">
+          <a (click)="update_service(item.service_id)" class="icon">
             <i class="fas fa-edit edit"></i>
             <span>تعديل</span>
           </a>

@@ -1,4 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { NgxSpinnerService } from 'ngx-spinner';
+import { ToastrService } from 'ngx-toastr';
+import { admin } from 'src/app/constant/Routes';
+import { ImpApiService } from 'src/app/services/api.service';
 
 @Component({
   selector: 'app-news',
@@ -7,48 +12,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class NewsComponent implements OnInit {
 
-  constructor() { }
+  constructor(
+     private impApiService: ImpApiService,
+            private spinner: NgxSpinnerService,
+            private toastr: ToastrService,
+            private router:Router,
+  ) { }
 
-  news = [
-    {
-      news_image: "../../../../../assets/images/new.jpg",
-      news_name: "مشروع شارع النور",
-      news_description: "في سيف الجنوب نقدم أفضل خدمات مقاولات الطرق في سيف الجنوب نقدم أفضل خدمات مقاولات الطرق في سيف الجنوب  في سيف الجنوب نقدم أفضل خدمات مقاولات الطرق   "
-    }, {
-      news_image: "../../../../../assets/images/new.jpg",
-      news_name: "مشروع شارع النور",
-      news_description: "في سيف الجنوب نقدم أفضل خدمات مقاولات الطرق في سيف الجنوب نقدم أفضل خدمات مقاولات الطرق في سيف الجنوب  في سيف الجنوب نقدم أفضل خدمات مقاولات الطرق   "
-    }, {
-      news_image: "../../../../../assets/images/new.jpg",
-      news_name: "مشروع شارع النور",
-      news_description: "في سيف الجنوب نقدم أفضل خدمات مقاولات الطرق في سيف الجنوب نقدم أفضل خدمات مقاولات الطرق في سيف الجنوب  في سيف الجنوب نقدم أفضل خدمات مقاولات الطرق   "
-    }, {
-      news_image: "../../../../../assets/images/new.jpg",
-      news_name: "مشروع شارع النور",
-      news_description: "في سيف الجنوب نقدم أفضل خدمات مقاولات الطرق في سيف الجنوب نقدم أفضل خدمات مقاولات الطرق في سيف الجنوب  في سيف الجنوب نقدم أفضل خدمات مقاولات الطرق   "
-    }, {
-      news_image: "../../../../../assets/images/new.jpg",
-      news_name: "مشروع شارع النور",
-      news_description: "في سيف الجنوب نقدم أفضل خدمات مقاولات الطرق في سيف الجنوب نقدم أفضل خدمات مقاولات الطرق في سيف الجنوب  في سيف الجنوب نقدم أفضل خدمات مقاولات الطرق   "
-    }, {
-      news_image: "../../../../../assets/images/new.jpg",
-      news_name: "مشروع شارع النور",
-      news_description: "في سيف الجنوب نقدم أفضل خدمات مقاولات الطرق في سيف الجنوب نقدم أفضل خدمات مقاولات الطرق في سيف الجنوب  في سيف الجنوب نقدم أفضل خدمات مقاولات الطرق   "
-    }, {
-      news_image: "../../../../../assets/images/new.jpg",
-      news_name: "مشروع شارع النور",
-      news_description: "في سيف الجنوب نقدم أفضل خدمات مقاولات الطرق في سيف الجنوب نقدم أفضل خدمات مقاولات الطرق في سيف الجنوب  في سيف الجنوب نقدم أفضل خدمات مقاولات الطرق   "
-    }, {
-      news_image: "../../../../../assets/images/new.jpg",
-      news_name: "مشروع شارع النور",
-      news_description: "في سيف الجنوب نقدم أفضل خدمات مقاولات الطرق في سيف الجنوب نقدم أفضل خدمات مقاولات الطرق في سيف الجنوب  في سيف الجنوب نقدم أفضل خدمات مقاولات الطرق   "
-    }, {
-      news_image: "../../../../../assets/images/new.jpg",
-      news_name: "مشروع شارع النور",
-      news_description: "في سيف الجنوب نقدم أفضل خدمات مقاولات الطرق في سيف الجنوب نقدم أفضل خدمات مقاولات الطرق في سيف الجنوب  في سيف الجنوب نقدم أفضل خدمات مقاولات الطرق   "
-    },
-
-  ];
+  news = [];
 
   servicesPerPage = 5;
   currentPage = 0;
@@ -56,7 +27,26 @@ export class NewsComponent implements OnInit {
   pages = [];
 
   ngOnInit(): void {
-    this.updatePagination();
+    this.spinner.show()
+            this.impApiService.get(admin.viewNews).subscribe({
+              next: (data: any) => {
+
+                if (Array.isArray(data[0])) {
+                  this.news = data[0];
+            this.updatePagination();
+                  this.spinner.hide();
+                } else {
+                  console.error('Unexpected response structure:', data);
+                  this.toastr.error('خطأ غير متوقع');
+                  this.spinner.hide();
+                }
+              },
+              error: (error) => {
+                console.error('API Error:', error);
+                this.toastr.error('حدث خطأ أثناء جلب البيانات');
+                this.spinner.hide();
+              },
+            });
   }
 
   updatePagination(): void {
@@ -67,6 +57,19 @@ export class NewsComponent implements OnInit {
   goToPage(page: number): void {
     this.currentPage = page;
     this.updatePagination();
+  }
+  delete_news(id: number): void {
+    this.spinner.show();
+    console.log(id)
+    this.impApiService.delete(`${admin.deleteNews}${id}`).subscribe(data => {
+      this.spinner.hide();
+      this.ngOnInit()
+    })
+  }
+
+  update_news(id: number): void {
+    localStorage.setItem('current_news', id.toString());
+    this.router.navigate(['/apps/homepage/edit']);
   }
 
 }

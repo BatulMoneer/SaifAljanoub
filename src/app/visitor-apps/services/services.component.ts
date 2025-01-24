@@ -11,21 +11,20 @@ export class ServicesComponent implements AfterViewInit {
   @ViewChildren('service') services!: QueryList<ElementRef>;
   @ViewChild('servicesContent', { static: false }) servicesContent!: ElementRef;
 
-  services_list = [
-    { title: "مقاولات الطرق", description: "في سيف الجنوب نقدم أفضل خدمات مقاولات الطرق في سيف الجنوب نقدم أفضل خدمات مقاولات الطرق في سيف الجنوب  في سيف الجنوب نقدم أفضل خدمات مقاولات الطرق", image: "../../../assets/images/work.jpg" },
-    { title: "تحسين الطرق", description: "في سيف الجنوب نقدم أفضل خدمات مقاولات الطرق في سيف الجنوب نقدم أفضل خدمات مقاولات الطرق في سيف الجنوب  في سيف الجنوب نقدم أفضل خدمات مقاولات الطرق", image: "../../../assets/images/work.jpg" },
-    { title: "بناء الطرق", description: "في سيف الجنوب نقدم أفضل خدمات مقاولات الطرق في سيف الجنوب نقدم أفضل خدمات مقاولات الطرق في سيف الجنوب  في سيف الجنوب نقدم أفضل خدمات مقاولات الطرق", image: "../../../assets/images/work.jpg" },
-    { title: "مقاولات الطرق", description: "في سيف الجنوب نقدم أفضل خدمات مقاولات الطرق في سيف الجنوب نقدم أفضل خدمات مقاولات الطرق في سيف الجنوب  في سيف الجنوب نقدم أفضل خدمات مقاولات الطرق", image: "../../../assets/images/work.jpg" },
-    { title: "بناء الطرق", description: "في سيف الجنوب نقدم أفضل خدمات مقاولات الطرق في سيف الجنوب نقدم أفضل خدمات مقاولات الطرق في سيف الجنوب  في سيف الجنوب نقدم أفضل خدمات مقاولات الطرق", image: "../../../assets/images/work.jpg" },
-    { title: "مقاولات الطرق", description: "في سيف الجنوب نقدم أفضل خدمات مقاولات الطرق في سيف الجنوب نقدم أفضل خدمات مقاولات الطرق في سيف الجنوب  في سيف الجنوب نقدم أفضل خدمات مقاولات الطرق", image: "../../../assets/images/work.jpg" },
-    { title: "بناء الطرق", description: "في سيف الجنوب نقدم أفضل خدمات مقاولات الطرق في سيف الجنوب نقدم أفضل خدمات مقاولات الطرق في سيف الجنوب  في سيف الجنوب نقدم أفضل خدمات مقاولات الطرق", image: "../../../assets/images/work.jpg" },
-    { title: "مقاولات الطرق", description: "في سيف الجنوب نقدم أفضل خدمات مقاولات الطرق في سيف الجنوب نقدم أفضل خدمات مقاولات الطرق في سيف الجنوب  في سيف الجنوب نقدم أفضل خدمات مقاولات الطرق", image: "../../../assets/images/work.jpg" },
-    { title: "مقاولات الطرق", description: "في سيف الجنوب نقدم أفضل خدمات مقاولات الطرق في سيف الجنوب نقدم أفضل خدمات مقاولات الطرق في سيف الجنوب  في سيف الجنوب نقدم أفضل خدمات مقاولات الطرق", image: "../../../assets/images/work.jpg" },
-  ];
+  services_list = [];
 
   itemWidth: number = 0;
 
   constructor(private impApiService: ImpApiService) { }
+  ngOnInit(): void {
+    this.impApiService.get(visitor.services).subscribe((data: any) => {
+      if (data && Array.isArray(data[0])) {
+        this.services_list = data[0];
+        console.log(data[0])
+      }
+    });
+
+  }
   ngAfterViewInit(): void {
     window.onload = function () {
       window.scrollTo({ top: 0, behavior: "smooth" });
@@ -48,10 +47,9 @@ export class ServicesComponent implements AfterViewInit {
     this.services.forEach((service) => {
       observer.observe(service.nativeElement);
     });
-      this.impApiService.get(visitor.services).subscribe(data => {
-        console.log(data);
-      });
   }
+
+
 
   @HostListener('window:resize', [])
   updateItemWidth() {

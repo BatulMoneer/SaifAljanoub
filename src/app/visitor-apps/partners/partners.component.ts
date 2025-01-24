@@ -12,7 +12,12 @@ export class PartnersComponent implements AfterViewInit {
   constructor(private impApiService: ImpApiService) { }
 
   ngOnInit(): void {
-
+    this.impApiService.get(visitor.partners).subscribe((data: any) => {
+      if (data && Array.isArray(data[0])) {
+        this.partners_list = data[0];
+        console.log(data[0])
+      }
+    });
 
   }
   ngAfterViewInit(): void {
@@ -35,55 +40,12 @@ export class PartnersComponent implements AfterViewInit {
     this.partners.forEach((partner) => {
       observer.observe(partner.nativeElement);
     });
-/*
-    this.impApiService.get(visitor.p).subscribe(data => {
-      console.log(data);
-    });
-    */
+
   }
 
 
+
   partners_list = [
-    {
-      image: "../../../../../assets/images/partner.png",
-      name: "شركة نحو الرؤية"
-    },
-    {
-      image: "../../../../../assets/images/partner.png",
-      name: "شركة نحو الرؤية"
-    },
-    {
-      image: "../../../../../assets/images/partner.png",
-      name: "شركة نحو الرؤية"
-    },
-    {
-      image: "../../../../../assets/images/partner.png",
-      name: "شركة نحو الرؤية"
-    },
-    {
-      image: "../../../../../assets/images/partner.png",
-      name: "شركة نحو الرؤية"
-    },
-    {
-      image: "../../../../../assets/images/partner.png",
-      name: "شركة نحو الرؤية"
-    },
-    {
-      image: "../../../../../assets/images/partner.png",
-      name: "شركة نحو الرؤية"
-    },
-    {
-      image: "../../../../../assets/images/partner.png",
-      name: "شركة نحو الرؤية"
-    },
-    {
-      image: "../../../../../assets/images/partner.png",
-      name: "شركة نحو الرؤية"
-    },
-    {
-      image: "../../../../../assets/images/partner.png",
-      name: "شركة نحو الرؤية"
-    }
   ];
 
 }

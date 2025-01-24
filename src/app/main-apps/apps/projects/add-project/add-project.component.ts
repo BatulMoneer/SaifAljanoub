@@ -1,5 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { NgxSpinnerService } from 'ngx-spinner';
+import { ToastrService } from 'ngx-toastr';
+import { ImpApiService } from 'src/app/services/api.service';
+import { admin } from 'src/app/constant/Routes';
 
 @Component({
   selector: 'app-add-project',
@@ -10,10 +14,13 @@ export class AddProjectComponent implements OnInit {
 
   constructor(
     private formBuilder: FormBuilder,
+    private impApiService: ImpApiService,
+    private spinner: NgxSpinnerService,
+    private toastr: ToastrService
   ) { }
 
   formData: FormGroup;
-  submitted = false
+  submitted = false;
 
   selectedImage: File | null = null;
   imagePreview: string | ArrayBuffer | null = null;
@@ -36,8 +43,40 @@ export class AddProjectComponent implements OnInit {
 
   add() {
     this.submitted = true;
-  }
 
+    if (this.formData.invalid) {
+      this.toastr.error('يرجى التأكد من ملء جميع الحقول بشكل صحيح.', 'خطأ في الإدخال');
+      return;
+    }
+
+    const formData = new FormData();
+    formData.append('projects_name', this.formData.get('projects_name')?.value);
+    formData.append('projects_description', this.formData.get('projects_description')?.value);
+
+    if (this.selectedImage) {
+      formData.append('projects_image', this.selectedImage);
+    }
+
+    this.spinner.show();
+
+    this.impApiService.post(admin.addProject, formData).subscribe({
+      next: (data) => {
+        console.log(data);
+        this.spinner.hide();
+        this.formData.reset();
+        this.toastr.success('تم الإضافة بنجاح');
+
+        this.submitted = false;
+        this.selectedImage = null;
+        this.imagePreview = null;
+      },
+      error: (err) => {
+        console.error(err);
+        this.spinner.hide();
+        this.toastr.error('حدث خطأ أثناء إضافة المشروع. يرجى المحاولة لاحقاً.', 'خطأ');
+      }
+    });
+  }
 
   onDragOver(event: DragEvent): void {
     event.preventDefault();
@@ -84,6 +123,4 @@ export class AddProjectComponent implements OnInit {
       console.log('Image file selected:', file);
     }
   }
-
-
 }

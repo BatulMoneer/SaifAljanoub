@@ -17,7 +17,7 @@
         <input type="password" formControlName="admin_password" placeholder="ادخل كلمة المرور" required>
         <div *ngIf="submitted && formData.controls['admin_password'].errors">
           <p class="invalid" *ngIf="submitted && formData.controls['admin_password'].errors.required">الحقل مطلوب!</p>
-          <p class="invalid" *ngIf="formData.controls['admin_password'].errors.minlength">يجب أن تتكون كلمة السر من 10
+          <p class="invalid" *ngIf="formData.controls['admin_password'].errors.minlength">يجب أن تتكون كلمة السر من 8
             حروف
             على الأقل!</p>
           <p class="invalid" *ngIf="formData.controls['admin_password'].errors.maxlength">يجب ألا تتجاوز كلمة السر 12

@@ -1,4 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { NgxSpinnerService } from 'ngx-spinner';
+import { ToastrService } from 'ngx-toastr';
+import { admin } from 'src/app/constant/Routes';
+import { ImpApiService } from 'src/app/services/api.service';
 
 @Component({
   selector: 'app-home',
@@ -7,47 +12,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HomeComponent implements OnInit {
 
+  constructor(
+    private impApiService: ImpApiService,
+    private spinner: NgxSpinnerService,
+    private toastr: ToastrService,
+    private router: Router
+  ) { }
 
-  constructor() { }
-
-  partners = [
-    {
-      image: "../../../../../assets/images/partner.png",
-      name: "شركة نحو الرؤية"
-    },
-    {
-      image: "../../../../../assets/images/partner.png",
-      name: "شركة نحو الرؤية"
-    },
-    {
-      image: "../../../../../assets/images/partner.png",
-      name: "شركة نحو الرؤية"
-    },
-    {
-      image: "../../../../../assets/images/partner.png",
-      name: "شركة نحو الرؤية"
-    },
-    {
-      image: "../../../../../assets/images/partner.png",
-      name: "شركة نحو الرؤية"
-    },
-    {
-      image: "../../../../../assets/images/partner.png",
-      name: "شركة نحو الرؤية"
-    },
-    {
-      image: "../../../../../assets/images/partner.png",
-      name: "شركة نحو الرؤية"
-    },
-    {
-      image: "../../../../../assets/images/partner.png",
-      name: "شركة نحو الرؤية"
-    },
-    {
-      image: "../../../../../assets/images/partner.png",
-      name: "شركة نحو الرؤية"
-    }
-  ];
+  partners = [];
 
   servicesPerPage = 5;
   currentPage = 0;
@@ -55,7 +27,25 @@ export class HomeComponent implements OnInit {
   pages = [];
 
   ngOnInit(): void {
-    this.updatePagination();
+    this.spinner.show();
+    this.impApiService.get(admin.viewPartner).subscribe({
+      next: (data: any) => {
+        if (Array.isArray(data[0])) {
+          this.partners = data[0];
+          this.updatePagination();
+          this.spinner.hide();
+        } else {
+          console.error('Unexpected response structure:', data);
+          this.toastr.error('خطأ غير متوقع');
+          this.spinner.hide();
+        }
+      },
+      error: (error) => {
+        console.error('API Error:', error);
+        this.toastr.error('حدث خطأ أثناء جلب البيانات');
+        this.spinner.hide();
+      },
+    });
   }
 
   updatePagination(): void {
@@ -68,5 +58,24 @@ export class HomeComponent implements OnInit {
     this.updatePagination();
   }
 
+  delete_partner(id: number): void {
+    this.spinner.show();
+    console.log(id);
+    this.impApiService.delete(`${admin.deletePartner}${id}`).subscribe({
+      next: () => {
+        this.spinner.hide();
+        this.ngOnInit();
+      },
+      error: (error) => {
+        console.error('API Error:', error);
+        this.toastr.error('حدث خطأ أثناء حذف البيانات');
+        this.spinner.hide();
+      }
+    });
+  }
 
+  update_partner(id: number): void {
+    localStorage.setItem('current_partner', id.toString());
+    this.router.navigate(['/apps/partners/edit']);
+  }
 }
