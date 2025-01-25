@@ -1,4 +1,4 @@
 export const environment = {
-  api: 'http://saifaljanoub.com/api/',
+  api: 'https://saifaljanoub.com/api/',
   production: true
 };
