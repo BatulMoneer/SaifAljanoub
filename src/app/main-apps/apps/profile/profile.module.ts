@@ -11,7 +11,6 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatTableModule } from '@angular/material/table';
 import { MatSortModule } from '@angular/material/sort';
 import { MatPaginatorModule } from '@angular/material/paginator';
-import { HistoryComponent } from './history/history.component';
 
 
 @NgModule({
@@ -20,8 +19,7 @@ import { HistoryComponent } from './history/history.component';
     InfoComponent,
     AdminsComponent,
     AddAdminComponent,
-    ViewAdminComponent,
-    HistoryComponent
+    ViewAdminComponent
   ],
   imports: [
     CommonModule,

@@ -30,11 +30,11 @@
       <div #widgetsContent class="custom-slider-main">
         <div *ngFor="let item of news" class="info-box">
           <h1 class="sub-title">{{ item.news_name }}</h1>
-          <div class="info-text">
-            {{ item.news_description }}
-          </div>
           <div class="image-container">
             <img [src]="item.news_image" alt="news image" class="info-image">
+            <div class="info-text">
+              {{ item.news_description }}
+            </div>
           </div>
         </div>
       </div>

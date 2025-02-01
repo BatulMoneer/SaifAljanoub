@@ -5,7 +5,6 @@ import { AddAdminComponent } from './add-admin/add-admin.component';
 import { AdminsComponent } from './admins/admins.component';
 import { InfoComponent } from './info/info.component';
 import { ViewAdminComponent } from './view-admin/view-admin.component';
-import { HistoryComponent } from './history/history.component';
 
 const routes: Routes = [
   {
@@ -32,10 +31,6 @@ const routes: Routes = [
   {
     path: 'add',
     component: AddAdminComponent
-  },
-  {
-    path: 'history',
-    component: HistoryComponent
   },
 ];
 
