@@ -93,6 +93,9 @@ export class EditProjectComponent implements OnInit {
       if (this.selectedImage) {
         formData.append('projects_image', this.selectedImage);
       }
+      else {
+        formData.append('projects_image', this.formData.get('projects_image')?.value);
+      }
 
       this.impApiService.post(`${admin.updateProject}${currentProjectId}`, formData).subscribe({
         next: () => {

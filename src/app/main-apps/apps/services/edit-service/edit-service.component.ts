@@ -90,6 +90,10 @@ export class EditServiceComponent implements OnInit {
       if (this.selectedImage) {
         formData.append('services_image', this.selectedImage);
       }
+      else {
+        formData.append('services_image', this.formData.value.services_image);
+      }
+
 
       this.impApiService.post(`${admin.updateService}${currentServiceId}`, formData).subscribe({
         next: () => {

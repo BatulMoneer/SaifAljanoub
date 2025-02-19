@@ -87,6 +87,10 @@ export class EditPartnerComponent implements OnInit {
       if (this.selectedImage) {
         formData.append('partner_image', this.selectedImage);
       }
+      else {
+        formData.append('partner_image', this.formData.value.partner_image);
+      }
+
 
       this.impApiService.post(`${admin.updatePartner}${currentPartnerId}`, formData).subscribe({
         next: () => {

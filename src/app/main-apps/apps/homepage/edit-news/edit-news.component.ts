@@ -91,6 +91,10 @@ export class EditNewsComponent implements OnInit {
       if (this.selectedImage) {
         formData.append('news_image', this.selectedImage);
       }
+      else {
+        formData.append('news_image', this.formData.value.news_image);
+      }
+
 
       this.impApiService.post(`${admin.updateNews}${currentNewsId}`, formData).subscribe({
         next: () => {
