@@ -16,7 +16,7 @@
     <form [formGroup]="formData" (ngSubmit)="add()">
 
       <p class="text">اسم المشروع:<span style="color: #CA7676;">*</span></p>
-      <input type="text" formControlName="projects_name" placeholder="اكتب اسم الخدمة" required>
+      <input type="text" formControlName="projects_name" placeholder="اكتب اسم المشروع" required>
       <div *ngIf="submitted && formData.controls['projects_name'].errors">
         <p class="invalid" *ngIf="submitted && formData.controls['projects_name'].errors.required">
           الحقل مطلوب!
@@ -27,7 +27,7 @@
       </div>
 
       <p class="text">وصف المشروع:<span style="color: #CA7676;">*</span> (لا يتعدى ١٥٠ حرف)</p>
-      <textarea type="text" formControlName="projects_description" placeholder="اكتب وصف بسيط عن الخدمة"
+      <textarea type="text" formControlName="projects_description" placeholder="اكتب وصف بسيط عن المشروع"
         required></textarea>
       <div *ngIf="submitted && formData.controls['projects_description'].errors">
         <p class="invalid" *ngIf=" formData.controls['projects_description'].errors.required">

@@ -18,7 +18,7 @@
       <div class="middle-top">
         <div class="card">
           <p class="text">المسمى الوظيفي:<span style="color: #CA7676;">*</span></p>
-          <input type="text" formControlName="job_position" placeholder="اكتب اسم الخدمة" required>
+          <input type="text" formControlName="job_position" placeholder="اكتب اسم الوظيفة" required>
           <div *ngIf="submitted && formData.controls['job_position'].errors">
             <p class="invalid" *ngIf="submitted && formData.controls['job_position'].errors.required">
               الحقل مطلوب!
@@ -82,7 +82,7 @@
 
         <div class="card">
           <p class="text">الراتب:<span style="color: #CA7676;">*</span></p>
-          <input type="text" formControlName="job_salary" placeholder="اكتب االراتب المعروض" required>
+          <input type="text" formControlName="job_salary" placeholder="اكتب الراتب المعروض" required>
           <div *ngIf="submitted && formData.controls['job_salary'].errors">
             <p class="invalid" *ngIf="submitted && formData.controls['job_salary'].errors.required">
               الحقل مطلوب!
