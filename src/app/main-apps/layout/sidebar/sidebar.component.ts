@@ -21,13 +21,12 @@ export class SidebarComponent implements OnInit {
 
   ngOnInit(): void {
     this.spinner.show();
-    console.log('sss')
         const currentId = localStorage.getItem('user_id');
 
         this.impApiService.get(`${admin.showAccount}${currentId}`).subscribe({
           next: (data: any) => {
             if (data) {
-              this.adminName = data.data.employee_id;
+              this.adminName = data.data.employee_name;
               this.adminImage = data.data.employee_pic;
             }
             this.spinner.hide();
@@ -37,6 +36,8 @@ export class SidebarComponent implements OnInit {
             this.spinner.hide();
           }
         });
+    console.log(this.adminName)
+
   }
 
 }
