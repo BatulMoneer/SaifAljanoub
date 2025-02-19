@@ -1,4 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { NgxSpinnerService } from 'ngx-spinner';
+import { ToastrService } from 'ngx-toastr';
+import { admin } from 'src/app/constant/Routes';
+import { ImpApiService } from 'src/app/services/api.service';
 
 @Component({
   selector: 'app-sidebar',
@@ -8,10 +12,31 @@ import { Component, OnInit } from '@angular/core';
 export class SidebarComponent implements OnInit {
 
   adminImage = "../../../../assets/images/user.png"
-  adminName = "سامر سامر"
-  constructor() { }
+  adminName = "مدير النظام"
+  constructor(
+      private impApiService: ImpApiService,
+      private spinner: NgxSpinnerService,
+      private toastr: ToastrService
+    ) {}
 
   ngOnInit(): void {
+    this.spinner.show();
+    console.log('sss')
+        const currentId = localStorage.getItem('user_id');
+
+        this.impApiService.get(`${admin.showAccount}${currentId}`).subscribe({
+          next: (data: any) => {
+            if (data) {
+              this.adminName = data.data.employee_id;
+              this.adminImage = data.data.employee_pic;
+            }
+            this.spinner.hide();
+          },
+          error: () => {
+            this.toastr.error('حدث خطأ أثناء جلب البيانات');
+            this.spinner.hide();
+          }
+        });
   }
 
 }
