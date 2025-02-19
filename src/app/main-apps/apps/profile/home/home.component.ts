@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -7,7 +8,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HomeComponent implements OnInit {
 
-  constructor() { }
+  constructor(private router: Router) {}
 
   logout(){
     localStorage.removeItem('token');
@@ -17,6 +18,9 @@ export class HomeComponent implements OnInit {
     localStorage.removeItem('current_partner');
     localStorage.removeItem('current_news');
     localStorage.removeItem('current_member');
+    this.router.navigate(['/auth/login'], { replaceUrl: true }).then(() => {
+      window.location.reload();
+    });
   }
   ngOnInit(): void {
   }
