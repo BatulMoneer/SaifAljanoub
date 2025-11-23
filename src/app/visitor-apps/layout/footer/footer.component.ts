@@ -16,7 +16,8 @@ export class FooterComponent implements OnInit {
   ngOnInit(): void {
     this.impApiService.get(visitor.contact).subscribe((data: any) => {
     this.company_email = data.data.company_email
-    this.company_phoneNo = data.data.company_phoneNo
+    //this.company_phoneNo = data.data.company_phoneNo
+    this.company_phoneNo = '0504951274'
     this.company_whatsapp = data.data.company_whatsapp
 
     })
