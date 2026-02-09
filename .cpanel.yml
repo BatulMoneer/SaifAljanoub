@@ -1,5 +1,5 @@
 deployment:
   tasks:
-    - export DEPLOYPATH=/home/saifalja/public_html/
+    - export DEPLOYPATH=/home/saifalja/public_html
     - /bin/rm -rf $DEPLOYPATH/*
-    - /bin/cp -R dist/* $DEPLOYPATH
+    - /bin/cp -R dist/SaifAljanoub/* $DEPLOYPATH
