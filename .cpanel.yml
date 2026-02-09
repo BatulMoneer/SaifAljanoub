@@ -1,0 +1,7 @@
+deployment:
+  tasks:
+    - export DEPLOYPATH=/home/saifalja/public_html
+    - npm install
+    - npm run build -- --configuration production
+    - /bin/rm -rf $DEPLOYPATH/*
+    - /bin/cp -R dist/* $DEPLOYPATH
